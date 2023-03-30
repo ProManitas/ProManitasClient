@@ -1,0 +1,16 @@
+.logo {
+    background: lightblue;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+.box{
+    background-color:beige;
+    padding: 1em 0;
+    text-align:left;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    
+    
+}
