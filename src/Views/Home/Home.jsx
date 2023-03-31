@@ -3,7 +3,7 @@ import  {useDispatch, useSelector} from "react-redux";
 import { getPro } from "../../Redux/Actions";
 import "./Home.css";
 
-// import Footer from "../../Components/Footer/Footer.jsx";
+import Footer from "../../Components/Footer/Footer.js";
 // import Landing from "../../Components/Landing/Landing.jsx";
 // import NavBar from "../../Components/NavBar/NavBar.jsx";
 import CardContainer from "../../Components/CardsContainer/CardsContainer";
@@ -54,7 +54,7 @@ return (
 )})}
     </div>
     <div>
-        <h2>Aca iria el footer</h2>
+        <Footer/>
     </div>
     </div>
     </div>
