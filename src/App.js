@@ -1,9 +1,16 @@
+import React from "react";
+import Home from "./Views/Home/Home.jsx"
+import { Route, Routes } from "react-router-dom"
+
 
 function App() {
   return (
-    <div className="App">
-     <p>Frontend</p>
-    </div>
+    
+      <div>
+        <Routes>
+          <Route exact path="/home" element={<Home/>} />
+        </Routes>
+      </div>
   );
 }
 
