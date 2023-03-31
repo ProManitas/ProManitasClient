@@ -8,9 +8,9 @@ const FormPosteo = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
   return (
-    <div>
-      <Formik
-        className="form"
+    <div className = "container">
+      <Formik className="container"
+        
         initialValues={{
           rubro: "",
           imagen: "",
