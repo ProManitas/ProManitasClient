@@ -53,3 +53,4 @@ const Detail = () => {
 
 export default Detail;
 
+//uni
