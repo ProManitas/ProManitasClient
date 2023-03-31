@@ -1,69 +1,112 @@
-import React from "react";
-import './FormPosteoStyle.css';
-import { useState } from "react";
+import "./FormPosteoStyle.css";
 
-//const rubros =[carpinteria, gasista, plomeria,electricista, pintura]
+import { Formik, Field, ErrorMessage } from "formik";
+import React, { useState } from "react";
 
-const initialForm ={
-    rubro:"",
-    imagen:"",
-    zona:"",
-    descripcion:"",
+const FormPosteo = () => {
+  //const [sentForm, setSentForm] = useState(false)
+  const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
-};
+  return (
+    <div>
+      <Formik
+        className="form"
+        initialValues={{
+          rubro: "",
+          imagen: "",
+          zona: "",
+          descripcion: "",
+        }}
+        validate={(data) => {
+          let error = {};
 
-const FormPosteo = ()=>{
+          if (!data.rubro) {
+            error.rubro = "Por favor seleccione rubro";
+          }
+          return error;
+        }}
+        onSubmit={(data, { resetForm }) => {
+          resetForm();
+          cambiarFormularioEnviado(true);
+          setTimeout(() => cambiarFormularioEnviado(false), 5000);
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleSubmit,
+          handleChange,
+          handleBlur,
+        }) => (
+          <form onSubmit={handleSubmit} className="form">
+            <div>
+              <label className="input" htmlFor="rubro">
+                Rubro
+              </label>
+              <Field name="rubro" as="select">
+                <option value="Carpinteria">Carpintería</option>
+                <option value="Gasista">Gasista</option>
+                <option value="Plomeria">Plomería</option>
+                <option value="Pintura">Pintura</option>
+                <option value="Electricista">Electricista</option>
+              </Field>
+              <label htmlFor="imagen">Imagen</label>
+              <input
+                type="text"
+                id="imagen"
+                name="imagen"
+                placeholder="imagen"
+                value={values.imagen}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="input"
+              />
+              {touched.imagen && errors.imagen && (
+                <div className="error">{errors.imagen}</div>
+              )}
+              <label htmlFor="zona">Zona</label>
+              <input
+                type="text"
+                id="zona"
+                name="zona"
+                placeholder="zona"
+                value={values.zona}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="input"
+                required
+              />
+              {touched.zona && errors.zona && (
+                <div className="error">{errors.zona}</div>
+              )}
+              <label htmlFor="descripción">Descripción</label>
+              <Field
+                className="input"
+                name="descripción"
+                as="textarea"
+                placeholder="Descripción"
+                required
+              ></Field>
+              {touched.descripción && errors.descripción && (
+                <div className="error">{errors.descripción}</div>
+              )}
+            </div>
 
-const [form, setForm] = useState(initialForm);
-
-const handleChange = (e)=>{
-    setForm({
-        ...form,
-        [e.target.name] : e.target.value,
-    });
-};
-const handleSubmit = (e)=>{
-    e.preventDefault();
-
-    //validaciones del formulario
-    //si todo es correcto enviamos e form
-};
-
-    return (
-        <div className = "container">
-            <h3 className ="form">Realizar Publicacion</h3>
-            <form className ="form" onSubmit={handleSubmit}>
-            <label>Rubro:</label>
-                <input  className ="input"
-                type = "text"
-                name = "rubro"
-                placeholder = "Rubro"
-                onChange ={handleChange}
-                value = {form.rubro.toLowerCase()}/>
-                <label>Imagen:</label>
-                <input  className ="input"
-                type = "img"
-                name = "imagen"
-                placeholder = "Imagen"
-                onChange ={handleChange}
-                value = {form.imagen}/>
-                <label>Zona:</label>
-                <input  className ="input"
-                type = "text"
-                name = "zona"
-                placeholder = "Zona"
-                onChange ={handleChange}
-                value = {form.zona}/>
-                <label>Descripcion:</label>
-             <textarea className ="input" name="descripcion"rows="3" cols="15"></textarea>
-             <input type="submit" value="Publicar"/>
-               
-
-
-            </form>
-
-        </div>
-    )
+            <div>
+              <button type="submit" className="button">
+                Publicar
+              </button>
+              {formularioEnviado && (
+                <p className="exito">Formulario enviado con éxito!</p>
+              )}
+            </div>
+          </form>
+        )}
+      </Formik>
+    </div>
+  );
 };
 
 export default FormPosteo;
+//probando 2
