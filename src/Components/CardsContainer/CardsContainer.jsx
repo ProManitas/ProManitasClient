@@ -2,9 +2,9 @@ import  React from "react";
 import logo from "./logo.png"
 // import { useHistory } from 'react-router-dom';
 
-// import ".CardsConteiner.css";
+import "./Card.css";
 
-const CardCont = ({image , id, address}) => {
+const CardCont = ({rubro, zona, descripcion, image}) => {
 
 //imagen, valoracion, descripcion,rubro(oficio),ubicacion o zona 
 
@@ -15,12 +15,13 @@ const CardCont = ({image , id, address}) => {
     //     history.push(`/home/${id}`)
     // } 
     //cambiar foto de perfil
+    // console.log("esto es",rubro)
     return (
-        <div>
-            <h3>Oficio:....</h3>
-            <img src = {logo} alt = "img not found" />
-            <h4>{address}</h4>
-            <h4>Puntuacion:</h4>
+        <div className="Card">
+            <h3>{rubro}</h3>
+            <img className="img" src = {image} alt = "img not found" />
+            <h4>{zona}</h4>
+            <h4>{descripcion}</h4>
 
 
         </div>
