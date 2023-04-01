@@ -8,6 +8,7 @@ import FooterForm from "./Components/Footer/FooterForm/FooterForm.js"
 import { Route, Routes, useLocation } from "react-router-dom"
 import Landing from "./Views/Landing/Landing"
 import Navbar from "./Components/Navbar/Navbar"
+import AreaAcuerdo from "./Components/AreaAcuerdo/acuerdo"
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/home" element={<Home />} />
         <Route path ="/about" element ={<About />}/>
         <Route path ="/contact" element={< FooterForm/>}  />
+        <Route path ="/contrato" element={< AreaAcuerdo/>}  />
         <Route exact path = "/" element={<Landing/>}/>
       </Routes>
     </div>
