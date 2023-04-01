@@ -9,9 +9,9 @@ const Footer = ()=>{
         <div class= "box">
             <div><img className = "logo" src={Logo} alt="" /></div>
             <div>
-                    <ul> <a href="/Home">INICIO</a> </ul>
-                    <ul><a href="/About">QUIENES SOMOS</a> </ul>     
-                    <ul><a href="/FooterForm">CONTACTO</a> </ul>    
+                    <ul> <a href="/home">INICIO</a> </ul>
+                    <ul><a href="/about">QUIENES SOMOS</a> </ul>     
+                    <ul><a href="/contact">CONTACTO</a> </ul>    
                     
                 </div>
                 
