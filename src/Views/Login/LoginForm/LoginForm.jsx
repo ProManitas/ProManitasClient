@@ -1,14 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate }  from "react-router-dom";
 import style from "./LoginForm.module.css";
 //import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../../Images/logo.png";
 import { Formik } from "formik";
 import React, { useState } from "react";
 
+
 const LoginForm = () => {
   //const { loginWithRedirect } = useAuth0();
 
   const [sentForm, setSentForm] = useState(false);
+
+  //navigate es solución temporal para redireccionar del login al home al igual que el handleLogin
+  const navigate = useNavigate();
+
+  function handleLogin(values) {
+    // Lógica para iniciar sesión...
+
+    // Redirigir al usuario a la ruta "home"
+    setTimeout(() => {
+      navigate("/home");
+    }, 2000);
+
+    ;
+  }
 
   // const handleSubmit = (event) => {
   //   const username = event.target.username.value;
@@ -35,7 +50,7 @@ const LoginForm = () => {
 
           if (!data.password.match(/\d/)) {
             error.password = "La contraseña debe contener al menos un número";
-          } else if (data.password.length < 6 || data.password.length > 10) {
+          } else if (data.password.length < 6 || data.password.length > 20) {
             error.password =
               "La contraseña debe contener entre 6 y 10 caracteres";
           }
@@ -44,7 +59,9 @@ const LoginForm = () => {
         onSubmit={(data, { resetForm }) => {
           resetForm();
           setSentForm(true);
-          setTimeout(() => setSentForm(false), 4000);
+          setTimeout(() => setSentForm(false), 3000);
+          handleLogin(data)
+
           //aqui llamo a la api para poder enviar a la db
         }}
       >

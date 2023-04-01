@@ -64,7 +64,7 @@ body {
 
 .form button[type="submit"] {
 	display: block;
-	background: #0085FF;
+	background: #bc2525;
 	font-weight: 600;
 	font-family: 'Open Sans', sans-serif;
 	border: none;
@@ -78,7 +78,7 @@ body {
 }
 
 .form button[type="submit"]:hover {
-	background: #0051ff;
+	background: #7c1515;
 }
 
 .form .exito {
