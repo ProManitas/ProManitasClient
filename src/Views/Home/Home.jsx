@@ -14,7 +14,7 @@ const Home = () => {
     
     const pros = useSelector (state => state.allPro)
     console.log("por aca llega", pros)
-    const losSeisPrimeros = pros.data.slice(0,6)
+    const losSeisPrimeros = pros.slice(0,6)
     console.log("estos son",losSeisPrimeros)
 
 
@@ -22,7 +22,6 @@ const Home = () => {
     useEffect (() => {
         dispatch (getPro())
     }, [dispatch])
-    console.log()
 
 
 
@@ -32,30 +31,28 @@ const Home = () => {
 return (
     <div>   
         <div>
-            <h1>EL Home motherfucker</h1>
-            {/* <NavBar/> */}
-        </div>
-        <div>
             <h2>Los Filtros irian por Aca mas o menos</h2>
         </div>
-        <div>
-     <div>
+        <div className="CardContainer">
+     <div className="grid-Card">
      {losSeisPrimeros && losSeisPrimeros.map( el => {
- console.log(el.job, el.firstname, el.rating, el.address)
+//  console.log(el.job, el.firstname, el.rating, el.address)
+// console.log()
+
 return (             
   <CardContainer 
-        imgage={el.image}
-        firstName={el.firstname} 
-        lastname={el.lastname}
-        address={el.address}
+       rubro ={el.rubro}
+       image = {el.image}
+       zona ={el.zona}
+       descripcion = {el.descripcion}
         // rating={el.rating}
         
     />
 )})}
     </div>
-    <div>
-        <Footer/>
     </div>
+    <div>
+    <Footer/>
     </div>
     </div>
     

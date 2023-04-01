@@ -1,0 +1,77 @@
+.Card {
+    width: 350px;
+     height: 300px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     background: #f2f2f3;
+     border-radius: 12px;
+     box-shadow: inset 5px 5px 10px #a9a9aa77,
+                  inset -5px -5px 10px #ffffff7e;
+    transition: all 0.5s; 
+    }
+    
+    .Card:hover {
+        box-shadow: 35px 35px 68px 0px rgba(rgb(60, 60, 60), rgb(28, 28, 28), rgb(51, 51, 52), alpha);
+        background-color: rgb(246, 182, 123);
+    }
+    
+    .Card .blob {
+        height: 10px;
+        width: 75%;
+        border-radius: 0 0 30px 30px;
+        margin: 0 auto;
+        background-color: #f2f2f3;
+        visibility: visible;
+        transition: all 0.3s;
+    } 
+    
+    .Card:hover .blob {
+        height: 0;    
+    }
+    
+    .Card:active {
+        box-shadow: inset 3px 3px 3px #0835ea;
+        inset: -3px -3px 3px rgb(33, 19, 227);
+    }
+    
+    .Card h3{
+        font-size: 1.2em;
+        font-weight: bold;
+        text-decoration: none;
+        text-align: center;    
+    }
+    
+    
+    .Card h5{
+        text-align: center;
+        margin-top: 0.4em;
+        background: linear-gradient(120deg, rgba(0,194,255,1) 0%, rgba(0,86,255,1) 100%);
+        background-clip: border-box;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 18px;
+    }
+    
+    .Card .img {
+     height: 150px;
+     width: 200px;
+     margin-top: 1.6em;
+     aspect-ratio: 1;
+     border-radius: 10%;
+     background: #f2f2f3;
+     margin-bottom: 0.4em;
+     box-shadow: -5px -5px 8px #f2f2f3,
+                  5px 5px 8px #f2f2f3; 
+    
+    }
+    
+    .Card:hover .img {
+        width: 100%;
+        height: 70%;
+        border-radius: 10px 0 0;
+        margin: 0 auto;
+        background-color: #f0f0f0;
+        z-index: 99999;
+    
+    } 
