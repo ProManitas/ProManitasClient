@@ -9,6 +9,7 @@ import { Route, Routes, useLocation } from "react-router-dom"
 import Landing from "./Views/Landing/Landing"
 import Navbar from "./Components/Navbar/Navbar"
 import AreaAcuerdo from "./Components/AreaAcuerdo/acuerdo"
+import FormCalification from "./Components/FormCalification/FormCalification"
 
 
 
@@ -20,14 +21,16 @@ function App() {
         {location.pathname !== "/" && location.pathname !== "/login" && <Navbar />}
       <Routes>
         
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/registryForm" element={<RegistryForm />} />
         <Route exact path="/home" element={<Home />} />
         <Route path ="/about" element ={<About />}/>
         <Route path ="/contact" element={< FooterForm/>}  />
         <Route path ="/contrato" element={< AreaAcuerdo/>}  />
+        <Route path ="/calification" element={< FormCalification/>}  />
         <Route exact path = "/" element={<Landing/>}/>
+        
       </Routes>
     </div>
   );
