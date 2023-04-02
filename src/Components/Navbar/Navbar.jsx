@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,7 +16,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import { Link } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,10 +62,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const pages = [
-  "Notificaciones",
-  "Publicar aviso",
-  "Iniciar Sesion",
-  "Registrarse",
+  { message: "Notificaciones", route: "/construction" },
+  { message: "Publicar aviso", route: "/posteo" },
+  { message: "Iniciar sesion", route: "/login" },
+  { message: "Registrarse", route: "/registryForm" },
 ];
 const settings = [
   "Ver Perfil",
@@ -97,25 +98,24 @@ export default function SearchAppBar() {
         <Toolbar>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              {/* <Link to="/home"> */}
-                <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-                <Typography
-                  variant="h6"
-                  noWrap
-                  component="a"
-                  href="/home"
-                  sx={{
-                    mr: 2,
-                    display: { xs: "none", md: "flex" },
-                    fontFamily: "monospace",
-                    fontWeight: 700,
-                    letterSpacing: ".3rem",
-                    color: "inherit",
-                    textDecoration: "none",
-                  }}
-                >
-                  Promanitas
-                </Typography>
+              <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/home"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                Promanitas
+              </Typography>
               {/* </Link> */}
 
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -149,7 +149,11 @@ export default function SearchAppBar() {
                 >
                   {pages.map((page) => (
                     <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page}</Typography>
+                      <Link href={page.route}>
+                        <Button>
+                        {page.message}
+                        </Button>
+                      </Link>
                     </MenuItem>
                   ))}
                 </Menu>
@@ -184,13 +188,15 @@ export default function SearchAppBar() {
               </Search>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 {pages.map((page) => (
-                  <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
-                    {page}
-                  </Button>
+                  <Link href={page.route}>
+                    <Button
+                      key={page}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: "white", display: "block" }}
+                    >
+                      {page.message}
+                    </Button>
+                  </Link>
                 ))}
               </Box>
               <Box sx={{ flexGrow: 0 }}>

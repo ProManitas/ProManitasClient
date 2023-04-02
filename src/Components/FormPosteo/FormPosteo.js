@@ -2,15 +2,16 @@ import "./FormPosteoStyle.css";
 
 import { Formik, Field, ErrorMessage } from "formik";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const FormPosteo = () => {
   //const [sentForm, setSentForm] = useState(false)
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
   return (
-    <div className = "container">
-      <Formik className="container"
-        
+    <div className="container">
+      <Formik
+        className="container"
         initialValues={{
           rubro: "",
           imagen: "",
@@ -94,9 +95,11 @@ const FormPosteo = () => {
             </div>
 
             <div>
-              <button type="submit" className="button">
-                Publicar
-              </button>
+              <Link to="/construction">
+                <button type="submit" className="button">
+                  Publicar
+                </button>
+              </Link>
               {formularioEnviado && (
                 <p className="exito">Formulario enviado con éxito!</p>
               )}

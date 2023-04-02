@@ -186,7 +186,7 @@ const Detail = () => {
             </Button>
           </Link>
 
-          <Link to="/calification">
+          <Link to="/construction">
             <Button
               variant="contained"
               onClick={() => console.log("Calificar Servicio")}

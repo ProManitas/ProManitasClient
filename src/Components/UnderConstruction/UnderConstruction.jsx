@@ -1,6 +1,7 @@
-import Logo from "../../Views/Images/logo.png";
+import Logo from "./../../Images/icon.png"
 import { Link } from "react-router-dom";
 import style from "./UnderConstruction.module.css";
+
 
 
 
