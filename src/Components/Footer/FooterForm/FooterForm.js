@@ -2,6 +2,7 @@ import React, {useState} from "react";
 
 import {Formik, Field} from "formik";
 import "./FooterForm.css";
+import { Link } from "@mui/material";
 
 const FooterForm =()=>{
     const[formularioEnviado,cambiarFormularioEnviado]= useState(false);
@@ -60,8 +61,10 @@ return(
                     <Field className="input" name="mensaje" as="textarea" placeholder="Mensaje" />
                     
                 </div>
+                <Link href="/construction">
                 <button className="button" type="submit">Enviar</button>
                 {formularioEnviado && <p className="exito">Mensaje enviado con exito!</p>}
+                 </Link>
             </form>
         )}
     </Formik>
