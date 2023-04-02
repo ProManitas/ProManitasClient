@@ -12,20 +12,19 @@ body {
 }
 
 .container {
-	min-height: 100vh;
+	min-height: 10vh;
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
 }
 
 .form {
-	min-width: 500px;
-	margin-top: 220px;
+	min-width: 600px;
+	margin-top: 100px;
 	background: #fff;
 	border-radius: 5px;
 	padding: 20px;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    
 }
 
 .form > div {
@@ -65,7 +64,7 @@ body {
 
 .form button[type="submit"] {
 	display: block;
-	background: #0085FF;
+	background: #bc2525;
 	font-weight: 600;
 	font-family: 'Open Sans', sans-serif;
 	border: none;
@@ -79,7 +78,7 @@ body {
 }
 
 .form button[type="submit"]:hover {
-	background: #0051ff;
+	background: #7c1515;
 }
 
 .form .exito {
@@ -103,9 +102,11 @@ body {
 .logo {
   width: 200px;
   height: 200px;
-  display: flex;
-  justify-content: center;
+  display: block;
 	align-items: flex-start;
-	
+  margin: 20px;
+  padding: 15px;
+
 }
+
 
