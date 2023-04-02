@@ -1,8 +1,10 @@
 import {
+  Button,
   Card,
   CardContent,
   CardMedia,
   Grid,
+  Link,
   makeStyles,
   Typography,
 } from "@mui/material";
@@ -13,26 +15,40 @@ import icon from "./../../Images/icon.png";
 export default function Landing() {
   return (
     <Container
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
+      sx={{
+        border: 2,
+        borderRadius: 5,
+        boxShadow: 4,
+        pb: 2,
+        width: "100%",
+        height: "100%",
       }}
     >
-      <Grid container spacing={3}>
-        <Grid item xs={5} margin="auto" >
-          <CardMedia
-            style={{
-              height: "100%",
-              width: "100%",
+      <Grid container>
+        <Grid item xs={6}>
+          <Box
+            sx={{
+              margin: "auto",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              alignContent: "center",
             }}
-            component="img"
-            image={icon}
-            title="Imagen"
-          />
+          >
+            <Typography align="center" variant="h1">
+              Bienvenido a promanitas
+            </Typography>
+            <Typography align="center" variant="h5">
+              Encuentra ayuda rápida para cualquier problema en tu hogar.{" "}
+            </Typography>
+            <Link href="/home">
+              <Button variant="contained"> Ingresar</Button>
+            </Link>
+          </Box>
         </Grid>
-      <Typography variant="h1">¡Bienvenido a Promanitas!</Typography>
+        <Grid item xs={6}>
+          <img src={icon} alt="Promanitas Logo" placeholder="Promanitas" />
+        </Grid>
       </Grid>
     </Container>
   );
