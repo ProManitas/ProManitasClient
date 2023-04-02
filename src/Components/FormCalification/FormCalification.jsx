@@ -1,11 +1,12 @@
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import React from "react";
+import { Formik, Form, Field } from "formik";
+import { Link } from "@mui/material";
 
 const MyForm = () => (
   <div>
     <h1>Calificación de aviso</h1>
     <Formik
-      initialValues={{ rating: '', comment: '', name: '', email: '' }}
+      initialValues={{ rating: "", comment: "", name: "", email: "" }}
       onSubmit={(values, actions) => {
         alert(JSON.stringify(values, null, 2));
         actions.setSubmitting(false);
@@ -25,9 +26,11 @@ const MyForm = () => (
           <label htmlFor="email">Email:</label>
           <Field name="email" type="email" />
 
-          <button type="submit" disabled={isSubmitting}>
-            Enviar
-          </button>
+          <Link href="/construction">
+            <button type="submit" disabled={isSubmitting}>
+              Enviar
+            </button>
+          </Link>
         </Form>
       )}
     </Formik>

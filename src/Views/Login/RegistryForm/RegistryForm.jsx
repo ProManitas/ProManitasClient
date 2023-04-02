@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import style from "./RegistryForm.module.css";
 import logo from "../../../Images/icon.png";
+import { Link } from "@mui/material";
 
 const RegistryForm = () => {
   const [sentForm, setSentForm] = useState(false);
-
 
   return (
     <div className={style.container}>
@@ -222,7 +222,9 @@ const RegistryForm = () => {
               </div>
 
               <div>
-                <label>¿Deseas publicar un aviso o buscas a un profesional?</label>
+                <label>
+                  ¿Deseas publicar un aviso o buscas a un profesional?
+                </label>
                 <select
                   type="text"
                   id="role"
@@ -235,12 +237,14 @@ const RegistryForm = () => {
                   <option>Selecciona tu respuesta</option>
                   <option>Deseo publicar un aviso</option>
                   <option>Deseo contactar con un profesional</option>
-
                 </select>
               </div>
 
               <div>
-                <label>Si deseas publicar un aviso, hablanos un poco de tu experiencia</label>
+                <label>
+                  Si deseas publicar un aviso, hablanos un poco de tu
+                  experiencia
+                </label>
                 <input
                   type="text"
                   id="experience"
@@ -251,9 +255,9 @@ const RegistryForm = () => {
                   onBlur={handleBlur}
                   className={style.input}
                 />
-                {touched.experience && errors.experience && 
-              <div className={style.error}>{errors.experience}</div>
-              }
+                {touched.experience && errors.experience && (
+                  <div className={style.error}>{errors.experience}</div>
+                )}
               </div>
 
               <div>
@@ -271,9 +275,11 @@ const RegistryForm = () => {
               </div>
 
               <div>
-                <button type="submit" className={style.button}>
-                  Crear usuario
-                </button>
+                <Link href="/construction">
+                  <button type="submit" className={style.button}>
+                    Crear usuario
+                  </button>
+                </Link>
               </div>
 
               <div className={style.exito}>
