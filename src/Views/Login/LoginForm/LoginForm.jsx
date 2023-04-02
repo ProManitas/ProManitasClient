@@ -1,7 +1,7 @@
 import { Link, useNavigate }  from "react-router-dom";
 import style from "./LoginForm.module.css";
 //import { useAuth0 } from "@auth0/auth0-react";
-import logo from "../../Images/logo.png";
+import logo from "../../../Images/icon.png";
 import { Formik } from "formik";
 import React, { useState } from "react";
 
@@ -123,7 +123,7 @@ const LoginForm = () => {
             </div>
 
             <h5 className={style.registry}>
-              ¿No tienes cuenta? <Link to="/registryForm">Registrate aquí</Link>
+              ¿No tienes cuenta? <Link to="/construction">Registrate aquí</Link>
             </h5>
 
             {/* Botón para ingresar con cuenta de Gmail, aún en proceso

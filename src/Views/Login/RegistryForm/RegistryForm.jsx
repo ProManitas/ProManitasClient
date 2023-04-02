@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
 import style from "./RegistryForm.module.css";
-import logo from "../../Images/logo.png";
+import logo from "../../../Images/icon.png";
 
 const RegistryForm = () => {
   const [sentForm, setSentForm] = useState(false);
