@@ -47,7 +47,7 @@ function Chat() {
           onChange={(e) => setInputValue(e.target.value)}
           style={{ marginRight: "10px" }}
         />
-        <Button type="submit" variant="contained" color="primary">
+        <Button type="submit" variant="contained" color="primary" underline="none">
           <Link href="/construction">Enviar</Link>
         </Button>
       </form>

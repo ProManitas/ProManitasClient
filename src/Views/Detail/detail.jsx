@@ -1,7 +1,7 @@
 import React from "react";
 import Coments from "../../Components/coments/coments";
 import { Link, useParams } from "react-router-dom";
-import formCalification from "../../Components/FormCalification/FormCalification";
+//import formCalification from "../../Components/FormCalification/FormCalification";
 
 //import styles from "./Detail.module.css";
 import Button from "@mui/material/Button";
@@ -11,40 +11,20 @@ import Calificacion from "../../Components/Rating/rating";
 //import { Rating } from '@mui/material'
 
 const Detail = () => {
-  const avisos = [
-    // {
-    //   id: 1,
-    //   Rubro: "Electricista",
-    //   descripcion: "Reparo en el día cualquier desperfecto eléctrico",
-    //   Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
-    //   imagen:
-    //     "https://us.123rf.com/450wm/ifong/ifong1508/ifong150800027/44218557-diversos-tipos-de-herramientas-de-plomer%C3%ADa-en-el-fondo-blanco.jpg",
-    //   valoracion: 4,
-    // },
-    // {
-    //   id: 2,
-    //   Rubro: "Plomero",
-    //   descripcion:
-    //     "Reparo en el día tu cualquier desperfecto en tu instalación",
-    //   Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
-
-    //   imagen:
-    //     "https://us.123rf.com/450wm/ifong/ifong1508/ifong150800027/44218557-diversos-tipos-de-herramientas-de-plomer%C3%ADa-en-el-fondo-blanco.jpg",
-    //   valoracion: 5,
-    // },const users = [
-    {
-      id: 1,
-      Rubro: "Carpinteria",
+  const avisos = [{
+   
+    id: 1,
+      Rubro: "Carpintería",
       Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
       descripcion:
-        "Resuelvo todo tipo de problemas, armado y reparacion de techos",
+        "Resuelvo todo tipo de problemas, armado y reparación de techos",
       imagen:
         "https://www.shutterstock.com/image-photo/carpenter-worker-work-carpentry-workshop-260nw-1924568534.jpg",
       valoracion: 5,
     },
     {
       id: 2,
-      Rubro: "Gasista matriculado",
+      Rubro: "Gasista",
       Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
       descripcion: "Solución inmediata, colocación y reparación de cañerias",
       imagen:
@@ -56,19 +36,19 @@ const Detail = () => {
       Rubro: "Plomero",
       Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
       descripcion:
-        "Intalacion de cañeria de agua fria y caliente con herramientas varias",
+        "Intalación de cañería de agua fría y caliente con herramientas varias",
       imagen:
         "https://http2.mlstatic.com/D_NQ_NP_947814-MLA51848199535_102022-O.webp",
       valoracion: 1,
     },
     {
       id: 4,
-      Rubro: "Electricista matriculado",
+      Rubro: "Electricista",
       Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
       descripcion:
-        "Arreglos en general las 24 horas, intalacion en locales y planos certificados",
+        "Arreglos en general las 24 horas, intalación en locales y planos certificados",
       imagen:
-        "https://http2.mlstatic.com/D_NQ_NP_899276-MLA50624277114_072022-O.webp",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfqdyu1z8yXI9c5q4DIHa91p1WFCE0kmosNw&usqp=CAU",
       valoracion: 1,
     },
     {
@@ -78,18 +58,18 @@ const Detail = () => {
       descripcion:
         "Arreglamos problemas de humedad, pintamos urgente para entrega de departamento",
       imagen:
-        "https://http2.mlstatic.com/D_NQ_NP_288011-MLA20450208544_102015-O.webp",
+        "https://pintorescoruna.es/wp-content/uploads/2015/07/Pintores-en-Coruna.jpg",
       valoracion: 2,
     },
     {
       id: 6,
-      Rubro: "Mecanico",
+      Rubro: "Mecánico",
       Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
       descripcion: "Urgencia las 24 horas",
       imagen:
         "https://www.shutterstock.com/image-photo/young-professional-technician-car-mechanic-260nw-2150428379.jpg",
       valoracion: 2,
-    },
+    }
   ];
 
   const { id } = useParams(); // Obtener el ID desde la URL
