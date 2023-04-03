@@ -39,10 +39,10 @@ return (
 
 return (             
   <CardContainer 
+       id={el.id}
        Rubro ={el.Rubro}
        imagen = {el.imagen}
-    //    descripcion = {el.descripcion}
-        // rating={el.rating}
+       descripcion = {el.descripcion}     
         
     />
 )})}

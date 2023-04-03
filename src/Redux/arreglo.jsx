@@ -51,17 +51,17 @@
 const users =[
 {
 id: 1,
-      Rubro: "Carpinteria",
+      Rubro: "Carpintería",
       Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
       descripcion:
-        "Resuelvo todo tipo de problemas, armado y reparacion de techos",
+        "Resuelvo todo tipo de problemas, armado y reparación de techos",
       imagen:
         "https://www.shutterstock.com/image-photo/carpenter-worker-work-carpentry-workshop-260nw-1924568534.jpg",
       valoracion: 5,
     },
     {
       id: 2,
-      Rubro: "Gasista matriculado",
+      Rubro: "Gasista",
       Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
       descripcion: "Solución inmediata, colocación y reparación de cañerias",
       imagen:
@@ -73,17 +73,17 @@ id: 1,
       Rubro: "Plomero",
       Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
       descripcion:
-        "Intalacion de cañeria de agua fria y caliente con herramientas varias",
+        "Intalación de cañería de agua fría y caliente con herramientas varias",
       imagen:
         "https://http2.mlstatic.com/D_NQ_NP_947814-MLA51848199535_102022-O.webp",
       valoracion: 1,
     },
     {
       id: 4,
-      Rubro: "Electricista matriculado",
+      Rubro: "Electricista",
       Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
       descripcion:
-        "Arreglos en general las 24 horas, intalacion en locales y planos certificados",
+        "Arreglos en general las 24 horas, intalación en locales y planos certificados",
       imagen:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfqdyu1z8yXI9c5q4DIHa91p1WFCE0kmosNw&usqp=CAU",
       valoracion: 1,
@@ -100,7 +100,7 @@ id: 1,
     },
     {
       id: 6,
-      Rubro: "Mecanico",
+      Rubro: "Mecánico",
       Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
       descripcion: "Urgencia las 24 horas",
       imagen:
