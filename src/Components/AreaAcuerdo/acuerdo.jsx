@@ -28,8 +28,8 @@ function Chat() {
   return (
     <div style={{ margin: "20px" }}>
       <Typography variant="h5" style={{ marginBottom: "20px" }}>
-        Aquí podran ponerse de acuerdo en presupuesto, horarios y demas detalles
-        privados
+        En este espacio podrás acordar con el profesional los detalles de
+        contratación.
       </Typography>
       <ul style={{ listStyleType: "none", padding: "0" }}>
         {messages.map((message, index) => (
@@ -47,14 +47,22 @@ function Chat() {
           onChange={(e) => setInputValue(e.target.value)}
           style={{ marginRight: "10px" }}
         />
-        <Button type="submit" variant="contained" color="primary" underline="none">
-          <Link href="/construction">Enviar</Link>
+        <Button
+          type="submit"
+          variant="outlined"
+          color="secondary"
+          underline="hover"
+        >
+          <Link href="/construction" style={{ textDecoration: "none" }}>
+            Enviar
+          </Link>
         </Button>
       </form>
 
       <Typography variant="h6" style={{ marginBottom: "20px" }}>
-        Cuando esten de acuerdo, el contratante puede pagar el valor del
-        contrato en el boton Pagar
+        Si ya has acordado iniciar el trabajo con el profesional, por favor
+        realiza el pago del valor del contrato ¡No te preocupes! Este valor será
+        descontado del costo final que acuerdes con el profesional.
       </Typography>
     </div>
   );

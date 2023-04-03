@@ -1,12 +1,25 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { Formik } from "formik";
 import style from "./RegistryForm.module.css";
 import logo from "../../../Images/icon.png";
-import { Link } from "@mui/material";
+
 
 const RegistryForm = () => {
   const [sentForm, setSentForm] = useState(false);
 
+  const navigate = useNavigate();
+
+  function handleRegister(values) {
+    // Lógica para iniciar sesión...
+
+    // Redirigir al usuario a la ruta "home"
+    setTimeout(() => {
+      navigate("/construction");
+    }, 2000);
+
+    ;
+  }
   return (
     <div className={style.container}>
       <Formik
@@ -85,6 +98,7 @@ const RegistryForm = () => {
           resetForm();
           setSentForm(true);
           setTimeout(() => setSentForm(false), 3000);
+          handleRegister(data)
           //desde acá se puede hacer el llamado o hacer la conexión con la api
         }}
       >
@@ -221,7 +235,7 @@ const RegistryForm = () => {
                 )}
               </div>
 
-              <div>
+              {/* <div>
                 <label>
                   ¿Deseas publicar un aviso o buscas a un profesional?
                 </label>
@@ -258,7 +272,7 @@ const RegistryForm = () => {
                 {touched.experience && errors.experience && (
                   <div className={style.error}>{errors.experience}</div>
                 )}
-              </div>
+              </div> */}
 
               <div>
                 <label>Agrega tu foto: </label>
@@ -275,11 +289,9 @@ const RegistryForm = () => {
               </div>
 
               <div>
-                <Link href="/construction">
                   <button type="submit" className={style.button}>
                     Crear usuario
                   </button>
-                </Link>
               </div>
 
               <div className={style.exito}>

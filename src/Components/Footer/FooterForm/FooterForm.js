@@ -1,11 +1,21 @@
 import React, {useState} from "react";
-
+import { useNavigate } from "react-router";
 import {Formik, Field} from "formik";
 import "./FooterForm.css";
-import { Link } from "@mui/material";
+
 
 const FooterForm =()=>{
     const[formularioEnviado,cambiarFormularioEnviado]= useState(false);
+    const navigate = useNavigate();
+
+    function handleRegister(values) {
+      // Lógica para iniciar sesión...
+  
+      // Redirigir al usuario a la ruta "home"
+      setTimeout(() => {
+        navigate("/construction");
+      }, 2000);
+    }
    
 return(
     <div className="container" >
@@ -39,6 +49,7 @@ return(
     resetForm();
     cambiarFormularioEnviado(true);
     setTimeout(()=>cambiarFormularioEnviado(false),2000);
+    handleRegister(value)
     }}>
         {({values, errors,touched, handleSubmit, handleChange, handleBlur})=>(
             <form className="form" onSubmit={handleSubmit}>
@@ -61,10 +72,10 @@ return(
                     <Field className="input" name="mensaje" as="textarea" placeholder="Mensaje" />
                     
                 </div>
-                <Link href="/construction">
+                
                 <button className="button" type="submit">Enviar</button>
                 {formularioEnviado && <p className="exito">Mensaje enviado con exito!</p>}
-                 </Link>
+                 
             </form>
         )}
     </Formik>
