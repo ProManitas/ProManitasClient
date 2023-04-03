@@ -123,7 +123,7 @@ const LoginForm = () => {
             </div>
 
             <h5 className={style.registry}>
-              ¿No tienes cuenta? <Link to="/construction">Registrate aquí</Link>
+              ¿No tienes cuenta? <Link to="/registryForm">Registrate aquí</Link>
             </h5>
 
             {/* Botón para ingresar con cuenta de Gmail, aún en proceso
