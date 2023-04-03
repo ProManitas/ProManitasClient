@@ -1,30 +1,26 @@
 import  React from "react";
-import logo from "./logo.png"
-// import { useHistory } from 'react-router-dom';
+// import  {Link} from "react-router-dom"
+// import detail from "../../Views/Detail/detail.jsx"
 
 import "./Card.css";
 
-const CardCont = ({rubro, zona, descripcion, image}) => {
+const CardCont = ({Rubro, imagen, id}) => {
+    
 
-//imagen, valoracion, descripcion,rubro(oficio),ubicacion o zona 
 
 
-    // let history = useHistory();
-// const job = ["carpintero","electricista", "plomero", "cerrajero", "remolcador", "gomero"]
-    // const rutaDetalle = (e) => {
-    //     history.push(`/home/${id}`)
-    // } 
-    //cambiar foto de perfil
-    // console.log("esto es",rubro)
+   
     return (
-        <div className="Card">
-            <h3>{rubro}</h3>
-            <img className="img" src = {image} alt = "img not found" />
-            <h4>{zona}</h4>
-            <h4>{descripcion}</h4>
+        // <Link to={`/detail/${id}`}>
+        <div className="Card" >
+            <div className="margen">
+            <h3 className="parrafo">{Rubro}</h3>
+            </div>
+            <img className="img" src = {imagen} alt = "img not found" />
 
 
         </div>
+    //    </Link>
     )
 }
 
