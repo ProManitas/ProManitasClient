@@ -13,7 +13,7 @@ import CardContainer from "../../Components/CardsContainer/CardsContainer";
 const Home = () => {
     
     const pros = useSelector (state => state.allPro)
-    console.log("por aca llega", pros)
+    // console.log("por aca llega", pros)
     const losSeisPrimeros = pros.slice(0,6)
     console.log("estos son",losSeisPrimeros)
 
@@ -30,9 +30,7 @@ const Home = () => {
 
 return (
     <div>   
-        <div>
-            <h2>Los Filtros irian por Aca mas o menos</h2>
-        </div>
+       
         <div className="CardContainer">
      <div className="grid-Card">
      {losSeisPrimeros && losSeisPrimeros.map( el => {
@@ -41,10 +39,9 @@ return (
 
 return (             
   <CardContainer 
-       rubro ={el.rubro}
-       image = {el.image}
-       zona ={el.zona}
-       descripcion = {el.descripcion}
+       Rubro ={el.Rubro}
+       imagen = {el.imagen}
+    //    descripcion = {el.descripcion}
         // rating={el.rating}
         
     />

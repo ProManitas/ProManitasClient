@@ -1,11 +1,30 @@
+.parrafo{
+    color:#f2f2f3;
+    font-size: larger;
+}
+
+.margen{
+    width: 100%;
+    display:flex;
+    background: #bc2525;
+    flex-direction:column;
+    align-items: center;
+    box-shadow: inset 5px 5px 10px #a9a9aa77,
+    inset -5px -5px 10px #ffffff7e;
+transition: all 0.5s; 
+
+   
+}
+
+
 .Card {
     width: 350px;
-     height: 300px;
-     display: flex;
-     flex-direction: column;
+     height: 400px;
+     display:flex;
+     flex-direction:column;
      align-items: center;
      background: #f2f2f3;
-     border-radius: 12px;
+     /* border-radius: 12px; */
      box-shadow: inset 5px 5px 10px #a9a9aa77,
                   inset -5px -5px 10px #ffffff7e;
     transition: all 0.5s; 
@@ -13,7 +32,7 @@
     
     .Card:hover {
         box-shadow: 35px 35px 68px 0px rgba(rgb(60, 60, 60), rgb(28, 28, 28), rgb(51, 51, 52), alpha);
-        background-color: rgb(246, 182, 123);
+        background-color: #2781c2;
     }
     
     .Card .blob {
