@@ -2,7 +2,7 @@ const initialState = {
     allPro:[] 
 }
 
-function rootReducer (state = initialState, action){
+ function homeReducer (state = initialState, action){
     switch(action.type){
         case "GET_PRO":
             return {
@@ -13,7 +13,7 @@ function rootReducer (state = initialState, action){
     }
 }
 
-export default rootReducer;
+export default homeReducer;
 /*import { combineReducers } from "redux";
 
 //aca importamos todos los reducers

@@ -4,17 +4,16 @@ import { getPro } from "../../Redux/Actions/homeAction";
 import "./Home.css";
 
 import Footer from "../../Components/Footer/Footer.js";
-// import Landing from "../../Components/Landing/Landing.jsx";
-// import NavBar from "../../Components/NavBar/NavBar.jsx";
+
 import CardContainer from "../../Components/CardsContainer/CardsContainer";
 
 
 
 const Home = () => {
     
-    const pros = useSelector (state => state.allPro)
+    const pros = useSelector (state => state.home.allPro)
     // console.log("por aca llega", pros)
-    const losSeisPrimeros = pros.slice(0,6)
+    const losSeisPrimeros = pros.data ? pros.data.slice(0,6) : pros.data
     console.log("estos son",losSeisPrimeros)
 
 
@@ -39,10 +38,10 @@ return (
 
 return (             
   <CardContainer 
-       id={el.id}
-       Rubro ={el.Rubro}
+       UserId={el.UserId}
+       name ={el.name}
        imagen = {el.imagen}
-       descripcion = {el.descripcion}     
+       description = {el.description}     
         
     />
 )})}
