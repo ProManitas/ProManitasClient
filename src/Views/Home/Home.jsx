@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import  {useDispatch, useSelector} from "react-redux";
-import { getPro } from "../../Redux/Actions";
+import { getPro } from "../../Redux/Actions/homeAction";
 import "./Home.css";
 
 import Footer from "../../Components/Footer/Footer.js";

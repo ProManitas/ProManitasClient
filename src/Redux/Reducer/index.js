@@ -1,16 +1,12 @@
-const initialState = {
-    allPro:[] 
-}
+import { combineReducers } from "redux";
+import homeReducer from "./homeReducer";
+//aca importamos todos los reducers
 
-function rootReducer (state = initialState, action){
-    switch(action.type){
-        case "GET_PRO":
-            return {
-                ...state,
-                allPro:action.payload
-            }
-            default: return state;
-    }
-}
 
-export default rootReducer;
+const reducer= combineReducers({
+    home: homeReducer,
+});
+//aca  traemos dentro de comnineReducer todos los reducers, ejemplo:
+// user:userReducers
+
+export default reducer;
