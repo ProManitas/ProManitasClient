@@ -1,37 +1,58 @@
 import "./FormPosteoStyle.css";
-
-import { Formik, Field, ErrorMessage } from "formik";
+import axios from "axios";
+//import { newPost } from "../../Redux/Actions/newPostActions";
+import { Formik, Field } from "formik";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+//import { Link } from "react-router-dom";
+//import { useDispatch } from "react-redux";
 const FormPosteo = () => {
   //const [sentForm, setSentForm] = useState(false)
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  //const dispatch = useDispatch();
+
+
 
   return (
     <div className="container">
       <Formik
         className="container"
         initialValues={{
+          name:"",
+          description: "",
           rubro: "",
-          imagen: "",
-          zona: "",
-          descripcion: "",
+          image: "",
+          
         }}
         validate={(data) => {
           let error = {};
 
-          if (!data.rubro) {
-            error.rubro = "Por favor seleccione rubro";
+          if (!data.name) {
+            error.name = "Por favor escriba un texto";
           }
           return error;
+          
         }}
-        onSubmit={(data, { resetForm }) => {
-          resetForm();
-          cambiarFormularioEnviado(true);
-          setTimeout(() => cambiarFormularioEnviado(false), 5000);
-        }}
-      >
+        onSubmit={ async (data, { resetForm }) => {
+         // dispatch(newPost(data));
+         console.log(data);
+            axios.post('https://promanitasapi.onrender.com/api/v1/adPosts', data)
+
+         
+        // await fetch("https://promanitasapi.onrender.com/api/v1/adPosts", {
+        //         method: "POST",
+        //         headers: {
+        //           "Content-Type": "application/json"
+        //         },
+        //         body: JSON.stringify(data)
+        //       })
+        //       .then(response => response.json())
+        //       .then(data => console.log("probando", data))
+        //       .catch(error=>console.log(error))
+        //         resetForm();
+        //         cambiarFormularioEnviado(true);
+        //         setTimeout(() => cambiarFormularioEnviado(false), 5000);
+            }}
+          >  
         {({
           values,
           errors,
@@ -39,9 +60,18 @@ const FormPosteo = () => {
           handleSubmit,
           handleChange,
           handleBlur,
+          
         }) => (
           <form onSubmit={handleSubmit} className="form">
             <div>
+            <label htmlFor="name">Nombre</label>
+              <Field
+                className="input"
+                name="name"
+                
+                placeholder="Texto"
+                required
+              ></Field>
               <label className="input" htmlFor="rubro">
                 Rubro
               </label>
@@ -52,54 +82,41 @@ const FormPosteo = () => {
                 <option value="Pintura">Pintura</option>
                 <option value="Electricista">Electricista</option>
               </Field>
-              <label htmlFor="imagen">Imagen</label>
+              <label htmlFor="image">Imagen</label>
               <input
-                type="text"
-                id="imagen"
-                name="imagen"
-                placeholder="imagen"
-                value={values.imagen}
+                type="file"
+                id="image"
+                name="image"
+                placeholder="image"
+                value={values.image}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className="input"
+                accept="image/*"
               />
-              {touched.imagen && errors.imagen && (
-                <div className="error">{errors.imagen}</div>
+              {touched.image && errors.image && (
+                <div className="error">{errors.image}</div>
               )}
-              <label htmlFor="zona">Zona</label>
-              <input
-                type="text"
-                id="zona"
-                name="zona"
-                placeholder="zona"
-                value={values.zona}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className="input"
-                required
-              />
-              {touched.zona && errors.zona && (
-                <div className="error">{errors.zona}</div>
-              )}
-              <label htmlFor="descripción">Descripción</label>
+             
+              <label htmlFor="description">Descripción</label>
               <Field
                 className="input"
-                name="descripción"
+                name="description"
                 as="textarea"
-                placeholder="Descripción"
+                placeholder="Description"
                 required
               ></Field>
-              {touched.descripción && errors.descripción && (
-                <div className="error">{errors.descripción}</div>
+              {touched.description && errors.description && (
+                <div className="error">{errors.description}</div>
               )}
             </div>
 
             <div>
-              <Link to="/construction">
+              
                 <button type="submit" className="button">
                   Publicar
                 </button>
-              </Link>
+             
               {formularioEnviado && (
                 <p className="exito">Formulario enviado con éxito!</p>
               )}
@@ -112,4 +129,5 @@ const FormPosteo = () => {
 };
 
 export default FormPosteo;
+//probando 3
 //probando 2
