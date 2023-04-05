@@ -1,91 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Coments from "../../Components/coments/coments";
 import { Link, useParams } from "react-router-dom";
-//import formCalification from "../../Components/FormCalification/FormCalification";
-
-//import styles from "./Detail.module.css";
 import Button from "@mui/material/Button";
 import { Container, Typography, Divider, Grid, Box } from "@mui/material";
-//import { ButtonBase } from "@mui/material";
 import Calificacion from "../../Components/Rating/rating";
-//import { Rating } from '@mui/material'
+import Maps from "../../Components/MapsComponent/Maps";
+import { getDetails, getUserAddress} from "../../Redux/Actions/detailAction";
+
 
 const Detail = () => {
-  const avisos = [{
-   
-    id: 1,
-      Rubro: "Carpintería",
-      Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
-      descripcion:
-        "Resuelvo todo tipo de problemas, armado y reparación de techos",
-      imagen:
-        "https://www.shutterstock.com/image-photo/carpenter-worker-work-carpentry-workshop-260nw-1924568534.jpg",
-      valoracion: 5,
-    },
-    {
-      id: 2,
-      Rubro: "Gasista",
-      Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
-      descripcion: "Solución inmediata, colocación y reparación de cañerias",
-      imagen:
-        "https://us.123rf.com/450wm/ifong/ifong1508/ifong150800027/44218557-diversos-tipos-de-herramientas-de-plomer%C3%ADa-en-el-fondo-blanco.jpg",
-      valoracion: 3,
-    },
-    {
-      id: 3,
-      Rubro: "Plomero",
-      Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
-      descripcion:
-        "Intalación de cañería de agua fría y caliente con herramientas varias",
-      imagen:
-        "https://http2.mlstatic.com/D_NQ_NP_947814-MLA51848199535_102022-O.webp",
-      valoracion: 1,
-    },
-    {
-      id: 4,
-      Rubro: "Electricista",
-      Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
-      descripcion:
-        "Arreglos en general las 24 horas, intalación en locales y planos certificados",
-      imagen:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfqdyu1z8yXI9c5q4DIHa91p1WFCE0kmosNw&usqp=CAU",
-      valoracion: 1,
-    },
-    {
-      id: 5,
-      Rubro: "Pintor",
-      Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
-      descripcion:
-        "Arreglamos problemas de humedad, pintamos urgente para entrega de departamento",
-      imagen:
-        "https://pintorescoruna.es/wp-content/uploads/2015/07/Pintores-en-Coruna.jpg",
-      valoracion: 2,
-    },
-    {
-      id: 6,
-      Rubro: "Mecánico",
-      Zona: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2__yHupQ0acjXyNuvWhiA3mkCCTajzQsXGQ&usqp=CAU",
-      descripcion: "Urgencia las 24 horas",
-      imagen:
-        "https://www.shutterstock.com/image-photo/young-professional-technician-car-mechanic-260nw-2150428379.jpg",
-      valoracion: 2,
-    }
-  ];
+
+
+  // "id": 1,
+  // 		"name": "Crawler",
+  // 		"description": "http://dummyimage.com/187x100.png/ff4444/ffffff",
+  // 		"image": "false",
 
   const { id } = useParams(); // Obtener el ID desde la URL
-  const aviso = avisos.find((aviso) => aviso.id === parseInt(id)); //avisos.find((aviso) => aviso.id === parseInt(id));;
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getDetails(id));
+  }, [dispatch, id]);
+
+  const detail = useSelector((state) => state.detail);
+  const address = getUserAddress()
   return (
+    
     <Container
       sx={{ border: "4rem", borderStyle: "solid", borderColor: "#1976d2" }}
     >
       <div>
-        <Typography variant="h4" textAlign="center">
-          {aviso.Rubro}
+        <Typography variant="h1" textAlign="center">
+          {detail.name}
         </Typography>
 
         <Typography variant="h6" textAlign="center">
-          {aviso.descripcion}
+          {detail.description}
         </Typography>
         <Grid
           container
@@ -96,8 +48,8 @@ const Detail = () => {
           <Grid item xs={7} sm={20} sx={{ maxWidth: 400 }}>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <img
-                src={aviso.imagen}
-                alt={aviso.Rubro}
+                src={detail.image}
+                alt={detail.name}
                 style={{
                   objectFit: "cover",
                   width: "40%",
@@ -115,25 +67,12 @@ const Detail = () => {
 
         <Container />
 
-        <div
-          style={{
-            objectFit: "cover",
-            width: "30%",
-            height: "30%",
-            display: "center",
-            boxShadow: "0 0 5px rgba(40, 37, 37, 0.3)",
-            margin: "auto",
-            position: "relative",
-            left: "0",
-            right: "0",
-          }}
-        >
-          <img
-            src={aviso.Zona}
-            alt="Zona"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        </div>
+        <Container
+  sx={{ padding: "2rem", boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)" }}
+>
+
+  <Maps address={address} />
+</Container>
 
         <div style={{ textAlign: "center" }}>
           <Box
@@ -144,7 +83,7 @@ const Detail = () => {
               height: "100%",
             }}
           >
-            <Calificacion calificacion={aviso.valoracion} />
+            <Calificacion calificacion="1" />
           </Box>
         </div>
 
@@ -160,13 +99,13 @@ const Detail = () => {
         </div>
 
         <Grid container justifyContent="center">
-          <Link to="/contrato">
+          <Link to={`/contrato/${id}`}>
             <Button variant="contained" sx={{ width: "100px", mr: "10px" }}>
               Contratar
             </Button>
           </Link>
 
-          <Link to="/construction">
+          <Link to="/calification/:id">
             <Button
               variant="contained"
               onClick={() => console.log("Calificar Servicio")}
