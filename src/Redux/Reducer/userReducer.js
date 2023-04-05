@@ -1,8 +1,9 @@
-import {GET_ALL_USERS} from "../Actions/userAction"
+import {GET_ALL_USERS, GET_USER_ID} from "../Actions/userAction"
 
 const initialState = {
     allUsers:[],
-    user:{},
+    user:[],
+    userId:{}
 }
 
 const userReducer = (state=initialState, action) => {
@@ -11,7 +12,13 @@ const userReducer = (state=initialState, action) => {
             return{
                 ...state,
                 allUsers: action.payload,
-                
+                user: action.payload,
+            }
+        case GET_USER_ID:
+            return{
+                ...state,
+                user: action.payload,
+                userId: action.payload,
             }
         default:
             return {...state}

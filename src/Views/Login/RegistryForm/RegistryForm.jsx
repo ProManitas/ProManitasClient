@@ -12,8 +12,8 @@ const RegistryForm = () => {
 
   const users = useSelector((state) => state.user.allUsers);
   // console.log("showing all the users data",users)
-  const oneUser = users.slice(0, 1);
-  console.log(oneUser);
+  const oneUser = users.slice(0, 10);
+  //console.log(oneUser);
 
   const [form, setForm] = useState({
     username: "",
