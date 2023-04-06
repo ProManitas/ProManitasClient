@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
-import { Button, Link, TextField, Typography } from "@mui/material";
-// import { Link } from "react-router-dom";
+import { Button, TextField, Typography } from "@mui/material";
+import StripeContainer from "./StripeContainer";
+import CheckoutForm from "../CheckoutForm/CheckoutForm";
+import ContractForm from "../ContractForm/ContractForm";
 
 const socket = io("http://localhost:3000");
 
@@ -21,51 +23,57 @@ function Chat() {
     setInputValue("");
   }
 
-  // function handlePayment() {
-  //   // Aquí puedes agregar el código para dirigir al usuario a la plataforma de pagos Stripe
-  // }
-
   return (
     <div style={{ margin: "20px" }}>
       <Typography variant="h5" style={{ marginBottom: "20px" }}>
         En este espacio podrás acordar con el profesional los detalles de
         contratación.
       </Typography>
-      <ul style={{ listStyleType: "none", padding: "0" }}>
+      
+      <ul style={{ listStyleType: "none", padding: "0", marginBottom: "20px" }}>
         {messages.map((message, index) => (
-          <li key={index}>{message}</li>
+          <li key={index} style={{ marginBottom: "10px", borderRadius: "10px", backgroundColor: "#f0f0f0", padding: "10px" }}>{message}</li>
         ))}
       </ul>
+
       <form
         onSubmit={handleSubmit}
-        style={{ display: "flex", alignItems: "center" }}
+        style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}
       >
         <TextField
           label="Mensaje"
           variant="outlined"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          style={{ marginRight: "10px" }}
+          style={{ marginRight: "10px", flex: "1" }}
         />
+        
+        
+
         <Button
           type="submit"
-          variant="outlined"
+          variant="contained"
           color="secondary"
-          underline="hover"
+          style={{ marginLeft: "10px" }}
         >
-          <Link href="/construction" style={{ textDecoration: "none" }}>
-            Enviar
-          </Link>
+          Enviar
         </Button>
       </form>
 
       <Typography variant="h6" style={{ marginBottom: "20px" }}>
         Si ya has acordado iniciar el trabajo con el profesional, por favor
-        realiza el pago del valor del contrato ¡No te preocupes! Este valor será
+        realiza el pago del valor del contrato. ¡No te preocupes! Este valor será
         descontado del costo final que acuerdes con el profesional.
       </Typography>
+<StripeContainer>
+          <CheckoutForm />
+        </StripeContainer>
+      <StripeContainer>
+        <ContractForm />
+      </StripeContainer>
     </div>
   );
 }
 
 export default Chat;
+
