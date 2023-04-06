@@ -27,8 +27,8 @@ function App() {
         <Route exact path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<FooterForm />} />
-        <Route path="/contrato/:id" element={<AreaAcuerdo />} />
-        <Route path="/calification/:id" element={<FormCalification />} />
+        <Route path="/contrato/" element={<AreaAcuerdo />} />
+        <Route path="/calification/" element={<FormCalification />} />
         <Route exact path="/" element={<Landing />} />
         <Route path="/construction" element={<UnderConstruction />} />
         <Route path="/posteo" element={<FormPosteo />} />
