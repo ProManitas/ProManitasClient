@@ -60,35 +60,36 @@ const Detail = () => {
           justifyContent: "center",
         }}
       >
-        <Link to="/home">
+        <a href="/home">
           <Button variant="contained">Volver</Button>
-        </Link>
+        </a>
       </div>
 
       <Grid container justifyContent="center">
-        <Link to="/contrato">
-          <Button variant="contained" sx={{ width: "100px", mr: "10px" }}>
-            Contratar
-          </Button>
-        </Link>
+      <a href="/contrato">
+  <Button variant="contained" sx={{ width: "100px", mr: "10px" }}>
+    Contratar
+  </Button>
+</a>
 
-        <Link to="/calification">
-          <Button
-            variant="contained"
-            // onClick={() => console.log("Calificar Servicio")}
-            sx={{
-              padding: "5px 10px",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              "&:hover": { backgroundColor: "#0062cc" },
-            }}
-          >
-            Calificar
-          </Button>
-        </Link>
+<a href="/calification">
+  <Button
+    variant="contained"
+    // onClick={() => console.log("Calificar Servicio")}
+    sx={{
+      padding: "5px 10px",
+      backgroundColor: "#007bff",
+      color: "#fff",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+      "&:hover": { backgroundColor: "#0062cc" },
+    }}
+  >
+    Calificar
+  </Button>
+</a>
+
       </Grid>
 
       <Divider />
