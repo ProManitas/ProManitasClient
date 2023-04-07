@@ -1,40 +1,18 @@
 import axios from 'axios';
 
- export const newPost = (payload) => {
-    return async (dispatch)=>{
-        try {
-           const response = await axios.post("https://promanitasapi.onrender.com/api/v1/adPosts",payload);
-           
-           dispatch({
-            type: 'NEW_POST',
-            payload: response.data,
-           }); 
-          
-        } catch (error) {
-            dispatch({
-                type: 'ERROR_POST',
-                payload:error.message,
-            });
-        }
-     
-    };
+export const GET_SERVICE="GET_SERVICE";
+
+export function getName() {
+  return async function (dispatch) {
+    const response = await axios.get("https://promanitasapi.onrender.com/api/v1/services");
+    console.log(response);
+    const name = response.data.data
+    .map(service => service.name) // extraer la propiedad "name" de cada objeto en el arreglo "data"
+    .filter((name, index, arr)=>arr.indexOf(name)=== index);
+    console.log(name);
+    dispatch({
+      type: GET_SERVICE,
+      payload: name, // enviar solo un arreglo de nombres
+    });
   };
-
-// cambio de prueba
-
-/*import axios from 'axios';
-
-export const createUser = (payload) => {
-  return (dispatch) => {
-    dispatch({ type: 'NEW_POST' });
-    axios.post("https://promanitasapi.onrender.com/api/v1/adPosts", payload)
-      .then(response => {
-        dispatch({ type: 'NEW_POST', payload: response.data });
-      })
-      .catch(error => {
-        dispatch({ type: 'NEW_POST_ERROR', payload: error.message });
-      });
-  };
-};
-  */
- 
+}
