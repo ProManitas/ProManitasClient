@@ -2,6 +2,8 @@ import React from "react";
 import { Rating, Box } from "@mui/material";
 import PanToolIcon from "@mui/icons-material/PanTool";
 
+
+
 function Calificacion(props) {
   return (
     <Box sx={{ display: "flex", alignItems: "center", fontSize: 24 }}>
