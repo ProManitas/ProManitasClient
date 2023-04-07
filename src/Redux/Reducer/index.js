@@ -3,7 +3,7 @@ import homeReducer from "./homeReducer";
 import userReducer from "../Reducer/userReducer"
 import detailReducer from "../Reducer/detailReducer"
 import pageReducer from "./paginadoReducer";
-
+import { newPostReducer } from "./newPostReducer";
 //aca importamos todos los reducers
 
 
@@ -11,7 +11,8 @@ const reducer= combineReducers({
     home: homeReducer,
     user: userReducer,
     detail: detailReducer,
-    paginado: pageReducer
+    paginado: pageReducer,
+    service: newPostReducer
 
 });
 //aca  traemos dentro de comnineReducer todos los reducers, ejemplo:
