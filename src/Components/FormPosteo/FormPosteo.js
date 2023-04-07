@@ -9,7 +9,7 @@ const FormPosteo = ({selectedPost}) => {
   const dispatch = useDispatch();
 
   const [ input, setInput] = useState({
-    rubros:[]
+    service:[]
   })
   useEffect(() => {
     dispatch(getName());
@@ -18,16 +18,16 @@ const FormPosteo = ({selectedPost}) => {
   const posts = useSelector((state) => state.service.names);
   console.log("esto trae post:", posts)
 
-  const [selectedPosts, setSelectedPosts] = useState(["select"]);
+ // const [selectedPosts, setSelectedPosts] = useState(["select"]);
 
-  const [formularioEnviado, cambiarFormularioEnviado] = useState(true);
+  const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
 
   const handlerPost = (e) => {
-    if(!input.rubros.includes(e.target.value)){
+    if(!input.service.includes(e.target.value)){
       setInput ({
         ...input,
-        rubros:[...input.rubros, e.target.value]
+        service:[...input.service, e.target.value]
       })
     }
   }
@@ -38,15 +38,22 @@ const FormPosteo = ({selectedPost}) => {
       <Formik
         className="container"
         initialValues={{
-          post: "", // establecer como ""
+          service: "", // establecer como ""
           description: "",
           name: "",
           image: "",
+          username:"",
         }}
         validate={(data) => {
           let error = {};
 
-          if (!data.post || data.post === "select") {
+          if(!data.username){
+            error.username = "Por favor ingresa tu nombre"
+          } else if(!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(data.username)){
+            error.username = "El nombre sólo puede contener letras y espacios"
+          }
+
+          if (!data.service || data.service === "select") {
             error.post = "Por favor seleccione rubro";
           }
           return error;
@@ -60,7 +67,7 @@ const FormPosteo = ({selectedPost}) => {
             .catch((error) => console.log(error));
           resetForm();
           cambiarFormularioEnviado(true);
-          setTimeout(() => cambiarFormularioEnviado(false), 5000);
+          setTimeout(() => cambiarFormularioEnviado(false), 2000);
         }}
       >
         {({
@@ -74,22 +81,33 @@ const FormPosteo = ({selectedPost}) => {
         }) => (
           <form onSubmit={handleSubmit}  className="form">
             <div>
-            <select name="post" onChange={handleChange}>
+            <select name="service" onChange={handleChange}>
   <option value="select">Seleccione un rubro</option>
-  {posts?.map((post) => (
-    <option key={post} value={post}>{post}</option>
+  {posts?.map((service) => (
+    <option key={service} value={service}>{service}</option>
   ))}
 </select>
-              {touched.post && errors.post && (
-                <div className="error">{errors.post}</div>
+              {touched.service && errors.service && (
+                <div className="error">{errors.service}</div>
               )}
-              <label htmlFor="title">Titulo</label>
+              <label htmlFor="name">Titulo</label>
               <Field
                 className="input"
-                name="title"
+                name="name"
                 placeholder="Texto"
                 required
               ></Field>
+              <label htmlFor="username">Nombre de Usuario</label>
+              <Field
+                className="input"
+                name="username"
+                placeholder="Nombre de usuario"
+                required
+
+              ></Field>
+              {touched.username && errors.username && (
+                <div className="error">{errors.username}</div>
+              )}
 
               <label htmlFor="image">Imagen</label>
               <input
@@ -121,13 +139,9 @@ const FormPosteo = ({selectedPost}) => {
             </div>
 
             <div>
-              <button type="submit" className="button">
-                Publicar
-              </button>
-
-              {formularioEnviado && (
-                <p className="exito">Formulario enviado con éxito!</p>
-              )}
+            <button className="button" type="submit">Publicar</button>
+                {formularioEnviado && <p className="exito">Publicación exitosa!</p>}
+                 
             </div>
           </form>
         )}
@@ -136,3 +150,4 @@ const FormPosteo = ({selectedPost}) => {
   );
 };
 export default FormPosteo;
+//
