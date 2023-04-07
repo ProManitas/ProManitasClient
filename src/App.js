@@ -12,9 +12,23 @@ import AreaAcuerdo from "./Components/AreaAcuerdo/acuerdo";
 import FormCalification from "./Components/FormCalification/FormCalification";
 import UnderConstruction from "./Components/UnderConstruction/UnderConstruction.jsx";
 import FormPosteo from "./Components/FormPosteo/FormPosteo.js";
+import {AuthenticationGuard} from "./Views/Login/AuthenticationGuard/authentication-guard"
+import { useAuth0 } from "@auth0/auth0-react";
+import Profile from "./Views/Login/Profile/Profile.jsx";
+
 
 function App() {
   const location = useLocation();
+
+  const {isLoading} = useAuth0()
+
+  if(isLoading) {
+    return (
+      <div>
+        <h2>Loading...</h2>
+      </div>
+    )
+  }
   return (
     <div className="App">
       {location.pathname !== "/" &&
@@ -32,6 +46,10 @@ function App() {
         <Route exact path="/" element={<Landing />} />
         <Route path="/construction" element={<UnderConstruction />} />
         <Route path="/posteo" element={<FormPosteo />} />
+        <Route 
+        path="/profile" 
+        element={<AuthenticationGuard component= {Profile}/>}
+        />
       </Routes>
     </div>
   );
