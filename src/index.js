@@ -6,6 +6,7 @@ import App from "./App";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { Provider } from "react-redux"; // orovider para que redux reconozca lo que tenemos dentro 
 import { store } from "./Redux/Store/index"
+import { Auth0ProviderWithNavigate } from "./Views/Login/auth0ProviderNavigate/auth0-provider-with-navigate";
 
 const theme = createTheme({
   palette: {
@@ -29,7 +30,9 @@ root.render(
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
-        <App />
+        <Auth0ProviderWithNavigate>
+          <App />
+        </Auth0ProviderWithNavigate>
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
