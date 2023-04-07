@@ -14,23 +14,22 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Hidden, Link } from "@mui/material";
 import icon from "./../../Images/icon.png";
+import { LoginButton } from "../../Views/Login/LoginButton/LoginButton";
+import { LogOutButton } from "../../Views/Login/LogOutButton/LogOutButton";
+import { SignUpButton } from "../../Views/Login/SignUpButton/SignUpButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const pages = [
   { message: "Notificaciones", route: "/construction" },
   { message: "Publicar aviso", route: "/posteo" },
-  { message: "Iniciar sesion", route: "/login" },
-  { message: "Registrarse", route: "/registryForm" },
 ];
-const settings = [
-  "Ver Perfil",
-  "Mis avisos",
-  "Configuracion de cuenta",
-  "Cerrar Sesion",
-];
+const settings = ["Ver Perfil", "Mis avisos", "Configuracion de cuenta"];
 
 export default function SearchAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const { isAuthenticated } = useAuth0();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -111,7 +110,23 @@ export default function SearchAppBar() {
                   </Link>
                 </MenuItem>
               ))}
-            </Menu>
+              {!isAuthenticated && (
+        <>
+          <MenuItem>
+                <Link>
+                  <LoginButton />
+                </Link>
+              </MenuItem>
+
+              <MenuItem>
+                <Link>
+                  <SignUpButton />
+                </Link>
+              </MenuItem>
+        </>
+      )}
+      </Menu>
+              
           </Box>
           <Hidden mdUp>
             <img
@@ -152,13 +167,29 @@ export default function SearchAppBar() {
                 </Button>
               </Link>
             ))}
+            {!isAuthenticated && (
+              <>
+                
+                  <Link>
+                    <LoginButton />
+                  </Link>
+                
+                  <Link>
+                    <SignUpButton />
+                  </Link>
+                
+              </>
+            )}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            {isAuthenticated && (
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+            )}
+
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -180,6 +211,9 @@ export default function SearchAppBar() {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
+              <MenuItem>
+                <LogOutButton />
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
