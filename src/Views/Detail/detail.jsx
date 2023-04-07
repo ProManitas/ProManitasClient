@@ -13,7 +13,7 @@ const Detail = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDetails(id));
+    dispatch(getDetails(id)); 
   }, [dispatch, id]);
 
   const detail = useSelector((state) => state.detail.details);

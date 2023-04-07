@@ -3,6 +3,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 
 const CheckoutForm = () => {
+  const [name, setName] = useState("");
   const [paymentError, setPaymentError] = useState(null);
   const [paymentSuccess, setPaymentSuccess] = useState(null);
   const stripe = useStripe();
@@ -20,6 +21,9 @@ const CheckoutForm = () => {
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: cardElement,
+      billing_details: {
+        name: name
+      }
     });
 
     if (error) {
@@ -46,12 +50,33 @@ const CheckoutForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <div>
+        <label>Nombre del titular de la tarjeta:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          required
+        />
+      </div>
       <CardElement />
+      <div>
+        <label>Fecha de vencimiento:</label>
+        <input type="month" required />
+      </div>
+      <div>
+        <label>Fecha de pago:</label>
+        <input type="date" required />
+      </div>
       <button type="submit" disabled={!stripe}>
         Pagar
       </button>
       {paymentError && <div>{paymentError}</div>}
-      {paymentSuccess && <div>{paymentSuccess}</div>}
+      {paymentSuccess && (
+        <div>
+          {paymentSuccess} No olvides que una vez hecho el trabajo debes calificar el aviso para que Promanitas sepa que estuvo todo bien!
+        </div>
+      )}
     </form>
   );
 };
