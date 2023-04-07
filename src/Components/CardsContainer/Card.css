@@ -17,6 +17,7 @@ transition: all 0.5s;
 
 
 .Card {
+    margin-top: 10%;
     width: 350px;
      height: 400px;
      display:flex;
