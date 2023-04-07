@@ -1,36 +1,22 @@
-import React, { useState } from "react";
 import { Link, useNavigate }  from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Formik } from "formik";
-import { getAllUsers, getUserId } from "../../../Redux/Actions/userAction";
 import style from "./LoginForm.module.css";
 //import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../../../Images/icon.png";
-import { useEffect } from "react";
+import { Formik } from "formik";
+import React, { useState } from "react";
 
 
 const LoginForm = () => {
-
-  const dispatch = useDispatch()
-  
   //const { loginWithRedirect } = useAuth0();
-
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
-
-  const users = useSelector((state) => state.user.allUsers);
-  // console.log("showing all the users data",users)
-  const oneUser = users.slice(0, 10);
-  //console.log(oneUser);
-  
 
   const [sentForm, setSentForm] = useState(false);
 
+  //navigate es solución temporal para redireccionar del login al home al igual que el handleLogin
   const navigate = useNavigate();
 
   function handleLogin(values) {
-    
+    // Lógica para iniciar sesión...
+
     // Redirigir al usuario a la ruta "home"
     setTimeout(() => {
       navigate("/home");
@@ -140,8 +126,8 @@ const LoginForm = () => {
               ¿No tienes cuenta? <Link to="/registryForm">Registrate aquí</Link>
             </h5>
 
-            {/* Botón para ingresar con cuenta de Gmail, aún en proceso
-            <div>
+            
+            {/* <div>
               <button className={style.button} onClick={() => loginWithRedirect()}>
                 Ingresa con tu cuenta de correo Gmail
               </button>
