@@ -1,58 +1,68 @@
 import "./FormPosteoStyle.css";
 import axios from "axios";
-//import { newPost } from "../../Redux/Actions/newPostActions";
+import { getName } from "../../Redux/Actions/newPostActions";
 import { Formik, Field } from "formik";
-import React, { useState } from "react";
-//import { Link } from "react-router-dom";
-//import { useDispatch } from "react-redux";
-const FormPosteo = () => {
-  //const [sentForm, setSentForm] = useState(false)
-  const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
-  //const dispatch = useDispatch();
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+const FormPosteo = ({selectedPost}) => {
+  const dispatch = useDispatch();
+
+  const [ input, setInput] = useState({
+    rubros:[]
+  })
+  useEffect(() => {
+    dispatch(getName());
+  }, [dispatch]);
+  
+  const posts = useSelector((state) => state.service.names);
+  console.log("esto trae post:", posts)
+
+  const [selectedPosts, setSelectedPosts] = useState(["select"]);
+
+  const [formularioEnviado, cambiarFormularioEnviado] = useState(true);
 
 
-
-  return (
-    <div className="container">
+  const handlerPost = (e) => {
+    if(!input.rubros.includes(e.target.value)){
+      setInput ({
+        ...input,
+        rubros:[...input.rubros, e.target.value]
+      })
+    }
+  }
+  //agregue selectedPosts
+  
+    return (
+      <div className="container">
       <Formik
         className="container"
         initialValues={{
-          name:"",
+          post: "", // establecer como ""
           description: "",
-          rubro: "",
+          name: "",
           image: "",
-          
         }}
         validate={(data) => {
           let error = {};
 
-          if (!data.name) {
-            error.name = "Por favor escriba un texto";
+          if (!data.post || data.post === "select") {
+            error.post = "Por favor seleccione rubro";
           }
           return error;
-          
         }}
-        onSubmit={ async (data, { resetForm }) => {
-         // dispatch(newPost(data));
-         console.log(data);
-            axios.post('https://promanitasapi.onrender.com/api/v1/adPosts', data)
-
-         
-        // await fetch("https://promanitasapi.onrender.com/api/v1/adPosts", {
-        //         method: "POST",
-        //         headers: {
-        //           "Content-Type": "application/json"
-        //         },
-        //         body: JSON.stringify(data)
-        //       })
-        //       .then(response => response.json())
-        //       .then(data => console.log("probando", data))
-        //       .catch(error=>console.log(error))
-        //         resetForm();
-        //         cambiarFormularioEnviado(true);
-        //         setTimeout(() => cambiarFormularioEnviado(false), 5000);
-            }}
-          >  
+        onSubmit={(data, { resetForm }) => {
+          dispatch(getName(data));
+          console.log("este es el post que se va a publicar", data);
+          axios
+            .post("https://promanitasapi.onrender.com/api/v1/adPosts", data)
+            .then((response) => console.log("probando", response.data))
+            .catch((error) => console.log(error));
+          resetForm();
+          cambiarFormularioEnviado(true);
+          setTimeout(() => cambiarFormularioEnviado(false), 5000);
+        }}
+      >
         {({
           values,
           errors,
@@ -62,26 +72,25 @@ const FormPosteo = () => {
           handleBlur,
           
         }) => (
-          <form onSubmit={handleSubmit} className="form">
+          <form onSubmit={handleSubmit}  className="form">
             <div>
-            <label htmlFor="name">Nombre</label>
+            <select name="post" onChange={handleChange}>
+  <option value="select">Seleccione un rubro</option>
+  {posts?.map((post) => (
+    <option key={post} value={post}>{post}</option>
+  ))}
+</select>
+              {touched.post && errors.post && (
+                <div className="error">{errors.post}</div>
+              )}
+              <label htmlFor="title">Titulo</label>
               <Field
                 className="input"
-                name="name"
-                
+                name="title"
                 placeholder="Texto"
                 required
               ></Field>
-              <label className="input" htmlFor="rubro">
-                Rubro
-              </label>
-              <Field name="rubro" as="select">
-                <option value="Carpinteria">Carpintería</option>
-                <option value="Gasista">Gasista</option>
-                <option value="Plomeria">Plomería</option>
-                <option value="Pintura">Pintura</option>
-                <option value="Electricista">Electricista</option>
-              </Field>
+
               <label htmlFor="image">Imagen</label>
               <input
                 type="file"
@@ -97,8 +106,8 @@ const FormPosteo = () => {
               {touched.image && errors.image && (
                 <div className="error">{errors.image}</div>
               )}
-             
-              <label htmlFor="description">Descripción</label>
+
+              <label htmlFor="title">Descripción</label>
               <Field
                 className="input"
                 name="description"
@@ -112,11 +121,10 @@ const FormPosteo = () => {
             </div>
 
             <div>
-              
-                <button type="submit" className="button">
-                  Publicar
-                </button>
-             
+              <button type="submit" className="button">
+                Publicar
+              </button>
+
               {formularioEnviado && (
                 <p className="exito">Formulario enviado con éxito!</p>
               )}
@@ -127,7 +135,4 @@ const FormPosteo = () => {
     </div>
   );
 };
-
 export default FormPosteo;
-//probando 3
-//probando 2
