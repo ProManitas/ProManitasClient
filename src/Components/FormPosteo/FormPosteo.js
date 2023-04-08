@@ -5,36 +5,42 @@ import { Formik, Field } from "formik";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const FormPosteo = ({selectedPost}) => {
+const FormPosteo = ({ selectedPost }) => {
   const dispatch = useDispatch();
 
-  const [ input, setInput] = useState({
-    service:[]
-  })
+  const [input, setInput] = useState({
+    service: [],
+  });
   useEffect(() => {
     dispatch(getName());
   }, [dispatch]);
-  
-  const posts = useSelector((state) => state.service.names);
-  console.log("esto trae post:", posts)
 
- // const [selectedPosts, setSelectedPosts] = useState(["select"]);
+  const posts = useSelector((state) => state.service.names);
+  console.log("esto trae post:", posts);
+
+  // const [selectedPosts, setSelectedPosts] = useState(["select"]);
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
+  const users = [
+    //ponemos user por defecto
+    { value: "ctatterton0", label: "ctatterton0" },
+    { value: "wlissandrini1", label: "wlissandrini1" },
+    { value: "ltoman6", label: "ltoman6" },
+  ];
 
   const handlerPost = (e) => {
-    if(!input.service.includes(e.target.value)){
-      setInput ({
+    if (!input.service.includes(e.target.value)) {
+      setInput({
         ...input,
-        service:[...input.service, e.target.value]
-      })
+        service: [...input.service, e.target.value],
+      });
     }
-  }
+  };
   //agregue selectedPosts
-  
-    return (
-      <div className="container">
+
+  return (
+    <div className="container">
       <Formik
         className="container"
         initialValues={{
@@ -42,19 +48,22 @@ const FormPosteo = ({selectedPost}) => {
           description: "",
           name: "",
           image: "",
-          username:"",
+          username: "",
         }}
         validate={(data) => {
           let error = {};
 
-          if(!data.username){
-            error.username = "Por favor ingresa tu nombre"
-          } else if(!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(data.username)){
-            error.username = "El nombre sólo puede contener letras y espacios"
+        {/*}  if (!data.username) {
+            error.username = "Por favor ingresa tu nombre";
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(data.username)) {
+            error.username = "El nombre sólo puede contener letras y espacios";
+          }{*/}
+          if (data.name.length > 20) {
+            error.name = "El título no puede tener más de 20 caracteres";
           }
 
           if (!data.service || data.service === "select") {
-            error.post = "Por favor seleccione rubro";
+            error.service = "Por favor seleccione rubro";
           }
           return error;
         }}
@@ -77,16 +86,17 @@ const FormPosteo = ({selectedPost}) => {
           handleSubmit,
           handleChange,
           handleBlur,
-          
         }) => (
-          <form onSubmit={handleSubmit}  className="form">
+          <form onSubmit={handleSubmit} className="form">
             <div>
-            <select name="service" onChange={handleChange}>
-  <option value="select">Seleccione un rubro</option>
-  {posts?.map((service) => (
-    <option key={service} value={service}>{service}</option>
-  ))}
-</select>
+              <select name="service" onChange={handleChange}>
+                <option value="select">Seleccione un rubro</option>
+                {posts?.map((service) => (
+                  <option key={service} value={service}>
+                    {service}
+                  </option>
+                ))}
+              </select>
               {touched.service && errors.service && (
                 <div className="error">{errors.service}</div>
               )}
@@ -97,8 +107,25 @@ const FormPosteo = ({selectedPost}) => {
                 placeholder="Texto"
                 required
               ></Field>
-              <label htmlFor="username">Nombre de Usuario</label>
+               {touched.name && errors.name && (
+                <div className="error">{errors.name}</div>
+              )}
+               <label htmlFor="username">Nombre de usuario</label>
+              <Field name="username">
+                {({ field }) => (
+                  <select {...field}>
+                    {users.map((users) => (
+                      <option key={users.value} value={users.value}>
+                        {users.label}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </Field>
+
+              {/*}  <label htmlFor="username">Nombre de Usuario</label>
               <Field
+              
                 className="input"
                 name="username"
                 placeholder="Nombre de usuario"
@@ -107,7 +134,7 @@ const FormPosteo = ({selectedPost}) => {
               ></Field>
               {touched.username && errors.username && (
                 <div className="error">{errors.username}</div>
-              )}
+              )}{*/}
 
               <label htmlFor="image">Imagen</label>
               <input
@@ -139,9 +166,12 @@ const FormPosteo = ({selectedPost}) => {
             </div>
 
             <div>
-            <button className="button" type="submit">Publicar</button>
-                {formularioEnviado && <p className="exito">Publicación exitosa!</p>}
-                 
+              <button className="button" type="submit">
+                Publicar
+              </button>
+              {formularioEnviado && (
+                <p className="exito">Publicación exitosa!</p>
+              )}
             </div>
           </form>
         )}
