@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import homeReducer from "./homeReducer";
 import userReducer from "../Reducer/userReducer";
-import detailReducer from "../Reducer/detailReducer";
+import detailReducer from "./detailReducer";
 import pageReducer from "./paginadoReducer";
 import { newPostReducer } from "./newPostReducer";
 import searchReducer from "./searchReducer";
