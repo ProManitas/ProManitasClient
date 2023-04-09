@@ -20,10 +20,11 @@ export function getAllUsers() {
 
 export function getUserId(id) {
     return async function(dispatch){
-        const jsonData = await axios.get(`https://promanitasapi.onrender.com/api/v1/users/${id}`)
+        await axios.get(`https://promanitasapi.onrender.com/api/v1/users/${id}`).then((res) => 
         dispatch({
             type: GET_USER_ID,
-            payload:jsonData.data.data[0]
+            payload:res.data.data
         })
+        )
     }
 }
