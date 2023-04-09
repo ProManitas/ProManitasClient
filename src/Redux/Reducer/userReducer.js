@@ -2,8 +2,7 @@ import {GET_ALL_USERS, GET_USER_ID} from "../Actions/userAction"
 
 const initialState = {
     allUsers:[],
-    user:[],
-    userId:{}
+    userId:{},
 }
 
 const userReducer = (state=initialState, action) => {
@@ -12,12 +11,11 @@ const userReducer = (state=initialState, action) => {
             return{
                 ...state,
                 allUsers: action.payload,
-                user: action.payload,
             }
         case GET_USER_ID:
             return{
                 ...state,
-                user: action.payload,
+                allUsers: action.payload,
                 userId: action.payload,
             }
         default:
