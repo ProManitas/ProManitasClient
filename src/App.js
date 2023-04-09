@@ -15,6 +15,7 @@ import FormPosteo from "./Components/FormPosteo/FormPosteo.js";
 import {AuthenticationGuard} from "./Views/Login/AuthenticationGuard/authentication-guard"
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "./Views/Login/Profile/Profile.jsx";
+import UserDetail from "./Views/UserDetail/UserDetail.jsx";
 
 
 function App() {
@@ -50,6 +51,8 @@ function App() {
         path="/profile" 
         element={<AuthenticationGuard component= {Profile}/>}
         />
+      <Route path="userdetail/:id" 
+      element={<AuthenticationGuard component={UserDetail}/>}/>
       </Routes>
     </div>
   );
