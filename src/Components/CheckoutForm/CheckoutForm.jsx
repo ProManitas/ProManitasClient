@@ -4,7 +4,9 @@ import axios from "axios";
 
 const CheckoutForm = () => {
   const [name, setName] = useState("");
+  const [finish, setFinish] = useState("");
   const [paymentError, setPaymentError] = useState(null);
+  const [price, setPrice] = useState(0);
   const [paymentSuccess, setPaymentSuccess] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
@@ -35,27 +37,36 @@ const CheckoutForm = () => {
     const { id } = paymentMethod;
 
     try {
-      const response = await axios.post("YOUR_SERVER_URL/payments", {
+      const response = await axios.post("http://localhost:3001/api/v1/payment", {
         id: id,
-        amount: 1, // Aquí debes poner el monto del pago
+        amount: price, // Aquí debes poner el monto del pago
         description: "Pago por servicio de profesional",
+        username : name,
+        terminationDate: finish 
       });
-      setPaymentSuccess(response.data.message);
+      setPaymentSuccess(await response.data.message);
       setPaymentError(null);
     } catch (error) {
       setPaymentSuccess(null);
-      setPaymentError(error.response.data.error);
+      setPaymentError(await error.response.data.error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(event) => handleSubmit(event)}>
       <div>
         <label>Nombre del titular de la tarjeta:</label>
         <input
           type="text"
           value={name}
           onChange={(event) => setName(event.target.value)}
+          required
+        />
+        <label>Finalizacion del contrato:</label>
+        <input
+          type="date"
+          value={finish}
+          onChange={(event) => setFinish(event.target.value)}
           required
         />
       </div>
@@ -68,6 +79,14 @@ const CheckoutForm = () => {
         <label>Fecha de pago:</label>
         <input type="date" required />
       </div>
+      <label>
+        Precio:
+        <input
+          type="number"
+          value={price}
+          onChange={(event) => setPrice(event.target.value)}
+        />
+      </label>
       <button type="submit" disabled={!stripe}>
         Pagar
       </button>
