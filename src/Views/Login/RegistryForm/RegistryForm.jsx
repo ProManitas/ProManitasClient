@@ -1,26 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../../../Redux/Actions/userAction";
+import React, { useState } from "react";
 import axios from "axios";
 import style from "./RegistryForm.module.css"
-//import { Formik } from "formik";
 import { useNavigate } from "react-router";
-//import { Image } from "cloudinary-react";
+
 
 
 const RegistryForm = () => {
-  const dispatch = useDispatch();
+
   const navigate = useNavigate()
-
-
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
-
-  const users = useSelector((state) => state.user.allUsers);
-  // console.log("showing all the users data",users)
-  // const oneUser = users.slice(0, 10);
-  // console.log(oneUser);
 
   const [form, setForm] = useState({
     username: "",
@@ -132,12 +119,6 @@ const RegistryForm = () => {
             onChange={changeHandler}
           />
         </div>
-
-        {/* 
-          <div>
-          <label>Experiencia:</label>
-            <input type="text" name="experience" value={form.experience} onChange={changeHandler}/>
-          </div> */}
 
         <div>
 

@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 const FormPosteo = ({ selectedPost }) => {
   const dispatch = useDispatch();
 
-  const [input, setInput] = useState({
-    service: [],
-  });
+  // const [input, setInput] = useState({
+  //   service: [],
+  // });
   useEffect(() => {
     dispatch(getName());
   }, [dispatch]);
@@ -29,14 +29,14 @@ const FormPosteo = ({ selectedPost }) => {
     { value: "ltoman6", label: "ltoman6" },
   ];
 
-  const handlerPost = (e) => {
-    if (!input.service.includes(e.target.value)) {
-      setInput({
-        ...input,
-        service: [...input.service, e.target.value],
-      });
-    }
-  };
+  // const handlerPost = (e) => {
+  //   if (!input.service.includes(e.target.value)) {
+  //     setInput({
+  //       ...input,
+  //       service: [...input.service, e.target.value],
+  //     });
+  //   }
+  // };
   //agregue selectedPosts
 
   return (
@@ -53,11 +53,7 @@ const FormPosteo = ({ selectedPost }) => {
         validate={(data) => {
           let error = {};
 
-        {/*}  if (!data.username) {
-            error.username = "Por favor ingresa tu nombre";
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(data.username)) {
-            error.username = "El nombre sólo puede contener letras y espacios";
-          }{*/}
+        
           if (data.name.length > 20) {
             error.name = "El título no puede tener más de 20 caracteres";
           }
