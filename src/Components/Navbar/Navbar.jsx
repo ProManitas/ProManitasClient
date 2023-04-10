@@ -116,12 +116,16 @@ export default function SearchAppBar() {
                 ))}
               {!isAuthenticated && (
                 <MenuItem>
-                  <LoginButton />
+                  <Link>
+                    <LoginButton />
+                  </Link>
                 </MenuItem>
               )}
               {!isAuthenticated && (
-                <MenuItem href="/registryForm">
-                  <Typography textAlign="center">Registrarse</Typography>
+                <MenuItem>
+                  <Link href="/registryForm">
+                    <Button color="secondary">Registrarse</Button>
+                  </Link>
                 </MenuItem>
               )}
             </Menu>
@@ -169,7 +173,7 @@ export default function SearchAppBar() {
           </Box>
           {!isAuthenticated && (
             <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-              <Link>
+              <Link sx={{ my: 2, display: "block" }}>
                 <LoginButton />
               </Link>
               <Link href="/registryForm">
@@ -205,14 +209,16 @@ export default function SearchAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Link href={setting.route}>
-                      <Button color="secondary">{setting.message}</Button>
-                    </Link>
-                  </MenuItem>
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Link href={setting.route}>
+                    <Button color="secondary">{setting.message}</Button>
+                  </Link>
+                </MenuItem>
               ))}
-              <MenuItem onClick={() => logout()}>
-                <LogOutButton />
+              <MenuItem>
+                <Link>
+                  <LogOutButton />
+                </Link>
               </MenuItem>
             </Menu>
           </Box>
