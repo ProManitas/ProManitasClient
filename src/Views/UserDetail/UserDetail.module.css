@@ -1,3 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #dbe2ef;
+}
+
 .container {
-    margin-top: 10vh;
-  }
+  margin-top: 20vh;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  border: 1px solid #f2f2f2;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  width: 300px;
+  background-color: #f2f2f2;
+}
+
+.card img {
+  display: block;
+  border: 1px solid #080404;
+  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 80%;
+}
+
+.redirections {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  
+  align-items: space-around;
+  text-decoration: none;
+}
+
+.redirect {
+  margin-right: 10px;
+}

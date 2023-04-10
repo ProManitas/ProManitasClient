@@ -3,9 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../../Redux/Actions/userAction";
 import axios from "axios";
 import style from "./RegistryForm.module.css"
+//import { Formik } from "formik";
+import { useNavigate } from "react-router";
+//import { Image } from "cloudinary-react";
+
 
 const RegistryForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -13,8 +19,8 @@ const RegistryForm = () => {
 
   const users = useSelector((state) => state.user.allUsers);
   // console.log("showing all the users data",users)
-  const oneUser = users.slice(0, 10);
-  console.log(oneUser);
+  // const oneUser = users.slice(0, 10);
+  // console.log(oneUser);
 
   const [form, setForm] = useState({
     username: "",
@@ -46,15 +52,17 @@ const RegistryForm = () => {
             "Content-Type": "application/json",
           },
         })
-        .then(alert("Usuario creado correctamente"));
+        .then(alert("Usuario creado correctamente, por favor inicia sesión"));
+        navigate("/")
+        
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
   return (
     <div className={style.container}>
-      <form onSubmit={(e) => handlerSubmit(e)}>
+      <form onSubmit={(e) => handlerSubmit(e)} className={style.form}>
         <div>
           <label>Nombre de usuario:</label>
           <input
@@ -132,9 +140,11 @@ const RegistryForm = () => {
           </div> */}
 
         <div>
-          <label>Imagen:</label>
+
+          <label for="image">Selecciona una imagen:</label>
           <input
-            type="text"
+            type="file"
+            id="image"
             name="image"
             value={form.image}
             onChange={changeHandler}
@@ -150,4 +160,3 @@ const RegistryForm = () => {
 };
 
 export default RegistryForm;
-

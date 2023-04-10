@@ -28,3 +28,15 @@ export function getUserId(id) {
         )
     }
 }
+
+
+export function deleteUser(id) {
+    return async function(){
+        try {
+            const deleted = await axios.delete(`https://promanitasapi.onrender.com/api/v1/users/${id}`)
+            alert(deleted.data.data.message)
+        } catch (error) {
+            alert("Este usuario no puede ser eliminado, contacta con los administradores del sitio para solucionarlo")
+        }
+    }
+}
