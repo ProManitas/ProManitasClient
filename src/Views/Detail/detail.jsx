@@ -1,16 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import Coments from "../../Components/coments/coments";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { Container, Typography, Divider, Grid, Box } from "@mui/material";
 import Calificacion from "../../Components/Rating/rating";
 import Maps from "../../Components/MapsComponent/Maps";
 import { getDetail } from "../../Redux/Actions/detailAction";
 
+
+
 const Detail = () => {
   const { id } = useParams(); // Obtener el ID desde la URL
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -24,6 +27,14 @@ const Detail = () => {
     serviceName: state.detail.adpost?.service?.name,
     userCoordinates: state.detail.adpost?.user?.coordinates,
   }));
+
+  const handleCalificar = () => {
+    navigate(`/calification/${id}`);
+  };
+
+  const handleContratar = () => {
+    navigate(`/contrato/${id}`);
+  };
 
   return (
     <Container
@@ -63,7 +74,7 @@ const Detail = () => {
             height: "100%",
           }}
         >
-          <Calificacion calificacion="1" />
+          <Calificacion calificacion="" />
         </Box>
       </div>
       <div
@@ -77,29 +88,33 @@ const Detail = () => {
         </a>
       </div>
       <Grid container justifyContent="center">
-        <a href="/contrato">
+        <a href={`/contrato/:${id}`}>
           <Button variant="contained" sx={{ width: "100px", mr: "10px" }}>
             Contratar
           </Button>
         </a>
 
-        <a href="/calification">
-          <Button
-            variant="contained"
-            // onClick={() => console.log("Calificar Servicio")}
-            sx={{
-              padding: "5px 10px",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              "&:hover": { backgroundColor: "#0062cc" },
-            }}
-          >
-            Calificar
-          </Button>
-        </a>
+        
+
+        <a href={`/calification/${id}`}>
+  <Button
+    variant="contained"
+    sx={{
+      padding: "5px 10px",
+      backgroundColor: "#007bff",
+      color: "#fff",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+      "&:hover": { backgroundColor: "#0062cc" },
+    }}
+  >
+    Calificar
+  </Button>
+</a>
+
+
+
       </Grid>
       <Divider />
       <Coments />
