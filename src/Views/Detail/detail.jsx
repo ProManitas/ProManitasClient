@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Coments from "../../Components/coments/coments";
 import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { Container, Typography, Divider, Grid, Box } from "@mui/material";
 import Calificacion from "../../Components/Rating/rating";
@@ -13,7 +13,7 @@ import { getDetail } from "../../Redux/Actions/detailAction";
 const Detail = () => {
   const { id } = useParams(); // Obtener el ID desde la URL
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -28,13 +28,13 @@ const Detail = () => {
     userCoordinates: state.detail.adpost?.user?.coordinates,
   }));
 
-  const handleCalificar = () => {
-    navigate(`/calification/${id}`);
-  };
+  // const handleCalificar = () => {
+  //   navigate(`/calification/${id}`);
+  // };
 
-  const handleContratar = () => {
-    navigate(`/contrato/${id}`);
-  };
+  // const handleContratar = () => {
+  //   navigate(`/contrato/${id}`);
+  // };
 
   return (
     <Container

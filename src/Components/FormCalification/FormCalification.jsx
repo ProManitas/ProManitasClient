@@ -7,9 +7,10 @@ import { useParams, useNavigate } from "react-router-dom";
 
 function RatingForm() {
   const [ratingValue, setRatingValue] = useState(-1);
-  const [averageRating, setAverageRating] = useState(0);
+  const [, setAverageRating] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
+  
 
   const handleChange = (event) => {
     setRatingValue(parseInt(event.target.value));

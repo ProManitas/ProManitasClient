@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getUserId } from "../../Redux/Actions/userAction";
 import style from "./UserDetail.module.css";
-import axios from "axios";
+
 
 import { Link } from "react-router-dom";
 

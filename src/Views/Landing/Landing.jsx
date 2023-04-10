@@ -63,7 +63,7 @@ const cards = [
   {
     id: 6,
     image: plumber,
-    title: "Promeros",
+    title: "Plomeros",
     description:
       "Deje sus problemas de fontanería en nuestras manos. Nuestros plomeros profesionales están equipados para manejar cualquier problema de plomería que pueda tener en su hogar",
     route: "/home",
@@ -72,7 +72,7 @@ const cards = [
 
 export default function Landing() {
   const [isHover, setIsHover] = useState(0);
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   const handleMouseOver = (id) => {
     console.log("Tengo el mouse en la targeta con el id:", id);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pagination } from "../../Redux/Actions/paginationAction";
 import CardContainer from "../../Components/CardsContainer/CardsContainer";
-import { Button, Container, Pagination } from "@mui/material";
+import { Button, Container } from "@mui/material";
 
 
 const PaginatedComponent=() => {
@@ -23,7 +23,7 @@ const PaginatedComponent=() => {
   return (
     
     <div>
-        <Pagination/>
+        
     <Container>
       <ul>
         {data.data ? data.data.map( el => (
@@ -42,9 +42,4 @@ const PaginatedComponent=() => {
 }
 
 export default PaginatedComponent;
-{/* <button
-  onClick={() => handlePageChange(currentPageNumber + 1)}
-  disabled={data.data.length < pageSize}
->
-  Siguiente
-</button> */}
+
