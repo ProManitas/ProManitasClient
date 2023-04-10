@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Button } from "@mui/material";
 
 
 
@@ -17,9 +18,7 @@ export const LoginButton = () => {
     }
 
     return (
-        <div>
-            <button onClick={handleLogin}>Log in</button>
-        </div>
+            <Button color="secondary" onClick={handleLogin}>Iniciar sesion</Button>
     )
 }
 

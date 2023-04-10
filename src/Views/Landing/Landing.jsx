@@ -72,7 +72,7 @@ const cards = [
 
 export default function Landing() {
   const [isHover, setIsHover] = useState(0);
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   const handleMouseOver = (id) => {
     console.log("Tengo el mouse en la targeta con el id:", id);
@@ -95,13 +95,8 @@ export default function Landing() {
                 </Link>
               )}
               {!isAuthenticated && (
-                <Link>
-                  <Button
-                    color="secondary"
-                    onClick={() => loginWithRedirect({ screen_hint: "signup" })}
-                  >
-                    Registrarse
-                  </Button>
+                <Link href="/registryForm">
+                  <Button color="secondary">Registrarse</Button>
                 </Link>
               )}
               {!isAuthenticated && (
