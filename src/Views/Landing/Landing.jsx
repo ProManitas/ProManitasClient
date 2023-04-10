@@ -14,8 +14,7 @@ import { Box, Container } from "@mui/system";
 import React, { useState } from "react";
 import icon from "./../../Images/icon.png";
 import images from "./../../Images/LandingImages/imagesLanding";
-// import { styled } from "@mui/material/styles";
-// const Img = styled("img")()
+import { useAuth0 } from "@auth0/auth0-react";
 
 const { carpentry, electric, gas, mecanic, pintor, plumber } = images;
 
@@ -72,6 +71,7 @@ const cards = [
 
 export default function Landing() {
   const [isHover, setIsHover] = useState(0);
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   const handleMouseOver = (id) => {
     console.log("Tengo el mouse en la targeta con el id:", id);
@@ -82,22 +82,39 @@ export default function Landing() {
     setIsHover(0);
   };
 
-
   return (
     <Container maxWidth={false} disableGutters>
       <AppBar>
         <Toolbar>
           <Grid justifyContent="center" alignItems="center" container>
             <Grid>
-              <Link href="/registryForm">
-                <Button color="secondary">Registrate</Button>
-              </Link>
-              <Link href="/login">
-                <Button color="secondary">Iniciar sesion</Button>
-              </Link>
-              <Link href="/home">
-                <Button color="secondary">Ingresar como invitado</Button>
-              </Link>
+              {!isAuthenticated && (
+                <Link>
+                  <Button color="secondary" onClick={() => loginWithRedirect()}>
+                    Iniciar sesion
+                  </Button>
+                </Link>
+              )}
+              {!isAuthenticated && (
+                <Link>
+                  <Button
+                    color="secondary"
+                    onClick={() => loginWithRedirect({ screen_hint: "signup" })}
+                  >
+                    Registrarse
+                  </Button>
+                </Link>
+              )}
+              {!isAuthenticated && (
+                <Link href="/home">
+                  <Button color="secondary">Ingresar como invitado</Button>
+                </Link>
+              )}
+              {isAuthenticated && (
+                <Link href="/home">
+                  <Button color="secondary">Ingresar</Button>
+                </Link>
+              )}
             </Grid>
           </Grid>
         </Toolbar>
