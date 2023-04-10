@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import icon from "./../../Images/icon.png";
 import images from "./../../Images/LandingImages/imagesLanding";
 import { useAuth0 } from "@auth0/auth0-react";
+import { LoginButton } from "../Login/LoginButton/LoginButton";
 
 const { carpentry, electric, gas, mecanic, pintor, plumber } = images;
 
@@ -90,9 +91,7 @@ export default function Landing() {
             <Grid>
               {!isAuthenticated && (
                 <Link>
-                  <Button color="secondary" onClick={() => loginWithRedirect()}>
-                    Iniciar sesion
-                  </Button>
+                  <LoginButton />
                 </Link>
               )}
               {!isAuthenticated && (

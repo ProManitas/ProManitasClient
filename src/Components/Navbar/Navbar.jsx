@@ -16,14 +16,17 @@ import { Hidden, Link } from "@mui/material";
 import icon from "./../../Images/icon.png";
 import { LoginButton } from "../../Views/Login/LoginButton/LoginButton";
 import { LogOutButton } from "../../Views/Login/LogOutButton/LogOutButton";
-import { SignUpButton } from "../../Views/Login/SignUpButton/SignUpButton";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const pages = [
   { message: "Notificaciones", route: "/construction" },
   { message: "Publicar aviso", route: "/posteo" },
 ];
-const settings = ["Ver Perfil", "Mis avisos", "Configuracion de cuenta"];
+const settings = [
+  { message: "Ver Perfil", route: "/profile/" },
+  { message: "Mis avisos", route: "/construction" },
+  { message: "Configuracion de cuenta", route: "/construction" },
+];
 
 export default function SearchAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -112,8 +115,8 @@ export default function SearchAppBar() {
                   </MenuItem>
                 ))}
               {!isAuthenticated && (
-                <MenuItem onClick={() => loginWithRedirect()}>
-                  <Typography textAlign="center">Iniciar sesion</Typography>
+                <MenuItem>
+                  <LoginButton />
                 </MenuItem>
               )}
               {!isAuthenticated && (
@@ -167,13 +170,7 @@ export default function SearchAppBar() {
           {!isAuthenticated && (
             <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
               <Link>
-                <Button
-                  sx={{ my: 2, display: "block" }}
-                  color="secondary"
-                  onClick={() => loginWithRedirect()}
-                >
-                  Iniciar sesion
-                </Button>
+                <LoginButton />
               </Link>
               <Link href="/registryForm">
                 <Button sx={{ my: 2, display: "block" }} color="secondary">
@@ -208,19 +205,20 @@ export default function SearchAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Link href={setting.route}>
+                      <Button color="secondary">{setting.message}</Button>
+                    </Link>
+                  </MenuItem>
               ))}
               <MenuItem onClick={() => logout()}>
-                <Typography textAlign="center">Cerrar Sesión</Typography>
+                <LogOutButton />
               </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
       </AppBar>
-      <div style={{ paddingTop: '7%' }}>
-    </div>
+      <div style={{ paddingTop: "7%" }}></div>
     </Container>
   );
 }
