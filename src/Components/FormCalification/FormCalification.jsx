@@ -3,35 +3,38 @@ import axios from "axios";
 import Rating from "@mui/material/Rating";
 import PanToolIcon from "@mui/icons-material/PanTool";
 import { Box, Button } from "@mui/material";
+import { useParams, useNavigate } from "react-router-dom";
 
 function RatingForm() {
   const [ratingValue, setRatingValue] = useState(-1);
   const [averageRating, setAverageRating] = useState(0);
- //para conexion del back
-  // useEffect(() => {
-  //   // Hacer una solicitud HTTP al backend para obtener el promedio de calificaciones
-  //   axios
-  //     .get("/api/adpost/1/calificacion/promedio")
-  //     .then((response) => {
-  //       setAverageRating(response.data.averageRating);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, [ratingValue]); // Ejecutar la solicitud HTTP cada vez que ratingValue cambia
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setRatingValue(parseInt(event.target.value));
   };
 
-  const handleSubmit = () => {
-    // Hacer una solicitud HTTP al backend para enviar la calificación
+  useEffect(() => {
+    // Hacer una solicitud HTTP al backend para obtener el promedio de calificaciones
     axios
-      .post("/api/avisos/1/calificacion", {
+      .get("/api/adpost/1/calificacion/promedio")
+      .then((response) => {
+        setAverageRating(response.data.averageRating);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [ratingValue]); // Ejecutar la solicitud HTTP cada vez que ratingValue cambia
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post(`/api/adpost/${id}/calificacion`, {
         rating: ratingValue,
       })
       .then((response) => {
-        // Actualizar el promedio de calificaciones
         setAverageRating(response.data.averageRating);
       })
       .catch((error) => {
@@ -39,25 +42,27 @@ function RatingForm() {
       });
 
     alert(`Calificación enviada: ${ratingValue}`);
+    navigate(-1);
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
-      <div>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            fontSize: 24,
-          }}
-        >
+    <form onSubmit={handleSubmit}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <div>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              fontSize: 24,
+            }}
+          >
           <Rating
             name="simple-controlled"
             value={ratingValue}
@@ -128,6 +133,7 @@ function RatingForm() {
         </Box>
       </div>
     </div>
+    </form>
   );
 }
 

@@ -12,23 +12,22 @@ import AreaAcuerdo from "./Components/AreaAcuerdo/acuerdo";
 import FormCalification from "./Components/FormCalification/FormCalification";
 import UnderConstruction from "./Components/UnderConstruction/UnderConstruction.jsx";
 import FormPosteo from "./Components/FormPosteo/FormPosteo.js";
-import {AuthenticationGuard} from "./Views/Login/AuthenticationGuard/authentication-guard"
+import { AuthenticationGuard } from "./Views/Login/AuthenticationGuard/authentication-guard";
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "./Views/Login/Profile/Profile.jsx";
 import UserDetail from "./Views/UserDetail/UserDetail.jsx";
 
-
 function App() {
   const location = useLocation();
 
-  const {isLoading} = useAuth0()
+  const { isLoading } = useAuth0();
 
-  if(isLoading) {
+  if (isLoading) {
     return (
       <div>
         <h2>Loading...</h2>
       </div>
-    )
+    );
   }
   return (
     <div className="App">
@@ -42,17 +41,21 @@ function App() {
         <Route exact path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<FooterForm />} />
-        <Route path="/contrato/" element={<AreaAcuerdo />} />
-        <Route path="/calification/" element={<FormCalification />} />
+        <Route path="/contrato/:id" element={<AreaAcuerdo />} />
+        <Route path="/calification/:id" element={<FormCalification />} />
         <Route exact path="/" element={<Landing />} />
         <Route path="/construction" element={<UnderConstruction />} />
         <Route path="/posteo" element={<FormPosteo />} />
-        <Route 
-        path="/profile" 
-        element={<AuthenticationGuard component= {Profile}/>}
+        
+        <Route
+          path="/profile"
+          element={<AuthenticationGuard component={Profile} />}
         />
-      <Route path="userdetail/:id" 
-      element={<AuthenticationGuard component={UserDetail}/>}/>
+
+        <Route
+          path="userdetail/:id"
+          element={<AuthenticationGuard component={UserDetail} />}
+        />
       </Routes>
     </div>
   );
