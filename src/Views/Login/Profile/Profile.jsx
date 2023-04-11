@@ -5,7 +5,6 @@ import { getAllUsers } from "../../../Redux/Actions/userAction";
 import style from "./Profile.module.css";
 import { Link } from "react-router-dom";
 
-//import {CodeSnippet} from "./code-snippet"
 
 const Profile = () => {
   const { user } = useAuth0();
@@ -28,42 +27,44 @@ const Profile = () => {
   return (
     <div className={style.container}>
       <div className={style.card}>
-
-  
-        <div>
-          {filteredUser[0] && filteredUser[0].image && (
-            <img src={filteredUser[0].image} alt={filteredUser[0].username} />
-          )}
-        </div>
-
-        <div>
-          
-          {filteredUser[0] && filteredUser[0].firstname && (
-            <h2>¡Hola {filteredUser[0].firstname}, estás en ProManitas!</h2>
+        {filteredUser[0] && filteredUser[0].image ? (
+          <div>
+            {filteredUser[0] && filteredUser[0].image && (
+              <img src={filteredUser[0].image} alt={filteredUser[0].username} />
             )}
-          <p>Tu cuenta de correo registrada: {user.email}</p>
-         
+          </div>
+        ) : (
+          <div>
+            <img src={user.picture} alt={user.name} />
+          </div>
+        )}
+
+        {filteredUser[0] && filteredUser[0].firstname ? (
+          <div>
+            {filteredUser[0] && filteredUser[0].firstname && (
+              <h2>¡Hola {filteredUser[0].firstname}, estás en ProManitas!</h2>
+            )}
+          </div>
+        ) : (
+          <div>
+            <h2>¡Hola {user.name}, estás en ProManitas!</h2>
+          </div>
+        )}
+        <p>Tu cuenta de correo registrada: {user.email}</p>
+      </div>
+
+      <div className={style.redirections}>
+        <div className={style.redirect}>
+          <Link to="/home">Ir a Home</Link>
         </div>
 
-       
-      </div>
-
-<div className={style.redirections}>
-
-      <div className={style.redirect}>
-        <Link to="/home">Ir a Home</Link>
-      </div>
-
-    
-      <div className={style.redirect}>
-       
-
-        <Link to={`/userdetail/${filteredUser[0] && filteredUser[0].id}`}>
-          Modificar o eliminar usuario
-        </Link>
+          <div className={style.redirect}>
+          <Link to={`/userdetail/${filteredUser[0] && filteredUser[0].id}`}>
+            Modificar o eliminar usuario
+          </Link>
+        </div>
         
       </div>
-</div>
     </div>
   );
 };
