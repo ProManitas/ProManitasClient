@@ -55,7 +55,7 @@ export default function NavBar() {
             <img
               src={icon}
               alt="logo"
-              style={{ height: "60px", marginRight: "10px" }}
+              style={{ height: "60px", marginRight: "10px", margin:"1.5%" }}
             />
           </Hidden>
           <Typography
@@ -133,7 +133,7 @@ export default function NavBar() {
             <img
               src={icon}
               alt="logo"
-              style={{ height: "60px", marginRight: "10px" }}
+              style={{ height: "60px", marginRight: "10px", margin:"1.5%"  }}
             />
           </Hidden>
           <Typography
