@@ -27,7 +27,7 @@ const settings = [
   { message: "Configuracion de cuenta", route: "/construction" },
 ];
 
-export default function SearchAppBar() {
+export default function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -106,8 +106,8 @@ export default function SearchAppBar() {
               }}
             >
               {isAuthenticated &&
-                pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                pages.map((page, index) => (
+                  <MenuItem key={index} onClick={handleCloseNavMenu}>
                     <Link href={page.route}>
                       <Button color="secondary">{page.message}</Button>
                     </Link>
@@ -157,11 +157,10 @@ export default function SearchAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {isAuthenticated &&
-              pages.map((page) => (
-                <Link href={page.route}>
+              pages.map((page, index) => (
+                <Link href={page.route} key={index}>
                   <Button
                     color="secondary"
-                    key={page}
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, display: "block" }}
                   >
@@ -207,8 +206,8 @@ export default function SearchAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {settings.map((setting, index) => (
+                <MenuItem key={index} onClick={handleCloseUserMenu}>
                   <Link href={setting.route}>
                     <Button color="secondary">{setting.message}</Button>
                   </Link>
