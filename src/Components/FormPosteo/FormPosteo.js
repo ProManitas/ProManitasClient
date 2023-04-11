@@ -5,12 +5,10 @@ import { Formik, Field } from "formik";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const FormPosteo = ({ selectedPost }) => {
+const FormPosteo = () => {
   const dispatch = useDispatch();
 
-  // const [input, setInput] = useState({
-  //   service: [],
-  // });
+
   useEffect(() => {
     dispatch(getName());
   }, [dispatch]);
@@ -18,7 +16,7 @@ const FormPosteo = ({ selectedPost }) => {
   const posts = useSelector((state) => state.service.names);
   console.log("esto trae post:", posts);
 
-  // const [selectedPosts, setSelectedPosts] = useState(["select"]);
+
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
@@ -27,8 +25,22 @@ const FormPosteo = ({ selectedPost }) => {
     { value: "ctatterton0", label: "ctatterton0" },
     { value: "wlissandrini1", label: "wlissandrini1" },
     { value: "ltoman6", label: "ltoman6" },
-  ];
+    { value: "flodemann2", label:  "flodemann2"},
+    { value: "pghidetti3", label: "pghidetti3" },
+    { value: "pheiss4", label:  "pheiss4"},
+    { value: "adulson7", label:  "adulson7"},
+    { value:"jjachimiak8" , label: "jjachimiak8" },
+    { value: "sotowey9", label: "sotowey9" },
+    {value:"jrosedalea", label: "jrosedalea"},
+    {value: "lmattussevichb", label: "lmattussevichb" },
+    {value:"scrosselandc", label: "scrosselandc" },
+    {value:"dcochd", label: "dcochd"},
+    {value: "msextonee", label: "msextone"},
+    {value:"hhushf", label: "hhushf"},
+    {value: "rbucknerg", label: "rbucknerg"},
 
+  ];
+//
   // const handlerPost = (e) => {
   //   if (!input.service.includes(e.target.value)) {
   //     setInput({
