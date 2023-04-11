@@ -3,7 +3,7 @@ import Home from "./Views/Home/Home.jsx";
 import Detail from "./Views/Detail/detail";
 import LoginForm from "./Views/Login/LoginForm/LoginForm.jsx";
 import RegistryForm from "./Views/Login/RegistryForm/RegistryForm.jsx";
-import About from "./Components/Footer/About/About.js";
+import About from "./Components/About/About.js";
 import FooterForm from "./Components/Footer/FooterForm/FooterForm.js";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Landing from "./Views/Landing/Landing";
