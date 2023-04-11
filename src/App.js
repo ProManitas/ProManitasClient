@@ -1,26 +1,25 @@
 import React from "react";
-import Home from "./Views/Home/Home.jsx";
-import Detail from "./Views/Detail/detail";
-import LoginForm from "./Views/Login/LoginForm/LoginForm.jsx";
-import RegistryForm from "./Views/Login/RegistryForm/RegistryForm.jsx";
-import About from "./Components/About/About.js";
-import FooterForm from "./Components/Footer/FooterForm/FooterForm.js";
 import { Route, Routes, useLocation } from "react-router-dom";
-import Landing from "./Views/Landing/Landing";
-import Navbar from "./Components/Navbar/Navbar";
-import AreaAcuerdo from "./Components/AreaAcuerdo/acuerdo";
-import FormCalification from "./Components/FormCalification/FormCalification";
-import UnderConstruction from "./Components/UnderConstruction/UnderConstruction.jsx";
-import FormPosteo from "./Components/FormPosteo/FormPosteo.js";
 import { AuthenticationGuard } from "./Views/Login/AuthenticationGuard/authentication-guard";
 import { useAuth0 } from "@auth0/auth0-react";
-import Profile from "./Views/Login/Profile/Profile.jsx";
-import UserDetail from "./Views/UserDetail/UserDetail.jsx";
-import SearchResult from "./Components/SearchResult/SearchResult.jsx";
-import WrappedCheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx"
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-
+import Landing from "./Views/Landing/Landing";
+import Home from "./Views/Home/Home.jsx";
+import Navbar from "./Components/Navbar/Navbar";
+import SearchResult from "./Components/SearchResult/SearchResult.jsx";
+import FormPosteo from "./Components/FormPosteo/FormPosteo.js";
+import Detail from "./Views/Detail/detail";
+import FormCalification from "./Components/FormCalification/FormCalification";
+import AreaAcuerdo from "./Components/AreaAcuerdo/acuerdo";
+import LoginForm from "./Views/Login/LoginForm/LoginForm.jsx";
+import RegistryForm from "./Views/Login/RegistryForm/RegistryForm.jsx";
+import Profile from "./Views/Login/Profile/Profile.jsx";
+import UserDetail from "./Views/UserDetail/UserDetail.jsx";
+import FooterForm from "./Components/Footer/FooterForm/FooterForm.js";
+import About from "./Components/About/About.js";
+import UnderConstruction from "./Components/UnderConstruction/UnderConstruction.jsx";
+import WrappedCheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx";
 
 function App() {
   const location = useLocation();
@@ -40,39 +39,39 @@ function App() {
         location.pathname !== "/login" &&
         location.pathname !== "/construction" && <Navbar />}
       <Routes>
+        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/home" element={<Home />} />
+        <Route path="/home/search" element={<SearchResult />} />
+        <Route path="/posteo" element={<FormPosteo />} />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/calification/:id" element={<FormCalification />} />
+        <Route path="/contrato/:id" element={<AreaAcuerdo />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/registryForm" element={<RegistryForm />} />
-        <Route exact path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<FooterForm />} />
-        <Route path="/contrato/:id" element={<AreaAcuerdo />} />
-        <Route path="/calification/:id" element={<FormCalification />} />
-        <Route exact path="/" element={<Landing />} />
-        <Route path="/construction" element={<UnderConstruction />} />
-        <Route path="/posteo" element={<FormPosteo />} />
-        <Route path="/home/search" element={<SearchResult />} />
-
-        <Route
-          path="/checkout/:id"
-          element={
-            <Elements stripe={loadStripe("pk_test_51MtZHVDhQ0hUgSqkOlAWvWZu8YGVgFDuFYiKgSMVWFFjwfqSjk6VcCvacWNISZ6V7gy82PmGCNlhub0YmA9FeVTn00NlgLySlO")}>
-              <WrappedCheckoutForm />
-            </Elements>
-          }
-        />
-
-        
         <Route
           path="/profile"
           element={<AuthenticationGuard component={Profile} />}
         />
-
         <Route
           path="userdetail/:id"
           element={<AuthenticationGuard component={UserDetail} />}
         />
-      </Routes>
+      <Route path="/contact" element={<FooterForm />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/construction" element={<UnderConstruction />} />
+      <Route
+        path="/checkout/:id"
+        element={
+          <Elements
+          stripe={loadStripe(
+            "pk_test_51MtZHVDhQ0hUgSqkOlAWvWZu8YGVgFDuFYiKgSMVWFFjwfqSjk6VcCvacWNISZ6V7gy82PmGCNlhub0YmA9FeVTn00NlgLySlO"
+            )}
+            >
+            <WrappedCheckoutForm />
+          </Elements>
+        }
+        />
+        </Routes>
     </div>
   );
 }
