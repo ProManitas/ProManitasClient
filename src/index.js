@@ -2,9 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom"
 import App from "./App";
-// import { createTheme } from "@mui/system";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import { Provider } from "react-redux"; // orovider para que redux reconozca lo que tenemos dentro 
+import { Provider } from "react-redux"; 
 import { store } from "./Redux/Store/index"
 import { Auth0ProviderWithNavigate } from "./Views/Login/auth0ProviderNavigate/auth0-provider-with-navigate";
 

@@ -8,12 +8,9 @@ import Calificacion from "../../Components/Rating/rating";
 import Maps from "../../Components/MapsComponent/Maps";
 import { getDetail } from "../../Redux/Actions/detailAction";
 
-
-
 const Detail = () => {
-  const { id } = useParams(); // Obtener el ID desde la URL
+  const { id } = useParams();
   const dispatch = useDispatch();
-  //const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -28,17 +25,14 @@ const Detail = () => {
     userCoordinates: state.detail.adpost?.user?.coordinates,
   }));
 
-  // const handleCalificar = () => {
-  //   navigate(`/calification/${id}`);
-  // };
-
-  // const handleContratar = () => {
-  //   navigate(`/contrato/${id}`);
-  // };
-
   return (
     <Container
-      sx={{ border: "4rem", borderStyle: "solid", borderColor: "#1976d2", marginTop :"250px"}}
+      sx={{
+        border: "4rem",
+        borderStyle: "solid",
+        borderColor: "#1976d2",
+        marginTop: "250px",
+      }}
     >
       <div>
         <Typography variant="h1" textAlign="center">
@@ -88,33 +82,27 @@ const Detail = () => {
         </a>
       </div>
       <Grid container justifyContent="center">
-        <a href={`/contrato/:${id}`}>
+        <a href={`/contrato/${id}`}>
           <Button variant="contained" sx={{ width: "100px", mr: "10px" }}>
             Contratar
           </Button>
         </a>
-
-        
-
         <a href={`/calification/${id}`}>
-  <Button
-    variant="contained"
-    sx={{
-      padding: "5px 10px",
-      backgroundColor: "#007bff",
-      color: "#fff",
-      border: "none",
-      borderRadius: "5px",
-      cursor: "pointer",
-      "&:hover": { backgroundColor: "#0062cc" },
-    }}
-  >
-    Calificar
-  </Button>
-</a>
-
-
-
+          <Button
+            variant="contained"
+            sx={{
+              padding: "5px 10px",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              "&:hover": { backgroundColor: "#0062cc" },
+            }}
+          >
+            Calificar
+          </Button>
+        </a>
       </Grid>
       <Divider />
       <Coments />
