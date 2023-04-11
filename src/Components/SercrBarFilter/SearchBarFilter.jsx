@@ -1,12 +1,10 @@
-import { Search, TextFields } from "@mui/icons-material";
+import { Search } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import {
-  AppBar,
-  Box,
   Container,
   FormControl,
   Grid,
   IconButton,
-  Input,
   InputLabel,
   MenuItem,
   Select,
@@ -15,13 +13,23 @@ import {
   Toolbar,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { searchAction } from "../../Redux/Actions/searchAction";
 
-export default function SearchBarFilter(props) {
+export default function SearchBarFilter({ preinput }) {
   const theme = useTheme();
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [input, setInput] = useState("");
-  const [service, setService] = useState("");
+  // const [service, setService] = useState("");
+
+  useEffect(() => {
+    if (preinput) {
+      setInput(preinput);
+      dispatch(searchAction(preinput));
+    }
+  }, [dispatch, preinput]);
 
   const changeHandler = (event) => {
     const input = event.target.value;
@@ -33,15 +41,19 @@ export default function SearchBarFilter(props) {
     console.log("Cambie a:", selected);
   };
 
-  const searchHandler = () =>{
-    console.log("hago la Busqueda con:", input);
-  }
+  const searchHandler = (event) => {
+    event.preventDefault();
+    if (input) {
+      dispatch(searchAction(input));
+      navigate(`/home/search?query=${input}`);
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <Container
         sx={{
-          marginTop: "6%",
+          marginTop: "1%",
           background: theme.palette.primary.main,
           paddingBottom: "1.5%",
           paddingTop: "1.5%",
@@ -77,7 +89,7 @@ export default function SearchBarFilter(props) {
                   value={input}
                 />
                 <IconButton onClick={searchHandler} size="large">
-                  <Search/>
+                  <Search />
                 </IconButton>
               </Grid>
             </FormControl>
@@ -117,15 +129,15 @@ export default function SearchBarFilter(props) {
                     },
                   }}
                 >
-                  <MenuItem value="">
+                  <MenuItem value="undefined">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={"Plumber"}>Plumber</MenuItem>
-                  <MenuItem value={"Carpentry"}>Carpentry</MenuItem>
-                  <MenuItem value={"Electric"}>Electric</MenuItem>
-                  <MenuItem value={"gasman"}>Gasista</MenuItem>
-                  <MenuItem value={"Mecanic"}>Mecanico</MenuItem>
-                  <MenuItem value={"painter"}>Pintor</MenuItem>
+                  <MenuItem value={"Plomeria"}>Plomeria</MenuItem>
+                  <MenuItem value={"Albañileria"}>Albañileria</MenuItem>
+                  <MenuItem value={"Cerrajeria"}>Cerrajeria</MenuItem>
+                  <MenuItem value={"Gasista"}>Gasista</MenuItem>
+                  <MenuItem value={"Pintura"}>Pintura</MenuItem>
+                  <MenuItem value={"Servicios Generales"}>Servicios Generales</MenuItem>
                 </Select>
               </Grid>
             </FormControl>
@@ -135,22 +147,3 @@ export default function SearchBarFilter(props) {
     </ThemeProvider>
   );
 }
-
-// justifyContent: "center",
-
-// "&.Mui-focused": {
-//   color: "darkgray",
-//   marginTop: "10px",
-//   transform: 'translate(0, -6px) scale(0.75)',
-// },
-// marginTop: 1,
-// "& .MuiOutlinedLabel-root": {
-//   "&.Mui-focused fieldset": {
-//     borderColor: "darkgray",
-//   },
-//   height: "40px",
-//   marginTop: "10px",
-//   "& fieldset": {
-//     height: "60px",
-//   },
-// },
