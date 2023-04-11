@@ -1,13 +1,15 @@
 import "./FormPosteoStyle.css";
 import axios from "axios";
 import { getName } from "../../Redux/Actions/newPostActions";
-import { Formik, Field } from "formik";
+import { Formik, Form, Field } from "formik";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const FormPosteo = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
   useEffect(() => {
     dispatch(getName());
@@ -16,47 +18,38 @@ const FormPosteo = () => {
   const posts = useSelector((state) => state.service.names);
   console.log("esto trae post:", posts);
 
+ 
+  
 
-
-  const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  
 
   const users = [
     //ponemos user por defecto
     { value: "ctatterton0", label: "ctatterton0" },
     { value: "wlissandrini1", label: "wlissandrini1" },
     { value: "ltoman6", label: "ltoman6" },
-    { value: "flodemann2", label:  "flodemann2"},
+    { value: "flodemann2", label: "flodemann2" },
     { value: "pghidetti3", label: "pghidetti3" },
-    { value: "pheiss4", label:  "pheiss4"},
-    { value: "adulson7", label:  "adulson7"},
-    { value:"jjachimiak8" , label: "jjachimiak8" },
+    { value: "pheiss4", label: "pheiss4" },
+    { value: "adulson7", label: "adulson7" },
+    { value: "jjachimiak8", label: "jjachimiak8" },
     { value: "sotowey9", label: "sotowey9" },
-    {value:"jrosedalea", label: "jrosedalea"},
-    {value: "lmattussevichb", label: "lmattussevichb" },
-    {value:"scrosselandc", label: "scrosselandc" },
-    {value:"dcochd", label: "dcochd"},
-    {value: "msextonee", label: "msextone"},
-    {value:"hhushf", label: "hhushf"},
-    {value: "rbucknerg", label: "rbucknerg"},
-
+    { value: "jrosedalea", label: "jrosedalea" },
+    { value: "lmattussevichb", label: "lmattussevichb" },
+    { value: "scrosselandc", label: "scrosselandc" },
+    { value: "dcochd", label: "dcochd" },
+    { value: "msextonee", label: "msextone" },
+    { value: "hhushf", label: "hhushf" },
+    { value: "rbucknerg", label: "rbucknerg" },
   ];
-//
-  // const handlerPost = (e) => {
-  //   if (!input.service.includes(e.target.value)) {
-  //     setInput({
-  //       ...input,
-  //       service: [...input.service, e.target.value],
-  //     });
-  //   }
-  // };
-  //agregue selectedPosts
 
   return (
     <div className="container">
       <Formik
+        
         className="container"
         initialValues={{
-          service: "", // establecer como ""
+          service: "",
           description: "",
           name: "",
           image: "",
@@ -65,7 +58,6 @@ const FormPosteo = () => {
         validate={(data) => {
           let error = {};
 
-        
           if (data.name.length > 20) {
             error.name = "El título no puede tener más de 20 caracteres";
           }
@@ -84,7 +76,10 @@ const FormPosteo = () => {
             .catch((error) => console.log(error));
           resetForm();
           cambiarFormularioEnviado(true);
-          setTimeout(() => cambiarFormularioEnviado(false), 2000);
+          setTimeout(() => {cambiarFormularioEnviado(false);
+            navigate("/home")
+          }, 3000);
+          
         }}
       >
         {({
@@ -95,7 +90,7 @@ const FormPosteo = () => {
           handleChange,
           handleBlur,
         }) => (
-          <form onSubmit={handleSubmit} className="form">
+          <Form onSubmit={handleSubmit} className="form">
             <div>
               <select name="service" onChange={handleChange}>
                 <option value="select">Seleccione un rubro</option>
@@ -115,10 +110,10 @@ const FormPosteo = () => {
                 placeholder="Texto"
                 required
               ></Field>
-               {touched.name && errors.name && (
+              {touched.name && errors.name && (
                 <div className="error">{errors.name}</div>
               )}
-               <label htmlFor="username">Nombre de usuario</label>
+              <label htmlFor="username">Nombre de usuario</label>
               <Field name="username">
                 {({ field }) => (
                   <select {...field}>
@@ -181,7 +176,7 @@ const FormPosteo = () => {
                 <p className="exito">Publicación exitosa!</p>
               )}
             </div>
-          </form>
+          </Form>
         )}
       </Formik>
     </div>
