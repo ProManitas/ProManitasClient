@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import Coments from "../../Components/coments/coments";
+import Coments from "../../Components/coments/Coments";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
