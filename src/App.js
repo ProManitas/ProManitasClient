@@ -17,6 +17,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "./Views/Login/Profile/Profile.jsx";
 import UserDetail from "./Views/UserDetail/UserDetail.jsx";
 import SearchResult from "./Components/SearchResult/SearchResult.jsx";
+import WrappedCheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx"
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
 
 function App() {
   const location = useLocation();
@@ -48,6 +52,16 @@ function App() {
         <Route path="/construction" element={<UnderConstruction />} />
         <Route path="/posteo" element={<FormPosteo />} />
         <Route path="/home/search" element={<SearchResult />} />
+
+        <Route
+          path="/checkout/:id"
+          element={
+            <Elements stripe={loadStripe("pk_test_51MtZHVDhQ0hUgSqkOlAWvWZu8YGVgFDuFYiKgSMVWFFjwfqSjk6VcCvacWNISZ6V7gy82PmGCNlhub0YmA9FeVTn00NlgLySlO")}>
+              <WrappedCheckoutForm />
+            </Elements>
+          }
+        />
+
         
         <Route
           path="/profile"
