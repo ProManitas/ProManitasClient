@@ -11,7 +11,7 @@ import SearchResult from "./Components/SearchResult/SearchResult.jsx";
 import FormPosteo from "./Components/FormPosteo/FormPosteo.js";
 import Detail from "./Views/Detail/detail";
 import FormCalification from "./Components/FormCalification/FormCalification";
-import AreaAcuerdo from "./Components/AreaAcuerdo/acuerdo";
+import AgreementArea from "./Components/AgreementArea/chat";
 import LoginForm from "./Views/Login/LoginForm/LoginForm.jsx";
 import RegistryForm from "./Views/Login/RegistryForm/RegistryForm.jsx";
 import Profile from "./Views/Login/Profile/Profile.jsx";
@@ -45,7 +45,7 @@ function App() {
         <Route path="/posteo" element={<FormPosteo />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/calification/:id" element={<FormCalification />} />
-        <Route path="/contrato/:id" element={<AreaAcuerdo />} />
+        <Route path="/contrato/:id" element={<AgreementArea />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/registryForm" element={<RegistryForm />} />
         <Route
