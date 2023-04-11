@@ -16,6 +16,7 @@ import { AuthenticationGuard } from "./Views/Login/AuthenticationGuard/authentic
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "./Views/Login/Profile/Profile.jsx";
 import UserDetail from "./Views/UserDetail/UserDetail.jsx";
+import SearchResult from "./Components/SearchResult/SearchResult.jsx";
 
 function App() {
   const location = useLocation();
@@ -46,6 +47,7 @@ function App() {
         <Route exact path="/" element={<Landing />} />
         <Route path="/construction" element={<UnderConstruction />} />
         <Route path="/posteo" element={<FormPosteo />} />
+        <Route path="/home/search" element={<SearchResult />} />
         
         <Route
           path="/profile"
