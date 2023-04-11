@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { Button, TextField, Typography } from "@mui/material";
-import StripeContainer from "./StripeContainer";
-import CheckoutForm from "../CheckoutForm/CheckoutForm";
-import ContractForm from "../ContractForm/ContractForm";
+import ContractForm from "../ContractForm/ContractForm"
+
 
 const socket = io("http://localhost:3000");
 
@@ -23,13 +22,14 @@ function Chat() {
     setInputValue("");
   }
 
+
   return (
     <div style={{ margin: "20px" }}>
       <Typography variant="h5" style={{ marginBottom: "20px" }}>
         En este espacio podrás acordar con el profesional los detalles de
         contratación.
       </Typography>
-      
+     
       <ul style={{ listStyleType: "none", padding: "0", marginBottom: "20px" }}>
         {messages.map((message, index) => (
           <li key={index} style={{ marginBottom: "10px", borderRadius: "10px", backgroundColor: "#f0f0f0", padding: "10px" }}>{message}</li>
@@ -58,22 +58,24 @@ function Chat() {
         >
           Enviar
         </Button>
+     
       </form>
 
       <Typography variant="h6" style={{ marginBottom: "20px" }}>
-        Si ya has acordado iniciar el trabajo con el profesional, por favor
-        realiza el pago del valor del contrato. ¡No te preocupes! Este valor será
-        descontado del costo final que acuerdes con el profesional.
+        Si ya han acordado Fecha y Precio y modalidad de Trabajo. Completen el siguiente Formulario que recibiran por mail
       </Typography>
-<StripeContainer>
-          <CheckoutForm />
-        </StripeContainer>
-      <StripeContainer>
-        <ContractForm />
-      </StripeContainer>
+  
+
+
+  <ContractForm/>
     </div>
-  );
+
+    
+ 
+  ); 
 }
 
-export default Chat;
+
+
+export default Chat
 
