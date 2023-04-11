@@ -25,36 +25,34 @@ export const fetchDetailFailure = (error) => {
 };
 
 export const getDetail = (postId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(fetchDetailRequest());
-    axios.get(`https://promanitasapi.onrender.com/api/v1/adposts/${postId}`)
-      .then(response => {
-        const detailData = {
-          description: response.data.data.description,
-          image: response.data.data.image
-        };
-        dispatch(fetchDetailSuccess(detailData));
-      })
-      .catch(error => {
-        dispatch(fetchDetailFailure(error.message));
-      });
+    try {
+      const response = await axios.get(`https://promanitasapi.onrender.com/api/v1/adposts/${postId}`);
+      const detailData = {
+        description: response.data.data.description,
+        image: response.data.data.image
+      };
+      dispatch(fetchDetailSuccess(detailData));
+    } catch (error) {
+      dispatch(fetchDetailFailure(error.message));
+    }
   };
 };
+
 export const getServiceDetail = (serviceId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(fetchDetailRequest());
-    axios
-      .get(`https://promanitasapi.onrender.com/api/v1/services/${serviceId}`)
-      .then((response) => {
-        const detailData = {
-          name: response.data.data.name,
-          image: response.data.data.image,
-        };
-        dispatch(fetchServiceDetailSuccess(detailData));
-      })
-      .catch((error) => {
-        dispatch(fetchDetailFailure(error.message));
-      });
+    try {
+      const response = await axios.get(`https://promanitasapi.onrender.com/api/v1/services/${serviceId}`);
+      const detailData = {
+        name: response.data.data.name,
+        image: response.data.data.image,
+      };
+      dispatch(fetchServiceDetailSuccess(detailData));
+    } catch (error) {
+      dispatch(fetchDetailFailure(error.message));
+    }
   };
 };
 
@@ -81,6 +79,7 @@ export const fetchServiceDetailFailure = (error) => {
     payload: error,
   };
 };
+
 export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
@@ -106,18 +105,17 @@ export const fetchUserFailure = (error) => {
 };
 
 export const getUser = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(fetchUserRequest());
-    axios.get(`https://promanitasapi.onrender.com/api/v1/users/${userId}`)
-      .then(response => {
-        const userData = {
-          image: response.data.data.image
-        };
-        dispatch(fetchUserSuccess(userData));
-      })
-      .catch(error => {
-        dispatch(fetchUserFailure(error.message));
-      });
+    try {
+      const response = await axios.get(`https://promanitasapi.onrender.com/api/v1/users/${userId}`);
+      const userData = {
+        image: response.data.data.image
+      };
+      dispatch(fetchUserSuccess(userData));
+    } catch (error) {
+      dispatch(fetchUserFailure(error.message));
+    }
   };
 };
 

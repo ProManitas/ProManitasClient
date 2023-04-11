@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { Button, TextField, Typography } from "@mui/material";
-import ContractForm from "../ContractForm/ContractForm"
-
+import ContractForm from "../ContractForm/ContractForm";
+import { useNavigate } from "react-router";
 
 const socket = io("http://localhost:3000");
 
 function Chat() {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     socket.on("chat message", (msg) => {
@@ -22,6 +23,9 @@ function Chat() {
     setInputValue("");
   }
 
+  function handleGoBack() {
+    navigate(-1);
+  }
 
   return (
     <div style={{ margin: "20px" }}>
@@ -29,16 +33,36 @@ function Chat() {
         En este espacio podrás acordar con el profesional los detalles de
         contratación.
       </Typography>
-     
-      <ul style={{ listStyleType: "none", padding: "0", marginBottom: "20px" }}>
+
+      <ul
+        style={{
+          listStyleType: "none",
+          padding: "0",
+          marginBottom: "20px",
+        }}
+      >
         {messages.map((message, index) => (
-          <li key={index} style={{ marginBottom: "10px", borderRadius: "10px", backgroundColor: "#f0f0f0", padding: "10px" }}>{message}</li>
+          <li
+            key={index}
+            style={{
+              marginBottom: "10px",
+              borderRadius: "10px",
+              backgroundColor: "#f0f0f0",
+              padding: "10px",
+            }}
+          >
+            {message}
+          </li>
         ))}
       </ul>
 
       <form
         onSubmit={handleSubmit}
-        style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
       >
         <TextField
           label="Mensaje"
@@ -47,8 +71,6 @@ function Chat() {
           onChange={(e) => setInputValue(e.target.value)}
           style={{ marginRight: "10px", flex: "1" }}
         />
-        
-        
 
         <Button
           type="submit"
@@ -58,24 +80,28 @@ function Chat() {
         >
           Enviar
         </Button>
-     
       </form>
 
-      <Typography variant="h6" style={{ marginBottom: "20px" }}>
-        Si ya han acordado Fecha y Precio y modalidad de Trabajo. Completen el siguiente Formulario que recibiran por mail
+      <Typography
+        variant="h6"
+        style={{ marginBottom: "20px" }}
+      >
+        Si ya han acordado Fecha y Precio y modalidad de Trabajo. Completen el siguiente Formulario que recibirán por mail
       </Typography>
-  
 
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleGoBack}
+        style={{ marginTop: "20px" }}
+      >
+        Volver
+      </Button>
 
-  <ContractForm/>
+      <ContractForm />
     </div>
-
-    
- 
-  ); 
+  );
 }
 
-
-
-export default Chat
+export default Chat;
 
