@@ -9,9 +9,9 @@ import Home from "./Views/Home/Home.jsx";
 import Navbar from "./Components/Navbar/Navbar";
 import SearchResult from "./Components/SearchResult/SearchResult.jsx";
 import FormPosteo from "./Components/FormPosteo/FormPosteo.js";
-import Detail from "./Views/Detail/detail";
+import Detail from "./Views/Detail/Detail";
 import FormCalification from "./Components/FormCalification/FormCalification";
-import AgreementArea from "./Components/AgreementArea/chat";
+import AgreementArea from "./Components/AgreementArea/Chat";
 import LoginForm from "./Views/Login/LoginForm/LoginForm.jsx";
 import RegistryForm from "./Views/Login/RegistryForm/RegistryForm.jsx";
 import Profile from "./Views/Login/Profile/Profile.jsx";
@@ -77,3 +77,5 @@ function App() {
 }
 
 export default App;
+
+//

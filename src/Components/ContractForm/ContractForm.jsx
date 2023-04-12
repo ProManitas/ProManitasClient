@@ -6,8 +6,10 @@ import { TextField, Button } from '@mui/material';
 
 const ContractForm = ({ userId, advertisementId }) => {
   const [contractData, setContractData] = useState({
-    userName: '',
+    FechadelTrabajo: '',
     contractDetails: '',
+    PrecioAcordado:"",
+    CompromisoDeCalificacion:"",
   });
 
   const dispatch = useDispatch();

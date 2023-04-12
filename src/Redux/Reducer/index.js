@@ -5,7 +5,8 @@ import detailReducer from "./detailReducer";
 import pageReducer from "./paginadoReducer";
 import { newPostReducer } from "./newPostReducer";
 import searchReducer from "./searchReducer";
-//aca importamos todos los reducers
+import mapReducer from "./mapReducer";
+import comentsReducer from "./comentsReducer";
 
 const reducer = combineReducers({
   home: homeReducer,
@@ -14,6 +15,8 @@ const reducer = combineReducers({
   paginado: pageReducer,
   service: newPostReducer,
   search: searchReducer,
+  maps:mapReducer,
+  coments:comentsReducer
 });
 //aca  traemos dentro de comnineReducer todos los reducers, ejemplo:
 // user:userReducers
