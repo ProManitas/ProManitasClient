@@ -16,7 +16,7 @@ const FormPosteo = () => {
   }, [dispatch]);
 
   const posts = useSelector((state) => state.service.names);
-  console.log("esto trae post:", posts);
+  
 
   const users = [
     //ponemos user por defecto
@@ -64,7 +64,6 @@ const FormPosteo = () => {
         onSubmit={(data, { resetForm }) => {
           try {
             dispatch(getName(data));
-            console.log("este es el post que se va a publicar", data);
             axios
               .post("https://promanitasapi.onrender.com/api/v1/adPosts", data)
               .then((response) => (response.data))
@@ -76,7 +75,7 @@ const FormPosteo = () => {
               navigate("/home");
             }, 3000);
           } catch (error) {
-            console.log(error);
+            error(error);
           }
         }}
       >
