@@ -18,11 +18,6 @@ const FormPosteo = () => {
   const posts = useSelector((state) => state.service.names);
   console.log("esto trae post:", posts);
 
- 
-  
-
-  
-
   const users = [
     //ponemos user por defecto
     { value: "ctatterton0", label: "ctatterton0" },
@@ -46,7 +41,6 @@ const FormPosteo = () => {
   return (
     <div className="container">
       <Formik
-        
         className="container"
         initialValues={{
           service: "",
@@ -68,18 +62,22 @@ const FormPosteo = () => {
           return error;
         }}
         onSubmit={(data, { resetForm }) => {
-          dispatch(getName(data));
-          console.log("este es el post que se va a publicar", data);
-          axios
-            .post("https://promanitasapi.onrender.com/api/v1/adPosts", data)
-            .then((response) => console.log("probando", response.data))
-            .catch((error) => console.log(error));
-          resetForm();
-          cambiarFormularioEnviado(true);
-          setTimeout(() => {cambiarFormularioEnviado(false);
-            navigate("/home")
-          }, 3000);
-          
+          try {
+            dispatch(getName(data));
+            console.log("este es el post que se va a publicar", data);
+            axios
+              .post("https://promanitasapi.onrender.com/api/v1/adPosts", data)
+              .then((response) => (response.data))
+              .catch((error) =>(error));
+            resetForm();
+            cambiarFormularioEnviado(true);
+            setTimeout(() => {
+              cambiarFormularioEnviado(false);
+              navigate("/home");
+            }, 3000);
+          } catch (error) {
+            console.log(error);
+          }
         }}
       >
         {({
