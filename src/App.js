@@ -11,7 +11,7 @@ import SearchResult from "./Components/SearchResult/SearchResult.jsx";
 import FormPosteo from "./Components/FormPosteo/FormPosteo.js";
 import Detail from "./Views/Detail/Detail";
 import FormCalification from "./Components/FormCalification/FormCalification";
-import AgreementArea from "./Components/AgreementArea/Chat";
+import AgreementArea from "./Components/AgreementArea/ChatAgreement";
 import RegistryForm from "./Views/Login/RegistryForm/RegistryForm.jsx";
 import Profile from "./Views/Login/Profile/Profile.jsx";
 import UserDetail from "./Views/UserDetail/UserDetail.jsx";
