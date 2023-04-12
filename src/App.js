@@ -12,7 +12,6 @@ import FormPosteo from "./Components/FormPosteo/FormPosteo.js";
 import Detail from "./Views/Detail/Detail";
 import FormCalification from "./Components/FormCalification/FormCalification";
 import AgreementArea from "./Components/AgreementArea/Chat";
-import LoginForm from "./Views/Login/LoginForm/LoginForm.jsx";
 import RegistryForm from "./Views/Login/RegistryForm/RegistryForm.jsx";
 import Profile from "./Views/Login/Profile/Profile.jsx";
 import UserDetail from "./Views/UserDetail/UserDetail.jsx";
@@ -46,7 +45,6 @@ function App() {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/calification/:id" element={<FormCalification />} />
         <Route path="/contrato/:id" element={<AgreementArea />} />
-        <Route path="/login" element={<LoginForm />} />
         <Route path="/registryForm" element={<RegistryForm />} />
         <Route
           path="/profile"
