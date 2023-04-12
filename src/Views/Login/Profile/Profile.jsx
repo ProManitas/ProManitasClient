@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { user } = useAuth0();
-
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -19,10 +19,6 @@ const Profile = () => {
   //console.log("showing all the users data",users)
 
   const filteredUser = users.filter((elem) => elem.email === user.email);
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <div className={style.container}>
@@ -58,12 +54,17 @@ const Profile = () => {
           <Link to="/home">Ir a Home</Link>
         </div>
 
+        {filteredUser[0] && filteredUser[0].email ? (
           <div className={style.redirect}>
-          <Link to={`/userdetail/${filteredUser[0] && filteredUser[0].id}`}>
-            Modificar o eliminar usuario
-          </Link>
-        </div>
-        
+            <Link to={`/userdetail/${filteredUser[0] && filteredUser[0].id}`}>
+              Modificar o eliminar usuario
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <Link to="/registryFromMail">¡Completa tus datos!</Link>
+          </div>
+        )}
       </div>
     </div>
   );

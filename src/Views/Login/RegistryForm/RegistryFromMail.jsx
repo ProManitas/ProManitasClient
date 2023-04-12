@@ -1,24 +1,38 @@
-import React, { useState } from "react";
-import axios from "axios";
-import style from "./RegistryForm.module.css"
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
+import style from "./RegistryForm.module.css";
 
+const RegistryFromMail = () => {
+  const { user } = useAuth0();
+  const navigate = useNavigate();
+  
 
-
-const RegistryForm = () => {
-
-  const navigate = useNavigate()
 
   const [form, setForm] = useState({
     username: "",
     firstname: "",
     lastname: "",
     email: "",
-    password: "",
+    password:"",
     cellnumber: "",
     address: "",
-    image: "",
+    image: ""
   });
+
+
+  //bring info from auth0
+  useEffect(() => {
+    if (user) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        firstname: user.name,
+        email: user.email,
+        image: user.picture,
+      }));
+    }
+  }, [user]);
 
   //add data to inputs
   const changeHandler = (event) => {
@@ -31,7 +45,6 @@ const RegistryForm = () => {
   //add data to DB
   const handlerSubmit = (e) => {
     e.preventDefault();
-
     try {
       axios
         .post("https://promanitasapi.onrender.com/api/v1/users", form, {
@@ -40,16 +53,25 @@ const RegistryForm = () => {
           },
         })
         .then(alert("Usuario creado correctamente, por favor inicia sesión"));
-        navigate("/")
-        
+      navigate("/");
     } catch (error) {
       alert(error);
     }
   };
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <div className={style.container}>
+
       <form onSubmit={(e) => handlerSubmit(e)} className={style.form}>
+
+        <div>
+            <img src={user.picture} alt={user.name}/>
+        </div>
+
         <div>
           <label htmlFor="username">Nombre de usuario:</label>
           <input
@@ -67,16 +89,8 @@ const RegistryForm = () => {
             name="firstname"
             value={form.firstname}
             onChange={changeHandler}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="lastname">Apellido:</label>
-          <input
-            type="text"
-            name="lastname"
-            value={form.lastname}
-            onChange={changeHandler}
+            readOnly
+            required
           />
         </div>
 
@@ -87,16 +101,8 @@ const RegistryForm = () => {
             name="email"
             value={form.email}
             onChange={changeHandler}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="password">Contraseña:</label>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={changeHandler}
+            readOnly
+            required
           />
         </div>
 
@@ -120,17 +126,6 @@ const RegistryForm = () => {
           />
         </div>
 
-        <div>
-
-          <label htmlFor="image">Selecciona una imagen:</label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            value={form.image}
-            onChange={changeHandler}
-          />
-        </div>
 
         <div>
           <button type="submit">Crear usuario</button>
@@ -140,4 +135,4 @@ const RegistryForm = () => {
   );
 };
 
-export default RegistryForm;
+export default RegistryFromMail;

@@ -19,6 +19,7 @@ import FooterForm from "./Components/Footer/FooterForm/FooterForm.js";
 import About from "./Components/About/About.js";
 import UnderConstruction from "./Components/UnderConstruction/UnderConstruction.jsx";
 import WrappedCheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx";
+import RegistryFromMail from "./Views/Login/RegistryForm/RegistryFromMail";
 
 function App() {
   const location = useLocation();
@@ -50,6 +51,7 @@ function App() {
           path="/profile"
           element={<AuthenticationGuard component={Profile} />}
         />
+        <Route path="/registryFromMail" element={<RegistryFromMail/>}/>
         <Route
           path="userdetail/:id"
           element={<AuthenticationGuard component={UserDetail} />}
