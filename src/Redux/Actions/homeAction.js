@@ -20,7 +20,6 @@ export function getPro() {
 }
 
 export function getPaginated(pageNumber, pageSize) {
-  console.log(axios.defaults.baseURL);
   return async function (dispatch) {
     try {
       const json = await axios.get(
