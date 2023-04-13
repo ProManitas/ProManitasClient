@@ -4,7 +4,7 @@ import axios from "axios";
 export function getPro() {
   return async function (dispatch) {
     try {
-      const url = "https://promanitasapi.onrender.com/api/v1/adposts";
+      const url = "/adposts";
       const json = await axios(url);
       const data = json.data.data;
       // const allJson = json.data.data
@@ -22,8 +22,9 @@ export function getPro() {
 export function getPaginated(pageNumber, pageSize) {
   return async function (dispatch) {
     try {
-      const url = `https://promanitasapi.onrender.com/api/v1/adposts?pageNumber=${pageNumber}&pageSize=${pageSize}`;
-      const json = await axios.get(url)
+      const json = await axios.get(
+        `/adposts?pageNumber=${pageNumber}&pageSize=${pageSize}`
+      );
       const data = json.data;
       return dispatch({
         type: "GET_PRO",

@@ -1,10 +1,11 @@
 import { callExternalApi } from "./external-api.service";
+const { REACT_APP_API_URL } = process.env;
 
-const apiServerUrl = 'https://promanitasapi.onrender.com/api/v1/';
+// const apiServerUrl = 'https://promanitasapi.onrender.com/api/v1/';
 
 export const getPublicResource = async () => {
   const config = {
-    url: `${apiServerUrl}/log`,
+    url: `${REACT_APP_API_URL}/log`,
     method: "GET",
     headers: {
       "content-type": "application/json",
@@ -21,7 +22,7 @@ export const getPublicResource = async () => {
 
 export const getProtectedResource = async (accessToken) => {
   const config = {
-    url: `${apiServerUrl}/log`,
+    url: `${REACT_APP_API_URL}/log`,
     method: "GET",
     headers: {
       "content-type": "application/json",
@@ -39,7 +40,7 @@ export const getProtectedResource = async (accessToken) => {
 
 // export const getAdminResource = async (accessToken) => {
 //   const config = {
-//     url: `${apiServerUrl}/log`,
+//     url: `${REACT_APP_API_URL}/log`,
 //     method: "GET",
 //     headers: {
 //       "content-type": "application/json",

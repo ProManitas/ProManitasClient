@@ -28,7 +28,7 @@ export const getDetail = (postId) => {
   return async (dispatch) => {
     dispatch(fetchDetailRequest());
     try {
-      const response = await axios.get(`https://promanitasapi.onrender.com/api/v1/adposts/${postId}`);
+      const response = await axios.get(`/adposts/${postId}`);
       const detailData = {
         description: response.data.data.description,
         image: response.data.data.image
@@ -44,7 +44,7 @@ export const getServiceDetail = (serviceId) => {
   return async (dispatch) => {
     dispatch(fetchDetailRequest());
     try {
-      const response = await axios.get(`https://promanitasapi.onrender.com/api/v1/services/${serviceId}`);
+      const response = await axios.get(`/services/${serviceId}`);
       const detailData = {
         name: response.data.data.name,
         image: response.data.data.image,
@@ -108,7 +108,7 @@ export const getUser = (userId) => {
   return async (dispatch) => {
     dispatch(fetchUserRequest());
     try {
-      const response = await axios.get(`https://promanitasapi.onrender.com/api/v1/users/${userId}`);
+      const response = await axios.get(`/users/${userId}`);
       const userData = {
         image: response.data.data.image
       };
