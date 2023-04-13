@@ -5,9 +5,7 @@ export const GET_SERVICE = "GET_SERVICE";
 export function getName() {
   return async function (dispatch) {
     try {
-      const response = await axios.get(
-        "https://promanitasapi.onrender.com/api/v1/services"
-      );
+      const response = await axios.get("/services");
 
       const name = response.data.data
         .map((service) => service.name) // extraer la propiedad "name" de cada objeto en el arreglo "data"

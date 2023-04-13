@@ -2,6 +2,7 @@
 // import { useDispatch, useSelector } from 'react-redux';
 // import { setCoordinates, setZoom, setMapType } from '../../Redux/Actions/mapAction';
 // import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+// const { REACT_APP_GMAPS} = process.env
 
 // const Maps = () => {
 //   // Obtén el estado del mapa y las acciones desde el store de Redux
@@ -66,8 +67,8 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 const Maps = ({ address }) => {
   // Coordenadas por defecto en caso de que no haya datos disponibles
   const defaultCoordinates = {
-    lat: -43.0791069, 
-    lng: -43.0791069 
+    lat: -43.0791069,
+    lng: -43.0791069,
   };
 
   // Verificar si hay coordenadas disponibles, de lo contrario, usar las coordenadas por defecto
@@ -75,16 +76,13 @@ const Maps = ({ address }) => {
 
   // Cargar el API de Google Maps
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyDKue8Ljcd2WYwUOObipgiGpM2KoLmyXa4"
+    googleMapsApiKey: "AIzaSyDKue8Ljcd2WYwUOObipgiGpM2KoLmyXa4",
   });
 
   // Renderizar el mapa una vez que el API de Google Maps esté cargado
   return isLoaded ? (
     <div style={{ height: "400px", width: "100%" }}>
-      <GoogleMap
-        center={coordinates}
-        zoom={10}
-      >
+      <GoogleMap center={coordinates} zoom={10}>
         {/* Marcador o cualquier otro componente que quieras mostrar en el mapa */}
         <Marker position={coordinates} />
       </GoogleMap>
@@ -93,7 +91,3 @@ const Maps = ({ address }) => {
 };
 
 export default Maps;
-
-
-
-

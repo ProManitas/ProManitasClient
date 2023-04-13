@@ -3,8 +3,8 @@ import axios from 'axios'
 export function dataHome() {
   return async function(dispatch) {
     try {
-      const servicesResponse = await axios.get(`https://promanitasapi.onrender.com/api/v1/services/`);
-      const adPostsResponse = await axios.get(`https://promanitasapi.onrender.com/api/v1/adposts/`);
+      const servicesResponse = await axios.get(`/services/`);
+      const adPostsResponse = await axios.get(`/adposts/`);
       
       const adPosts = adPostsResponse.data.data && adPostsResponse.data.data.map(adPost => ({
         name: adPost.name,

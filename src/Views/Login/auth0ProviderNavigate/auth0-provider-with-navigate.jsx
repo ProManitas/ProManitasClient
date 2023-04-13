@@ -1,12 +1,13 @@
 import React from "react";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+const { REACT_APP_DOMAIN, REACT_APP_CLIENT_ID } = process.env;
 
 export const Auth0ProviderWithNavigate = ({ children }) => {
   const navigate = useNavigate();
 
-  const domain = "dev-ktrpfv6xelqmuqtt.us.auth0.com";
-  const clientId = "BCJtyJrKUSVCnUR1arnuf2IO2B29Ymei";
+  const domain = REACT_APP_DOMAIN;
+  const clientId = REACT_APP_CLIENT_ID;
   const redirectUri = window.location.origin;
   //const audience = "https://promanitas-api.com";
 
