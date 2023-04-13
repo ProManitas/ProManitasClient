@@ -65,7 +65,7 @@ const FormPosteo = () => {
           try {
             dispatch(getName(data));
             axios
-              .post("https://promanitasapi.onrender.com/api/v1/adPosts", data)
+              .post("/adPosts", data)
               .then((response) => (response.data))
               .catch((error) =>(error));
             resetForm();

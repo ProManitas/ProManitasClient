@@ -21,7 +21,7 @@ function RatingForm({onRatingResult}) {
     //   const rating = parseFloat(ratingValue);
     //   if (!isNaN(rating)) {
     //     try {
-    //       const response = await axios.post(`/api/adpost/${id}/`, {
+    //       const response = await axios.post(`/adpost/${id}/`, {
     //         rating: ratingValue,
     //       });
     //       setAverageRating(response.data.averageRating);
