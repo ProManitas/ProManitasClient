@@ -23,8 +23,6 @@ const theme = createTheme({
   },
 });
 
-console.log(process.env);
-
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
