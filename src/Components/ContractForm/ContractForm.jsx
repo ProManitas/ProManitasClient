@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const ContractForm = ({ userId, advertisementId }) => {
   const [contractData, setContractData] = useState({
     DateJob: '',
-    contractDetails: '', // Cambio en el nombre del campo
+    contract_Details: '', 
     Amount: '',
     rating_commitment: false,
   });
@@ -56,14 +56,15 @@ const ContractForm = ({ userId, advertisementId }) => {
         <Grid item xs={12}>
   <TextField
     label="Detalles del Contrato"
-    name="contractDetails"
+    name="contract_Details"
     value={contractData.contract_Details}
     onChange={handleChange}
     required
     fullWidth
     multiline
     rows={4}
-    placeholder="Trabajo de plomería en calefón..."
+    placeholder="Ejemplo: se reparará cerradura en puerta de aluminio..."
+
   />
 </Grid>
         </Grid>
@@ -77,9 +78,12 @@ const ContractForm = ({ userId, advertisementId }) => {
             fullWidth
           />
         </Grid>
+       
+       
         <Grid item xs={12}>
+          <span>Fecha acordada para realizar el trabajo</span>
           <TextField
-            label="Fecha acordada para realizar el trabajo"
+            
             type="date"
             name="DateJob"
             value={contractData.DateJob}
@@ -113,3 +117,4 @@ const ContractForm = ({ userId, advertisementId }) => {
 
 export default ContractForm;
 
+//

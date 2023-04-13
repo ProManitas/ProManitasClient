@@ -76,7 +76,7 @@ function Chat() {
         </form>
 
         <Typography variant="h6" style={{ marginBottom: "20px" }}>
-          Si ya han acordado Fecha y Precio y modalidad de Trabajo. Completen el siguiente Formulario que luego recibirán por
+          Si ya han acordado fecha, precio y modalidad de trabajo. Completen el siguiente Formulario que luego recibirán por
           mail
         </Typography>
 
