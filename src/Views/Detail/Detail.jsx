@@ -88,7 +88,7 @@ const Detail = () => {
       
       
       <Grid container justifyContent="center">
-        <a href={`/contrato/${id}`}>
+        <a href={`/contract/${id}`}>
           <Button variant="contained" sx={{ width: "100px", mr: "10px" }}>
             Contratar
           </Button>

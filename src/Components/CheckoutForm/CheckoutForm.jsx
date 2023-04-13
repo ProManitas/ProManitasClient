@@ -106,6 +106,7 @@ const CheckoutForm = () => {
                 variant="contained"
                 color="primary"
                 fullWidth
+                onClick={handleGoBack} 
               >
                 Pagar
               </Button>
