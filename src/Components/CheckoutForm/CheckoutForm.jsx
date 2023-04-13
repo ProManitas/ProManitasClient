@@ -123,7 +123,7 @@ const CheckoutForm = () => {
               <Button
                 variant="contained"
                 fullWidth
-                onClick={handleGoBack} // para el botón de volver
+                onClick={handleGoBack} 
               >
                 Volver
               </Button>

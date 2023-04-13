@@ -45,7 +45,7 @@ function App() {
         <Route path="/posteo" element={<FormPosteo />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/calification/:id" element={<FormCalification />} />
-        <Route path="/contrato/:id" element={<AgreementArea />} />
+        <Route path="/contract/:id" element={<AgreementArea />} />
         <Route path="/registryForm" element={<RegistryForm />} />
         <Route
           path="/profile"
