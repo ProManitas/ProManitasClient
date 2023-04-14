@@ -2,7 +2,7 @@
 // import { useDispatch, useSelector } from 'react-redux';
 // import { setCoordinates, setZoom, setMapType } from '../../Redux/Actions/mapAction';
 // import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-// const { REACT_APP_GMAPS} = process.env
+// const { REACT_APP_API_KEY} = process.env
 
 // const Maps = () => {
 //   // Obtén el estado del mapa y las acciones desde el store de Redux
@@ -64,6 +64,7 @@
 import React from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
+
 const Maps = ({ address }) => {
   // Coordenadas por defecto en caso de que no haya datos disponibles
   const defaultCoordinates = {
@@ -76,7 +77,7 @@ const Maps = ({ address }) => {
 
   // Cargar el API de Google Maps
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyDKue8Ljcd2WYwUOObipgiGpM2KoLmyXa4",
+    apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   });
 
   // Renderizar el mapa una vez que el API de Google Maps esté cargado
