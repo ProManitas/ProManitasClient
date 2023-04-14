@@ -4,14 +4,15 @@ import axios from "axios";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import {Grid,  Paper } from "@mui/material";
-import { loadStripe } from "@stripe/stripe-js";
-const {REACT_APP_STRIPE_PUBLIC } = process.env;
+import {Grid, Paper } from "@mui/material";  
 
-const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC)
 
 const CheckoutForm = () => {
   const [name, setName] = useState("");
+  const [atributtes, setAtributtes] = useState({
+    username: '',
+    contractId:
+  ''})
   const [paymentError, setPaymentError] = useState(null);
   const [price, setPrice] = useState(0);
   const [paymentSuccess, setPaymentSuccess] = useState(null);
@@ -19,7 +20,7 @@ const CheckoutForm = () => {
   const elements = useElements();
 
   const handleSubmit = async (event) => {
-    const stripe = await stripePromise
+   
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -46,11 +47,11 @@ const CheckoutForm = () => {
     const { id } = paymentMethod;
 
     try {
-      const response = await axios.post("/payment", {
+      const response = await axios.post("https://promanitasapi.onrender.com/api/v1/payment/", {
         id: id,
         amount: price,
         description: "Pago por servicio de profesional",
-        username : name,
+        username: name 
         
       });
       setPaymentSuccess(await response.data.message);
@@ -65,11 +66,29 @@ const CheckoutForm = () => {
     <form onSubmit={(event) => handleSubmit(event)}>
       <Paper style={{ padding: "16px" }}>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+           <Grid item xs={12}>
             <TextField
               label="Nombre del titular de la tarjeta"
               value={name}
               onChange={(event) => setName(event.target.value)}
+              required
+              fullWidth
+            />
+          </Grid>
+         <Grid item xs={12}>
+            <TextField
+              label="Nombre de usuario"
+              value={atributtes.username}
+              onChange={(event) => setAtributtes(event.target.value)}
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Id de Contrato"
+              value={atributtes.contractId}
+              onChange={(event) => setAtributtes(event.target.value)}
               required
               fullWidth
             />

@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { sendContract, setContractId } from '../../Redux/Actions/contractAction';
+import { sendContract, } from '../../Redux/Actions/contractAction';
 import { TextField, Button, Checkbox, Grid, FormControlLabel } from '@mui/material';
-import { useNavigate, useParams  } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 
 
 
 
 const ContractForm = ({ userId, advertisementId }) => {
   const [contractData, setContractData] = useState({
-    DateJob: '',
-    contract_Details: '', 
-    Amount: '',
+    name: '',
+    dateJob: '',
+    detail: '', 
+    amount: '',
+    username: '',
     rating_commitment: false,
   });
 
-  const {id}= useParams()
+  
 
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
@@ -32,14 +34,8 @@ const ContractForm = ({ userId, advertisementId }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-    dispatch(sendContract(userId, advertisementId, contractData))
-      .then(() => {
-        // ID de contrato en Redux
-        dispatch(setContractId(userId, advertisementId));
-        
-        navigate(`/payment/${id}`);
-      });
+    dispatch(sendContract(contractData.username, contractData.detail, contractData.dateJob))
+      navigate(`/payment`);
   };
 
 
@@ -49,35 +45,46 @@ const ContractForm = ({ userId, advertisementId }) => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
-            label="Nombre del Usuario"
-            name="userName"
-            value={contractData.userName}
+            label="Nombre Completo"
+            name="name"
+            value={contractData.name}
             onChange={handleChange}
             required
             fullWidth
           />
         </Grid>
         <Grid item xs={12}>
+  <TextField
+    label="Nombre de Usuario"
+    name="username"
+    value={contractData.username}
+    onChange={handleChange}
+    required
+    fullWidth
+    multiline
+    rows={4}
+  />
+</Grid>
+        <Grid item xs={12}>
         <Grid item xs={12}>
   <TextField
     label="Detalles del Contrato"
-    name="contract_Details"
-    value={contractData.contract_Details}
+    name="detail"
+    value={contractData.detail}
     onChange={handleChange}
     required
     fullWidth
     multiline
     rows={4}
     placeholder="Ejemplo: se reparará cerradura en puerta de aluminio..."
-
   />
 </Grid>
         </Grid>
         <Grid item xs={12}>
           <TextField
             label="Monto Acordado"
-            name="Amount"
-            value={contractData.Amount}
+            name="amount"
+            value={contractData.amount}
             onChange={handleChange}
             required
             fullWidth
@@ -90,8 +97,8 @@ const ContractForm = ({ userId, advertisementId }) => {
           <TextField
             
             type="date"
-            name="DateJob"
-            value={contractData.DateJob}
+            name="dateJob"
+            value={contractData.dateJob}
             onChange={handleChange}
             required
             fullWidth
