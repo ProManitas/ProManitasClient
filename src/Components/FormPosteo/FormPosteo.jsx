@@ -5,38 +5,27 @@ import { Formik, Form, Field } from "formik";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { getAllUsers } from "../../Redux/Actions/userAction";
+
 
 const FormPosteo = () => {
+  const { user } = useAuth0();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
+  
   useEffect(() => {
     dispatch(getName());
+    dispatch(getAllUsers());
   }, [dispatch]);
 
   const posts = useSelector((state) => state.service.names);
   
+  const usersDb = useSelector((state) => state.user.allUsers);
 
-  const users = [
-    //ponemos user por defecto
-    { value: "ctatterton0", label: "ctatterton0" },
-    { value: "wlissandrini1", label: "wlissandrini1" },
-    { value: "ltoman6", label: "ltoman6" },
-    { value: "flodemann2", label: "flodemann2" },
-    { value: "pghidetti3", label: "pghidetti3" },
-    { value: "pheiss4", label: "pheiss4" },
-    { value: "adulson7", label: "adulson7" },
-    { value: "jjachimiak8", label: "jjachimiak8" },
-    { value: "sotowey9", label: "sotowey9" },
-    { value: "jrosedalea", label: "jrosedalea" },
-    { value: "lmattussevichb", label: "lmattussevichb" },
-    { value: "scrosselandc", label: "scrosselandc" },
-    { value: "dcochd", label: "dcochd" },
-    { value: "msextonee", label: "msextone" },
-    { value: "hhushf", label: "hhushf" },
-    { value: "rbucknerg", label: "rbucknerg" },
-  ];
+  const filteredUser = usersDb.filter((elem) => elem.email === user.email);
 
   return (
     <div className="container">
@@ -110,31 +99,20 @@ const FormPosteo = () => {
               {touched.name && errors.name && (
                 <div className="error">{errors.name}</div>
               )}
-              <label htmlFor="username">Nombre de usuario</label>
-              <Field name="username">
-                {({ field }) => (
-                  <select {...field}>
-                    {users.map((users) => (
-                      <option key={users.value} value={users.value}>
-                        {users.label}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </Field>
 
-              {/*}  <label htmlFor="username">Nombre de Usuario</label>
-              <Field
-              
-                className="input"
-                name="username"
-                placeholder="Nombre de usuario"
-                required
-
-              ></Field>
-              {touched.username && errors.username && (
-                <div className="error">{errors.username}</div>
-              )}{*/}
+              {filteredUser[0] && filteredUser[0].email ? 
+              <div>
+              <label htmlFor="username">Nombre de usuario:</label>
+              <input
+              type="text"
+              id="username"
+              name="username"
+              value={filteredUser[0] && filteredUser[0].username}
+              readOnly
+              required
+              />
+              </div> : null
+            }
 
               <label htmlFor="image">Imagen</label>
               <input
@@ -164,15 +142,17 @@ const FormPosteo = () => {
                 <div className="error">{errors.description}</div>
               )}
             </div>
-
+            
+        {filteredUser[0] && filteredUser[0].email ? 
             <div>
               <button className="button" type="submit">
                 Publicar
               </button>
               {formularioEnviado && (
                 <p className="exito">Publicación exitosa!</p>
-              )}
-            </div>
+                )}
+            </div>: <div><p>¡Por favor completa tus datos desde tu perfil para poder publicar avisos!</p></div>
+              }
           </Form>
         )}
       </Formik>
