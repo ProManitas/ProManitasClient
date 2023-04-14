@@ -6,6 +6,7 @@ import { newPostReducer } from "./newPostReducer";
 import searchReducer from "./searchReducer";
 import mapReducer from "./mapReducer";
 import comentsReducer from "./comentsReducer";
+import checkoutReducer from "./checkoutReducer";
 
 const reducer = combineReducers({
   home: homeReducer,
@@ -14,7 +15,8 @@ const reducer = combineReducers({
   service: newPostReducer,
   search: searchReducer,
   maps:mapReducer,
-  coments:comentsReducer
+  coments:comentsReducer,
+  checkoutReducer
 });
 //aca  traemos dentro de comnineReducer todos los reducers, ejemplo:
 // user:userReducers
