@@ -16,11 +16,12 @@ export default function CardAdPost({
   id,
 }) {
   let cardService = "";
-  if (!ServiceId) {
-    cardService = services[5].name;
-  } else {
-    cardService = services?.filter((service) => service.id === ServiceId);
-  }
+if (!ServiceId) {
+  cardService = services.length >= 6 ? services[5].name : '';
+} else {
+  cardService = services?.find((service) => service.id === ServiceId)?.name || '';
+}
+
 
   return (
     <Grid item xs={12} sm={6} md={4}>
