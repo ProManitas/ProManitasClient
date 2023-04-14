@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { sendContract, setContractId } from '../../Redux/Actions/contractAction';
 import { TextField, Button, Checkbox, Grid, FormControlLabel } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams  } from 'react-router-dom';
+
+
+
 
 const ContractForm = ({ userId, advertisementId }) => {
   const [contractData, setContractData] = useState({
@@ -11,6 +14,8 @@ const ContractForm = ({ userId, advertisementId }) => {
     Amount: '',
     rating_commitment: false,
   });
+
+  const {id}= useParams()
 
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
@@ -33,7 +38,7 @@ const ContractForm = ({ userId, advertisementId }) => {
         // ID de contrato en Redux
         dispatch(setContractId(userId, advertisementId));
         
-        navigate('/checkout');
+        navigate(`/payment/${id}`);
       });
   };
 

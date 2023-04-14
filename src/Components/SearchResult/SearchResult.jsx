@@ -19,7 +19,7 @@ export default function SearchResult() {
   const search = useSelector((state) => state.search.search);
 
   // lógica de paginado
-  const [searchPerPage, setSearchPerPage] = useState(6);
+  const [searchPerPage, ] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastService = currentPage * searchPerPage;
