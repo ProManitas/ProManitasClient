@@ -41,9 +41,9 @@ function App() {
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/home/search" element={<SearchResult />} />
-        <Route path="/posteo" element={<FormPosteo />} />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/contract/:id" element={<AgreementArea />} />
+        <Route path="/posteo" element={<AuthenticationGuard component={FormPosteo} />} />
+        <Route path="/detail/:id" element={<AuthenticationGuard component={Detail} />} />
+        <Route path="/contract/:id" element={<AuthenticationGuard component={AgreementArea}/>} />
         <Route path="/registryForm" element={<RegistryForm />} />
         <Route
           path="/profile"
@@ -65,7 +65,7 @@ function App() {
             "REACT_APP_STRIPE_PUBLIC"
             )}
             >
-            <CheckoutForm />
+            <CheckoutForm/>
           </Elements>
         }
         />
@@ -75,5 +75,3 @@ function App() {
 }
 
 export default App;
-
-//
