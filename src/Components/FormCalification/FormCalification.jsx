@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-//import axios from "axios";
+import axios from "axios";
 import {Rating} from "@mui/material";
 import PanToolIcon from "@mui/icons-material/PanTool";
 import { Box, Button } from "@mui/material";
@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 function RatingForm({onRatingResult}) {
 
   const [ratingValue, setRatingValue] = useState(0);
-  //const [, setAverageRating] = useState(0);
+  const [, setAverageRating] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -17,20 +17,20 @@ function RatingForm({onRatingResult}) {
   };
 
   useEffect(() => {
-    // const postData = async () => {
-    //   const rating = parseFloat(ratingValue);
-    //   if (!isNaN(rating)) {
-    //     try {
-    //       const response = await axios.post(`/adpost/${id}/`, {
-    //         rating: ratingValue,
-    //       });
-    //       setAverageRating(response.data.averageRating);
-    //     } catch (error) {
-    //       console.error(error);
-    //     }
-    //   }
-    // };
-    // postData();
+    const postData = async () => {
+      const rating = parseFloat(ratingValue);
+      if (!isNaN(rating)) {
+        try {
+          const response = await axios.post(`/adpost/${id}/`, {
+            rating: ratingValue,
+          });
+          setAverageRating(response.data.averageRating);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    postData();
   }, [ratingValue, id]); //  solicitud HTTP cada vez que ratingValue cambia
 
   const handleSubmit = async (e) => {
@@ -39,10 +39,10 @@ function RatingForm({onRatingResult}) {
   
     if (!isNaN(ratingValue)) {
       
-        // const response = await axios.post(`/adpost/${id}/`, {
-        //   rating: ratingValue,
-        // });
-        // setAverageRating(response.data.averageRating);
+        const response = await axios.post(`/adpost/${id}/`, {
+          rating: ratingValue,
+        });
+        setAverageRating(response.data.averageRating);
         onRatingResult(ratingValue);
         
       alert(`Calificación enviada: ${ratingValue}`);
