@@ -9,8 +9,7 @@ const FooterForm =()=>{
     const navigate = useNavigate();
 
     function handleRegister(values) {
-      // Lógica para iniciar sesión...
-  
+      
       // Redirigir al usuario a la ruta "home"
       setTimeout(() => {
         navigate("/construction");
@@ -85,7 +84,11 @@ return(
 export default FooterForm;
 
 
-/*import { Formik, Field, Form  } from "formik";
+/*
+
+
+--------------------------------------------------------
+import { Formik, Field, Form  } from "formik";
 import React, { useState } from "react";
 import "./FooterForm.css";
 
