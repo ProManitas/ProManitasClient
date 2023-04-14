@@ -4,6 +4,12 @@
 // import PanToolIcon from "@mui/icons-material/PanTool";
 // import { Box, Button } from "@mui/material";
 // import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {Rating} from "@mui/material";
+import PanToolIcon from "@mui/icons-material/PanTool";
+import { Box, Button } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 
 // function RatingForm({onRatingResult}) {
 
@@ -11,6 +17,10 @@
 //   //const [, setAverageRating] = useState(0);
 //   const { id } = useParams();
 //   const navigate = useNavigate();
+  const [ratingValue, setRatingValue] = useState(0);
+  const [, setAverageRating] = useState(0);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
 //   const handleChange = (event) => {
 //     setRatingValue(parseFloat(event.target.value));
@@ -32,6 +42,22 @@
 //     // };
 //     // postData();
 //   }, [ratingValue, id]); //  solicitud HTTP cada vez que ratingValue cambia
+  useEffect(() => {
+    const postData = async () => {
+      const rating = parseFloat(ratingValue);
+      if (!isNaN(rating)) {
+        try {
+          const response = await axios.post(`/adpost/${id}/`, {
+            rating: ratingValue,
+          });
+          setAverageRating(response.data.averageRating);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    postData();
+  }, [ratingValue, id]); //  solicitud HTTP cada vez que ratingValue cambia
 
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
@@ -44,6 +70,11 @@
 //         // });
 //         // setAverageRating(response.data.averageRating);
 //         onRatingResult(ratingValue);
+        const response = await axios.post(`/adpost/${id}/`, {
+          rating: ratingValue,
+        });
+        setAverageRating(response.data.averageRating);
+        onRatingResult(ratingValue);
         
 //       alert(`Calificación enviada: ${ratingValue}`);
 //       navigate(-1);

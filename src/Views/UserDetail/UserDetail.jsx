@@ -46,7 +46,7 @@ const UserDetail = () => {
     setIsDisabled(true);
     setTimeout(() => {
       window.location.reload();
-    }, 3000);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -80,17 +80,21 @@ const UserDetail = () => {
             {detail.firstname} {detail.lastname}
           </h2>
 
+        {detail.password ? 
+        <div>
           <label htmlFor="password">Contraseña:</label>
           <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            disabled={isDisabled || editableField !== "password"}
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          disabled={isDisabled || editableField !== "password"}
           />
           <button type="button" onClick={() => handleEdit("password")}>
             Editar
           </button>
+          </div> : null
+          }
 
           <label htmlFor="cellnumber">Número de teléfono:</label>
           <input
