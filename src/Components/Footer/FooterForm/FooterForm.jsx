@@ -4,11 +4,16 @@ import {Formik, Field} from "formik";
 import "./FooterForm.css";
 
 
+
+
+
 const FooterForm =()=>{
     const[formularioEnviado,cambiarFormularioEnviado]= useState(false);
     const navigate = useNavigate();
 
-    function handleRegister(values) {
+    
+      function handleRegister(values) {
+        
       
       // Redirigir al usuario a la ruta "home"
       setTimeout(() => {
