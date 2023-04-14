@@ -19,6 +19,9 @@ import About from "./Components/About/About.jsx";
 import UnderConstruction from "./Components/UnderConstruction/UnderConstruction.jsx";
 import CheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx";
 import RegistryFromMail from "./Views/Login/RegistryForm/RegistryFromMail";
+const {REACT_APP_STRIPE_PUBLIC } = process.env;
+
+const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC)
 
 function App() {
   const location = useLocation();
@@ -43,7 +46,7 @@ function App() {
         <Route path="/home/search" element={<SearchResult />} />
         <Route path="/posteo" element={<AuthenticationGuard component={FormPosteo} />} />
         <Route path="/detail/:id" element={<AuthenticationGuard component={Detail} />} />
-        <Route path="/contract/:id" element={<AuthenticationGuard component={AgreementArea}/>} />
+        <Route path="/contract/" element={<AuthenticationGuard component={AgreementArea}/>} />
         <Route path="/registryForm" element={<RegistryForm />} />
         <Route
           path="/profile"
@@ -58,12 +61,10 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/construction" element={<UnderConstruction />} />
       <Route
-        path="/payment/:id"
+        path="/payment/"
         element={
           <Elements
-          stripe={loadStripe(
-            "REACT_APP_STRIPE_PUBLIC"
-            )}
+          stripe={stripePromise}
             >
             <CheckoutForm/>
           </Elements>

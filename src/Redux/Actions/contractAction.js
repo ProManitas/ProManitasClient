@@ -1,14 +1,18 @@
 import axios from 'axios';
 
 //  enviar el contrato al back
-export const sendContract = (userId, advertisementId, contractData) => {
+export const sendContract = (username, detail, dateJob) => {
   return async (dispatch) => {
     try {
       //  Axios al back  enviar el contrato
-       await axios.post(`/payment/contracts/${userId}/${advertisementId}`, contractData);
+       await axios.post("https://promanitasapi.onrender.com/api/v1/contract/", {
+        username,
+        detail,
+        dateJob
+       });
       
     } catch (error) {
-     
+     throw new Error(error);
     }
   };
 };
