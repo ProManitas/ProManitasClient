@@ -5,7 +5,7 @@ export const sendContract = (userId, advertisementId, contractData) => {
   return async (dispatch) => {
     try {
       //  Axios al back  enviar el contrato
-       await axios.post(`/api/contract/${userId}/${advertisementId}`, contractData);
+       await axios.post(`/payment/contracts/${userId}/${advertisementId}`, contractData);
       
     } catch (error) {
      

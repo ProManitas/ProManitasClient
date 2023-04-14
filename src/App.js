@@ -10,7 +10,6 @@ import Navbar from "./Components/Navbar/Navbar";
 import SearchResult from "./Components/SearchResult/SearchResult.jsx";
 import FormPosteo from "./Components/FormPosteo/FormPosteo.jsx";
 import Detail from "./Views/Detail/Detail";
-import FormCalification from "./Components/FormCalification/FormCalification";
 import AgreementArea from "./Components/AgreementArea/ChatAgreement";
 import RegistryForm from "./Views/Login/RegistryForm/RegistryForm.jsx";
 import Profile from "./Views/Login/Profile/Profile.jsx";
@@ -18,7 +17,7 @@ import UserDetail from "./Views/UserDetail/UserDetail.jsx";
 import FooterForm from "./Components/Footer/FooterForm/FooterForm.jsx";
 import About from "./Components/About/About.jsx";
 import UnderConstruction from "./Components/UnderConstruction/UnderConstruction.jsx";
-import WrappedCheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx";
+import CheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx";
 import RegistryFromMail from "./Views/Login/RegistryForm/RegistryFromMail";
 
 function App() {
@@ -44,7 +43,6 @@ function App() {
         <Route path="/home/search" element={<SearchResult />} />
         <Route path="/posteo" element={<FormPosteo />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/calification/:id" element={<FormCalification />} />
         <Route path="/contract/:id" element={<AgreementArea />} />
         <Route path="/registryForm" element={<RegistryForm />} />
         <Route
@@ -60,14 +58,14 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/construction" element={<UnderConstruction />} />
       <Route
-        path="/checkout/:id"
+        path="/payment/:id"
         element={
           <Elements
           stripe={loadStripe(
-            "pk_test_51MtZHVDhQ0hUgSqkOlAWvWZu8YGVgFDuFYiKgSMVWFFjwfqSjk6VcCvacWNISZ6V7gy82PmGCNlhub0YmA9FeVTn00NlgLySlO"
+            "REACT_APP_STRIPE_PUBLIC"
             )}
             >
-            <WrappedCheckoutForm />
+            <CheckoutForm />
           </Elements>
         }
         />
