@@ -52,7 +52,7 @@ const RegistryFromMail = () => {
             "Content-Type": "application/json",
           },
         })
-        .then(alert("Usuario creado correctamente, por favor inicia sesión"));
+        .then(alert("Usuario creado correctamente"));
       navigate("/");
     } catch (error) {
       alert(error);
@@ -128,7 +128,7 @@ const RegistryFromMail = () => {
 
 
         <div>
-          <button type="submit">Crear usuario</button>
+          <button type="submit">Guardar</button>
         </div>
       </form>
     </div>

@@ -1,18 +1,22 @@
 import axios from 'axios';
 
-// Acción para enviar el contrato al backend
-export const sendContract = (userId, advertisementId, contractData) => {
+//  enviar el contrato al back
+export const sendContract = (username, detail, dateJob) => {
   return async (dispatch) => {
     try {
-      // Realizar solicitud Axios al backend para enviar el contrato
-       await axios.post(`/api/contratos/${userId}/${advertisementId}`, contractData);
-      // Manejar la respuesta exitosa, si es necesario
+      //  Axios al back  enviar el contrato
+       await axios.post("https://promanitasapi.onrender.com/api/v1/contract/", {
+        username,
+        detail,
+        dateJob
+       });
+      
     } catch (error) {
-      // Manejar el error, si es necesario
+     throw new Error(error);
     }
   };
 };
-// Acción para establecer el ID de contrato en el estado de Redux
+//  ID de contrato 
 export const setContractId = (userId, advertisementId) => {
   return {
     type: 'SET_CONTRACT_ID',

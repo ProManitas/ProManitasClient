@@ -1,4 +1,6 @@
 import * as React from "react";
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
 
 import {
   Card,
@@ -98,6 +100,7 @@ export default function About() {
                     pt: "56.25%",
                   }}
                   image={grupoPromanitas.image}
+                  
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography gutterBottom variant="h5" component="h2">
@@ -121,11 +124,20 @@ export default function About() {
                   >
                     <LinkedInIcon color="black" />
                   </IconButton>
+                  
                 </CardActions>
+                
               </Card>
+              
             </Grid>
           ))}
+       
         </Grid>
+        <Toolbar>    
+          <Button href="/home" color="inherit">
+            VOLVER
+          </Button>
+          </Toolbar>
       </Container>
     </ThemeProvider>
   );

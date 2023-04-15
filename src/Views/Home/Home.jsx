@@ -1,9 +1,10 @@
 import React from "react";
 // import PaginatedComponent from "../../Components/Paginado/paginado";
-// import Footer from "../../Components/Footer/Footer.js";
+import Footer from "../../Components/Footer/Footer.jsx";
 import { Container } from "@mui/material";
 import SearchBarFilter from "../../Components/SercrBarFilter/SearchBarFilter";
 import AllCardsContainer from "../../Components/AllCardsContainer/AllCardsContainer";
+
 
 const Home = () => {
   return (
@@ -13,7 +14,9 @@ const Home = () => {
       <hr />
       <br />
       <AllCardsContainer />
+      <Footer/>
     </Container>
+   
   );
 };
 

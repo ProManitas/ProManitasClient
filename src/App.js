@@ -10,7 +10,6 @@ import Navbar from "./Components/Navbar/Navbar";
 import SearchResult from "./Components/SearchResult/SearchResult.jsx";
 import FormPosteo from "./Components/FormPosteo/FormPosteo.jsx";
 import Detail from "./Views/Detail/Detail";
-import FormCalification from "./Components/FormCalification/FormCalification";
 import AgreementArea from "./Components/AgreementArea/ChatAgreement";
 import RegistryForm from "./Views/Login/RegistryForm/RegistryForm.jsx";
 import Profile from "./Views/Login/Profile/Profile.jsx";
@@ -18,8 +17,11 @@ import UserDetail from "./Views/UserDetail/UserDetail.jsx";
 import FooterForm from "./Components/Footer/FooterForm/FooterForm.jsx";
 import About from "./Components/About/About.jsx";
 import UnderConstruction from "./Components/UnderConstruction/UnderConstruction.jsx";
-import WrappedCheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx";
+import CheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx";
 import RegistryFromMail from "./Views/Login/RegistryForm/RegistryFromMail";
+const {REACT_APP_STRIPE_PUBLIC } = process.env;
+
+const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC)
 
 function App() {
   const location = useLocation();
@@ -42,10 +44,9 @@ function App() {
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/home/search" element={<SearchResult />} />
-        <Route path="/posteo" element={<FormPosteo />} />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/calification/:id" element={<FormCalification />} />
-        <Route path="/contrato/:id" element={<AgreementArea />} />
+        <Route path="/posteo" element={<AuthenticationGuard component={FormPosteo} />} />
+        <Route path="/detail/:id" element={<AuthenticationGuard component={Detail} />} />
+        <Route path="/contract/" element={<AuthenticationGuard component={AgreementArea}/>} />
         <Route path="/registryForm" element={<RegistryForm />} />
         <Route
           path="/profile"
@@ -60,14 +61,12 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/construction" element={<UnderConstruction />} />
       <Route
-        path="/checkout/:id"
+        path="/payment/"
         element={
           <Elements
-          stripe={loadStripe(
-            "pk_test_51MtZHVDhQ0hUgSqkOlAWvWZu8YGVgFDuFYiKgSMVWFFjwfqSjk6VcCvacWNISZ6V7gy82PmGCNlhub0YmA9FeVTn00NlgLySlO"
-            )}
+          stripe={stripePromise}
             >
-            <WrappedCheckoutForm />
+            <CheckoutForm/>
           </Elements>
         }
         />
@@ -77,5 +76,3 @@ function App() {
 }
 
 export default App;
-
-//

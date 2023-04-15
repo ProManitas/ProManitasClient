@@ -18,7 +18,7 @@ const Profile = () => {
   const users = useSelector((state) => state.user.allUsers);
   //console.log("showing all the users data",users)
 
-  const filteredUser = users.filter((elem) => elem.email === user.email);
+  const filteredUser = Array.isArray(users) ? users.filter((elem) => elem.email === user.email) : [];
 
   return (
     <div className={style.container}>
