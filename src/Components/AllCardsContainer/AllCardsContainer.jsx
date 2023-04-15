@@ -10,7 +10,7 @@ export default function AllCardsContainer() {
   useEffect(() => {
     dispatch(getServices());
   }, [dispatch]);
-  const data = useSelector((state) => state.home.allPro);
+  const data = useSelector((state) => state.paginated.allPro);
   const posts = data.data;
   const services = useSelector((state) => state.search.services);
 
