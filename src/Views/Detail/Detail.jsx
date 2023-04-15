@@ -41,9 +41,11 @@ const Detail = () => {
 
   const filteredUser = users.filter((elem) => elem.email === user.email);
 
+  
 
+    
     return (
-    <div>
+      <div>
       <Container>
       <Typography variant="h1" textAlign="center">
       {selectDetailData.adpostName}
@@ -146,5 +148,6 @@ const Detail = () => {
     </div>
     );
   };
+
 
   export default Detail;

@@ -8,8 +8,7 @@ const RegistryFromMail = () => {
   const { user } = useAuth0();
   const navigate = useNavigate();
   
-
-
+  
   const [form, setForm] = useState({
     username: "",
     firstname: "",
@@ -52,8 +51,8 @@ const RegistryFromMail = () => {
             "Content-Type": "application/json",
           },
         })
-        .then(alert("Usuario creado correctamente"));
-      navigate("/");
+        .then(alert("Datos completados con éxito."));
+      navigate("/profile");
     } catch (error) {
       alert(error);
     }

@@ -1,17 +1,23 @@
-import {createStore, applyMiddleware } from "redux"; 
-import {composeWithDevTools} from "redux-devtools-extension"; 
-import thunk from "redux-thunk";
 import reducer from "../Reducer/index.js"
+import {applyMiddleware, createStore, compose} from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import thunk from 'redux-thunk';
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
-export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
 
 
-/*import { applyMiddleware, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+  whitelist: ['profile',] // What we want to persist
+}
 
-import  reducer  from  ".. /reducer/index";
+const persistedReducer = persistReducer(persistConfig, reducer)
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+let store = createStore(persistedReducer, composeEnhancer(applyMiddleware(thunk)))
 
-export default store;*/ 
+let persistor = persistStore(store)
+
+export {store,persistor}

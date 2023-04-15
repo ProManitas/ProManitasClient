@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 const RegistryForm = () => {
 
   const navigate = useNavigate()
-
+  
   const [form, setForm] = useState({
     username: "",
     firstname: "",

@@ -16,6 +16,7 @@ const UserDetail = () => {
     address: "",
   });
 
+
   const [isDisabled, setIsDisabled] = useState(true);
 
   const [editableField, setEditableField] = useState({
@@ -44,6 +45,7 @@ const UserDetail = () => {
     event.preventDefault();
     dispatch(updateUser(id, formData));
     setIsDisabled(true);
+    alert("Usuario modificado con exito")
     setTimeout(() => {
       window.location.reload();
     }, 2000);
