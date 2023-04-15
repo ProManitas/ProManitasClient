@@ -39,7 +39,6 @@ const ContractForm = ({ userId, advertisementId }) => {
   };
 
 
-
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
