@@ -4,18 +4,28 @@ import SearchBarFilter from "../SercrBarFilter/SearchBarFilter";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CardAdPost from "../CardAdPost/CardAdPost";
-import { getServices } from "../../Redux/Actions/searchAction";
+import { getServices, searchAction } from "../../Redux/Actions/searchAction";
 import PaginatedResult from "../PaginatedResult/PaginatedResult";
 
 export default function SearchResult() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getServices());
-  }, [dispatch]);
-  const services = useSelector((state) => state.search.services);
   const location = useLocation();
   const query = new URLSearchParams(location.search);
-  const flag = query.get("query");
+  const preCatSelected = query.get("cat");
+  const preinputSearch = query.get("search");
+  useEffect(() => {
+    dispatch(getServices());
+    if (!preinputSearch && !preCatSelected) {
+      dispatch(searchAction(preinputSearch, preCatSelected));
+    }
+    if (preinputSearch) {
+      dispatch(searchAction(preinputSearch, null));
+    }
+    if (preCatSelected) {
+      dispatch(searchAction(null, preCatSelected));
+    }
+  }, [dispatch, preCatSelected, preinputSearch]);
+  const services = useSelector((state) => state.search.services);
   const search = useSelector((state) => state.search.search);
 
   // lógica de paginado
@@ -32,13 +42,16 @@ export default function SearchResult() {
 
   return (
     <Container>
-      <SearchBarFilter preinput={flag} />
+      <SearchBarFilter
+        preinputSearch={preinputSearch}
+        preCatSelected={preCatSelected}
+      />
       <br />
       <hr />
       <br />
       <Container>
         <Grid container spacing={2} justifyContent={"center"}>
-          {currentSearch.length > 0 &&
+          {services.length && currentSearch.length > 0 &&
             currentSearch.map((element, index) => (
               <CardAdPost
                 key={index}
