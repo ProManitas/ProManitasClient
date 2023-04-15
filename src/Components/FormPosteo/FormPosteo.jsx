@@ -2,7 +2,7 @@ import "./FormPosteoStyle.css";
 import axios from "axios";
 import { getName } from "../../Redux/Actions/newPostActions";
 import { Formik, Form, Field } from "formik";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -13,7 +13,7 @@ const FormPosteo = () => {
   const { user } = useAuth0();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  
 
   
   useEffect(() => {
@@ -58,11 +58,10 @@ const FormPosteo = () => {
               .then((response) => (response.data))
               .catch((error) =>(error));
             resetForm();
-            cambiarFormularioEnviado(true);
             setTimeout(() => {
-              cambiarFormularioEnviado(false);
+              alert("Aviso publicado correctamente")
               navigate("/home");
-            }, 3000);
+            }, 2000);
           } catch (error) {
             error(error);
           }
@@ -120,7 +119,7 @@ const FormPosteo = () => {
                 id="image"
                 name="image"
                 placeholder="image"
-                value={values.image}
+                value={values.image} 
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className="input"
@@ -148,10 +147,8 @@ const FormPosteo = () => {
               <button className="button" type="submit">
                 Publicar
               </button>
-              {formularioEnviado && (
-                <p className="exito">Publicación exitosa!</p>
-                )}
-            </div>: <div><p>¡Por favor completa tus datos desde tu perfil para poder publicar avisos!</p></div>
+              
+            </div>: <div className="error"><p>¡Por favor completa tus datos desde tu perfil para poder publicar avisos!</p></div>
               }
           </Form>
         )}

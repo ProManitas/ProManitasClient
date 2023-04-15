@@ -4,9 +4,11 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { Provider } from "react-redux";
-import { store } from "./Redux/Store/index";
+import { store, persistor } from "./Redux/Store/index";
 import { Auth0ProviderWithNavigate } from "./Views/Login/auth0ProviderNavigate/auth0-provider-with-navigate";
 import axios from "axios";
+import { PersistGate } from "redux-persist/integration/react";
+
 
 const theme = createTheme({
   palette: {
@@ -29,14 +31,16 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <BrowserRouter>
-          <Auth0ProviderWithNavigate>
-            <App />
-          </Auth0ProviderWithNavigate>
-        </BrowserRouter>
-      </ThemeProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <BrowserRouter>
+            <Auth0ProviderWithNavigate>
+              <App />
+            </Auth0ProviderWithNavigate>
+          </BrowserRouter>
+        </ThemeProvider>
+      </PersistGate>
     </React.StrictMode>
   </Provider>
 );
