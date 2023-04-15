@@ -18,12 +18,16 @@ const Footer = () => {
         <Typography variant="body1" sx={{ flexGrow: 1 }}>
           
           </Typography>
+         
           
           <Button href="/about" sx={{ my: 2, display: "block" }} color="secondary"> 
             QUIENES SOMOS
           </Button>
           <Button href="/contact" sx={{ my: 2, display: "block" }} color="secondary">
             CONTACTO
+          </Button>
+          <Button href="/terms" sx={{ my: 2, display: "block" }} color="secondary"> 
+            TERMINOS Y CONDICIONES
           </Button>
         </Toolbar>
       </Container>

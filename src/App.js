@@ -15,6 +15,7 @@ import RegistryForm from "./Views/Login/RegistryForm/RegistryForm.jsx";
 import Profile from "./Views/Login/Profile/Profile.jsx";
 import UserDetail from "./Views/UserDetail/UserDetail.jsx";
 import FooterForm from "./Components/Footer/FooterForm/FooterForm.jsx";
+import Terms from "./Components/Footer/Terms";
 import About from "./Components/About/About.jsx";
 import UnderConstruction from "./Components/UnderConstruction/UnderConstruction.jsx";
 import CheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx";
@@ -67,6 +68,7 @@ function App() {
           element={<AuthenticationGuard component={UserDetail} />}
         />
         <Route path="/contact" element={<FooterForm />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="/about" element={<About />} />
         <Route path="/construction" element={<UnderConstruction />} />
         <Route
