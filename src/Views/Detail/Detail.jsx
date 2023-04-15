@@ -101,7 +101,7 @@ const Detail = () => {
       {filteredUser[0] && filteredUser[0].email ? (
         <div>
           <Grid container justifyContent="center">
-            <a href={`/contract/${id}`}>
+            <a href={"/contract/"}>
               <Button variant="contained" sx={{ width: "100px", mr: "10px" }}>
                 Contratar
               </Button>
