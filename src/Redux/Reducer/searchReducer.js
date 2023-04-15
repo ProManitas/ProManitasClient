@@ -16,6 +16,11 @@ function searchReducer(state = initialState, action) {
         ...state,
         services: action.payload,
       };
+    case "CLEAN_SEARCH":
+      return {
+        ...state,
+        search: [],
+      };
     default:
       return { ...state };
   }

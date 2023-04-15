@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import homeReducer from "./homeReducer";
+import paginatedReducer from "./paginatedReducer";
 import userReducer from "../Reducer/userReducer";
 import detailReducer from "./detailReducer";
 import { newPostReducer } from "./newPostReducer";
@@ -8,7 +8,7 @@ import mapReducer from "./mapReducer";
 import comentsReducer from "./comentsReducer";
 
 const reducer = combineReducers({
-  home: homeReducer,
+  paginated: paginatedReducer,
   user: userReducer,
   detail: detailReducer,
   service: newPostReducer,
