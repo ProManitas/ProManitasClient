@@ -8,35 +8,41 @@ import {
   Grid,
   FormControlLabel,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate} from "react-router-dom";
 import { getAllUsers } from "../../Redux/Actions/userAction";
 import { useAuth0 } from "@auth0/auth0-react";
+import {Link} from "@mui/material";
 
-const ContractForm = ({ userId, advertisementId }) => {
+
+const ContractForm = ({ userName}) => {
   const { user } = useAuth0();
-  const textDescription =
-    "Con la creación de este contrato, usted acepta y se compromete a cumplir con nuestros términos y condiciones donde se describen las obligaciones y responsabilidades tanto del usuario como de nuestra empresa. ";
 
+  const textDescription =
+    "**Con la creación de este contrato, usted acepta y se compromete a cumplir con nuestros términos y condiciones donde se describen las obligaciones y responsabilidades tanto del usuario como de nuestra empresa. ";
+  
   const [contractData, setContractData] = useState({
     name: "",
     dateJob: "",
     detail: "",
     description: "",
-    amount: "",
-    username: "",
-    rating_commitment: false,
+    payment: ""
   });
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);
 
   const handleChange = (event) => {
     const { name, value, checked } = event.target;
-    const fieldValue = event.target.type === "checkbox" ? checked : value;
+    
+    if (name === "payment" && isNaN(parseFloat(value))) {
+      return;
+    }
+const fieldValue = event.target.type === "checkbox" ? checked : value;
 
     setContractData({
       ...contractData,
@@ -44,21 +50,32 @@ const ContractForm = ({ userId, advertisementId }) => {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(
-      sendContract(
-        contractData.username,
-        contractData.detail,
-        contractData.dateJob
-      )
-    );
-    navigate(`/payment`);
-  };
-
   const usersDb = useSelector((state) => state.user.allUsers);
 
   const filteredUser = usersDb.filter((elem) => elem.email === user.email);
+  const [, setIsLoading] = useState(false)
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setIsLoading(true)
+    try {
+      dispatch(
+        sendContract(
+          contractData.payment,
+          filteredUser[0].username,
+          contractData.detail,
+          user.email
+        )
+      );
+          
+      navigate(`/pdf/${ filteredUser[0].id}`);
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+    
 
   return (
     <form onSubmit={handleSubmit}>
@@ -108,14 +125,14 @@ const ContractForm = ({ userId, advertisementId }) => {
         <Grid item xs={12}>
           <TextField
             label="Monto Acordado"
-            name="amount"
-            value={contractData.amount}
+            name="payment"
+            value={contractData.payment}
             onChange={handleChange}
             required
             fullWidth
           />
         </Grid>
-
+  
         <Grid item xs={12}>
           <span>Fecha acordada para realizar el trabajo</span>
           <TextField
@@ -127,18 +144,7 @@ const ContractForm = ({ userId, advertisementId }) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label=""
-            name="description"
-            value={textDescription}
-            onChange={handleChange}
-            required
-            fullWidth
-            multiline
-            rows={4}
-          />
-        </Grid>
+  
         <Grid item xs={12}>
           <FormControlLabel
             control={
@@ -153,15 +159,37 @@ const ContractForm = ({ userId, advertisementId }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary">
-            Enviar Contrato
-          </Button>
+          {filteredUser && filteredUser.length > 0 ? (
+          <Link  href={`/pdf/${ filteredUser[0].id}`}  color="primary">
+          <Button variant="contained" color="primary" type= "submit">
+            Revisar Contrato
+          </Button>  
+        </Link>
+        ):( 
+        <p>Usuario no habilitado</p> 
+          )}
         </Grid>
+        
+         
+          <Grid item xs={9}>
+            <TextField
+              label=""
+              name="description"
+              value={textDescription}
+              onChange={handleChange}
+              required
+              fullWidth
+              multiline
+              rows={4}
+            />
+          </Grid>
+          <Link  href={`/pdf/${ filteredUser[0].id}`}  color="primary">
+          <Button variant="contained" color="primary">
+           Next
+          </Button>  
+        </Link>
       </Grid>
     </form>
   );
-};
-
-export default ContractForm;
-
-//
+ }
+ export default ContractForm
