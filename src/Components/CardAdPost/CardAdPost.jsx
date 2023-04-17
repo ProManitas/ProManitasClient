@@ -9,60 +9,55 @@ import {
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
-
-export default function CardAdPost({
-  name,
-  services,
-  image,
-  ServiceId,
-  id,
-}) {
+export default function CardAdPost({ name, services, image, serviceID, id }) {
   let cardService = "";
-if (!ServiceId) {
-  cardService = services.length >= 6 ? services[5].name : '';
-} else {
-  cardService = services?.find((service) => service.id === ServiceId)?.name || '';
-}
+  console.log(`Targeta ${name}`, serviceID);
+  if (!serviceID) {
+    cardService = services.length >= 6 ? services[5].name : "";
+  } else {
+    cardService =
+      services?.find((service) => service.id === serviceID)?.name || "";
+  }
 
-const { isAuthenticated } = useAuth0();
-    
-    return (
+  const { isAuthenticated } = useAuth0();
 
-      <Grid item xs={12} sm={6} md={4}>
+  return (
+    <Grid item xs={12} sm={6} md={4}>
       {isAuthenticated ? (
         <Link href={`/detail/${id}`}>
-          <Card>
+          <Card sx={{ padding: 0 }}>
             <CardContent>
               <Typography variant="h5">{cardService}</Typography>
               <Typography variant="h6">{name}</Typography>
-              <CardMedia
-                component="img"
-                image={image}
-                height={250}
-                style={{ padding: 0 }}
-              ></CardMedia>
             </CardContent>
+            <CardMedia
+              component="img"
+              image={image}
+              height={250}
+              style={{ padding: 0 }}
+            />
           </Card>
         </Link>
       ) : (
-        <div onClick={() => alert("Debes iniciar sesión o registrarte para poder continuar")}>
-          <Card>
+        <div
+          onClick={() =>
+            alert("Debes iniciar sesión o registrarte para poder continuar")
+          }
+        >
+          <Card sx={{ padding: 0 }}>
             <CardContent>
               <Typography variant="h5">{cardService}</Typography>
               <Typography variant="h6">{name}</Typography>
-              <CardMedia
-                component="img"
-                image={image}
-                height={250}
-                style={{ padding: 0 }}
-              ></CardMedia>
             </CardContent>
+            <CardMedia
+              component="img"
+              image={image}
+              height={250}
+              style={{ padding: 0 }}
+            />
           </Card>
         </div>
       )}
     </Grid>
-  
   );
 }
-
-  
