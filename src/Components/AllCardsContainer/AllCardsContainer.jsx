@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CardAdPost from "../CardAdPost/CardAdPost";
 import { getServices } from "../../Redux/Actions/searchAction";
 import Paginated from "../Paginated/Paginated";
+import SkeletonCard from "../SkeletonCard/SkeletonCard";
 
 export default function AllCardsContainer() {
   const dispatch = useDispatch();
@@ -14,11 +15,16 @@ export default function AllCardsContainer() {
   const posts = data.data;
   const services = useSelector((state) => state.search.services);
 
+  // console.log("Mis posteos", posts);
+  // console.log("Mis servicios", services);
+
   return (
     <Container>
-      <Grid container spacing={2} justifyContent={"center"}>
-        {services.length &&
-          posts?.map((element, index) => (
+      {services.length === 0 ? (
+        <SkeletonCard />
+      ) : (
+        <Grid container spacing={2} justifyContent={"center"}>
+          {posts?.map((element, index) => (
             <CardAdPost
               key={index}
               id={element.id}
@@ -28,7 +34,8 @@ export default function AllCardsContainer() {
               image={element.image}
             />
           ))}
-      </Grid>
+        </Grid>
+      )}
       <Paginated />
     </Container>
   );

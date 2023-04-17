@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CardAdPost from "../CardAdPost/CardAdPost";
 import { getServices, searchAction } from "../../Redux/Actions/searchAction";
 import PaginatedResult from "../PaginatedResult/PaginatedResult";
+import SkeletonCard from "../SkeletonCard/SkeletonCard";
 
 export default function SearchResult() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export default function SearchResult() {
   const search = useSelector((state) => state.search.search);
 
   // lógica de paginado
-  const [searchPerPage, ] = useState(6);
+  const [searchPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastService = currentPage * searchPerPage;
@@ -40,31 +41,36 @@ export default function SearchResult() {
     setCurrentPage(pageNumber);
   };
 
+  // console.log("los servicios", services);
+  console.log(search.length);
+
   return (
     <Container>
       <SearchBarFilter
         preinputSearch={preinputSearch}
         preCatSelected={preCatSelected}
       />
-      <br />
-      <hr />
-      <br />
       <Container>
-        <Grid container spacing={2} justifyContent={"center"}>
-          {services.length && currentSearch.length > 0 &&
-            currentSearch.map((element, index) => (
-              <CardAdPost
-                key={index}
-                id={element.id}
-                name={element.name}
-                services={services}
-                serviceID={element.ServiceId}
-                image={element.image}
-              />
-            ))}
-        </Grid>
+        {services.length === 0 || currentSearch.length === 0 ? (
+          <SkeletonCard />
+        ) : (
+          <Grid container spacing={2} justifyContent={"center"}>
+            {services.length &&
+              currentSearch.length > 0 &&
+              currentSearch.map((element, index) => (
+                <CardAdPost
+                  key={index}
+                  id={element.id}
+                  name={element.name}
+                  services={services}
+                  serviceID={element.ServiceId}
+                  image={element.image}
+                />
+              ))}
+          </Grid>
+        )}
       </Container>
-      {search.length > 0 && (
+      {search.length > 6 && (
         <PaginatedResult
           searchPerPage={searchPerPage}
           totalServices={search.length}

@@ -10,9 +10,6 @@ const Home = () => {
   return (
     <Container>
       <SearchBarFilter />
-      <br />
-      <hr />
-      <br />
       <AllCardsContainer />
       <Footer/>
     </Container>
