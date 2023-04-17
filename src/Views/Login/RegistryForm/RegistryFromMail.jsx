@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import style from "./RegistryForm.module.css";
+import validations from "../validations";
 
 const RegistryFromMail = () => {
   const { user } = useAuth0();
@@ -19,6 +20,12 @@ const RegistryFromMail = () => {
     address: "",
     image: ""
   });
+
+  const [errors, setErrors] = useState({
+    username: "",
+    cellnumber: "",
+    address: ""
+  })
 
 
   //bring info from auth0
@@ -38,7 +45,11 @@ const RegistryFromMail = () => {
     setForm({
       ...form,
       [event.target.name]: event.target.value,
-    });
+    })
+    setErrors(validations({
+      ...form,
+      [event.target.name]: event.target.value,
+    }))
   };
 
   //add data to DB
@@ -79,6 +90,7 @@ const RegistryFromMail = () => {
             value={form.username}
             onChange={changeHandler}
           />
+          {errors.username ? <span className={style.error}>{errors.username}</span> : null}
         </div>
 
         <div>
@@ -113,6 +125,7 @@ const RegistryFromMail = () => {
             value={form.cellnumber}
             onChange={changeHandler}
           />
+           {errors.cellnumber ? <span className={style.error}>{errors.cellnumber}</span> : null}
         </div>
 
         <div>
@@ -123,11 +136,16 @@ const RegistryFromMail = () => {
             value={form.address}
             onChange={changeHandler}
           />
+          {errors.address ? <span className={style.error}>{errors.address}</span> : null}
         </div>
 
 
         <div>
-          <button type="submit">Guardar</button>
+          <button type="submit"
+          disabled={errors.username ||
+            errors.cellnumber ||
+            errors.address}
+          >Guardar</button>
         </div>
       </form>
     </div>

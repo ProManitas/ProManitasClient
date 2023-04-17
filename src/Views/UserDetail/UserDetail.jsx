@@ -3,19 +3,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getUserId, updateUser } from "../../Redux/Actions/userAction";
 import style from "./UserDetail.module.css";
+import validations from "../Login/validations";
 
 const UserDetail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
  
 
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
     image: "",
     password: "",
     cellnumber: "",
     address: "",
   });
 
+  const [errors, setErrors] = useState({
+    image: "",
+    password: "",
+    cellnumber: "",
+    address: "",
+  });
+
+  
 
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -30,10 +39,14 @@ const UserDetail = () => {
   const isLoading = useSelector((state) => state.user.isLoading);
 
   const handleInputChange = (event) => {
-    setFormData({
-      ...formData,
+    setForm({
+      ...form,
       [event.target.name]: event.target.value,
-    });
+    })
+    setErrors(validations({
+      ...form,
+      [event.target.name]: event.target.value
+    }))
   };
 
   const handleEdit = (field) => {
@@ -43,7 +56,7 @@ const UserDetail = () => {
 
   const handleSave = (event) => {
     event.preventDefault();
-    dispatch(updateUser(id, formData));
+    dispatch(updateUser(id, form));
     setIsDisabled(true);
     alert("Usuario modificado con exito")
     setTimeout(() => {
@@ -57,14 +70,14 @@ const UserDetail = () => {
 
   useEffect(() => {
     if (detail) {
-      setFormData({
+      setForm({
         image: detail.image || "",
         password: detail.password || "",
         cellnumber: detail.cellnumber || "",
         address: detail.address || "",
       });
     }
-  }, [setFormData, detail]);
+  }, [setForm, detail]);
 
   return (
     <div className={style.container}>
@@ -88,10 +101,11 @@ const UserDetail = () => {
           <input
           type="password"
           name="password"
-          value={formData.password}
+          value={form.password}
           onChange={handleInputChange}
           disabled={isDisabled || editableField !== "password"}
           />
+             {errors.password ? <span className={style.error}>{errors.password}</span> : null}
           <button type="button" onClick={() => handleEdit("password")}>
             Editar
           </button>
@@ -102,10 +116,11 @@ const UserDetail = () => {
           <input
             type="text"
             name="cellnumber"
-            value={formData.cellnumber}
+            value={form.cellnumber}
             onChange={handleInputChange}
             disabled={isDisabled || editableField !== "cellnumber"}
           />
+           {errors.cellnumber ? <span className={style.error}>{errors.cellnumber}</span> : null}
           <button type="button" onClick={() => handleEdit("cellnumber")}>
             Editar
           </button>
@@ -114,15 +129,20 @@ const UserDetail = () => {
           <input
             type="text"
             name="address"
-            value={formData.address}
+            value={form.address}
             onChange={handleInputChange}
             disabled={isDisabled || editableField !== "address"}
           />
+         {errors.address ? <span className={style.error}>{errors.address}</span> : null}
           <button type="button" onClick={() => handleEdit("address")}>
             Editar
           </button>
 
-          <button type="submit">Guardar cambios</button>
+          <button type="submit"
+          disabled={errors.password ||
+            errors.cellnumber ||
+            errors.address}
+          >Guardar cambios</button>
         </form>
       )}
     </div>
