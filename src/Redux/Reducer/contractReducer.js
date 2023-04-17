@@ -1,20 +1,32 @@
 // reducers/contractReducer.js
+import {GET_ALL_CONTRACTS} from "../Actions/contractAction"
 
-const contractReducer = (state = {}, action) => {
-    switch (action.type) {
-      case 'SET_CONTRACT_ID':
-        const { userId, advertisementId } = action.payload;
-        return {
-          ...state,
-          [userId]: {
-            ...state[userId],
-            [advertisementId]: action.payload.contractId, // Actualizar el ID de contrato para el usuario y el aviso específico
-          },
-        };
-      default:
-        return state;
-    }
-  };
-  
-  export default contractReducer;
+const initialState = {
+  contracts: [],
+  contractId: null,
+};
+
+
+const contractReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'SET_CONTRACT_ID':
+      return {
+        ...state,
+        contractId: action.payload
+      };
+    
+    case GET_ALL_CONTRACTS:
+      return{
+        ...state,
+        contracts: action.payload
+      }
+
+    default:
+      return state;
+  }
+};
+
+
+
+export default contractReducer;
   

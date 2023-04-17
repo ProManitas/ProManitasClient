@@ -20,6 +20,10 @@ import About from "./Components/About/About.jsx";
 import UnderConstruction from "./Components/UnderConstruction/UnderConstruction.jsx";
 import CheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx";
 import RegistryFromMail from "./Views/Login/RegistryForm/RegistryFromMail";
+import ContractsAll from "./Components/ContractForm/ContractsAll.jsx"
+import PaymentHistory from "./Components/paymentHistory/paymentHistory"
+
+
 const { REACT_APP_STRIPE_PUBLIC } = process.env;
 
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC);
@@ -79,6 +83,8 @@ function App() {
             </Elements>
           }
         />
+       <Route path="/pdf/:id" element={<ContractsAll />} />
+       <Route path="/phistory" element={<PaymentHistory />} /> 
       </Routes>
     </div>
   );
