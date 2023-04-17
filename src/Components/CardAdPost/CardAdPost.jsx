@@ -11,7 +11,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function CardAdPost({ name, services, image, serviceID, id }) {
   let cardService = "";
-  console.log(`Targeta ${name}`, serviceID);
   if (!serviceID) {
     cardService = services.length >= 6 ? services[5].name : "";
   } else {
