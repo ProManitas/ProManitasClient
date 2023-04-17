@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-  margin-top: 10vh;
+  margin-top: 5vh;
   min-height: 0vh;
   display: flex;
   align-items: flex-start;
@@ -52,10 +52,6 @@ body {
   color: #1f1f1f;
 }
 
-.form input:focus {
-  outline: none;
-  border: 2px solid #0085ff;
-}
 
 .form .error {
   color: #e92b2d;

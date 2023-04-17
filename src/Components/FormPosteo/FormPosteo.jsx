@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getAllUsers } from "../../Redux/Actions/userAction";
 
+const letrasRegExp = /[a-zA-Z ]/
+
 
 const FormPosteo = () => {
   const { user } = useAuth0();
@@ -36,25 +38,33 @@ const FormPosteo = () => {
           description: "",
           name: "",
           image: "",
-          username: "",
         }}
         validate={(data) => {
           let error = {};
 
           if (data.name.length > 20) {
             error.name = "El título no puede tener más de 20 caracteres";
-          }
-
+          } else if (!letrasRegExp.test(data.name)){
+            error.name = "El título no debe contener números" 
+          } 
           if (!data.service || data.service === "select") {
             error.service = "Por favor seleccione rubro";
           }
+  
           return error;
         }}
         onSubmit={(data, { resetForm }) => {
+          console.log(data, "testing")
           try {
             dispatch(getName(data));
             axios
-              .post("/adPosts", data)
+              .post("/adPosts", {
+                name: data.name,
+                description: data.description,
+                image: data.image,
+                username: filteredUser[0].username,
+                service: data.service
+              })
               .then((response) => (response.data))
               .catch((error) =>(error));
             resetForm();
@@ -124,6 +134,7 @@ const FormPosteo = () => {
                 onBlur={handleBlur}
                 className="input"
                 accept="image/*"
+                required
               />
               {touched.image && errors.image && (
                 <div className="error">{errors.image}</div>
