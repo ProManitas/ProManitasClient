@@ -222,7 +222,7 @@ export default function NavBar() {
           </Box>
         </Toolbar>
       </AppBar>
-      <div style={{ paddingTop: "7%" }}></div>
+      <div style={{ paddingTop: "90px" }}></div>
     </Container>
   );
 }
