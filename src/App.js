@@ -22,7 +22,7 @@ import CheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx";
 import RegistryFromMail from "./Views/Login/RegistryForm/RegistryFromMail";
 import ContractsAll from "./Components/ContractForm/ContractsAll.jsx"
 import PaymentHistory from "./Components/paymentHistory/paymentHistory"
-
+import ContractForm from "./Components/ContractForm/ContractForm";
 
 const { REACT_APP_STRIPE_PUBLIC } = process.env;
 
@@ -49,6 +49,8 @@ function App() {
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/home/search" element={<SearchResult />} />
+        <Route path="/contract" element={<ContractForm/>} />
+        <Route path="/pdf" element={<ContractsAll/>}/>
         <Route
           path="/posteo"
           element={<AuthenticationGuard component={FormPosteo} />}
@@ -57,6 +59,7 @@ function App() {
           path="/detail/:id"
           element={<AuthenticationGuard component={Detail} />}
         />
+        
         <Route
           path="/contract/"
           element={<AuthenticationGuard component={AgreementArea} />}
@@ -66,6 +69,8 @@ function App() {
           path="/profile"
           element={<AuthenticationGuard component={Profile} />}
         />
+        <Route path="/pdf/:id" element={<ContractsAll />} />
+       <Route path="/phistory" element={<PaymentHistory />} /> 
         <Route path="/registryFromMail" element={<RegistryFromMail />} />
         <Route
           path="userdetail/:id"
@@ -83,8 +88,7 @@ function App() {
             </Elements>
           }
         />
-       <Route path="/pdf/:id" element={<ContractsAll />} />
-       <Route path="/phistory" element={<PaymentHistory />} /> 
+       
       </Routes>
     </div>
   );
