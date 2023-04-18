@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import style from "./RegistryForm.module.css";
 import validations from "../validations";
+import Swal from "sweetalert2";
 
 const RegistryFromMail = () => {
   const { user } = useAuth0();
@@ -62,8 +63,14 @@ const RegistryFromMail = () => {
             "Content-Type": "application/json",
           },
         })
-        .then(alert("Datos completados con éxito."));
-      navigate("/profile");
+        .then(Swal.fire({
+          icon: "success",
+          html: "Tus datos se han completado correctamente.",
+          confirmButtonColor: "#bc2525",
+        }));
+        setTimeout(() => {
+          navigate("/profile");
+        }, 3000);
     } catch (error) {
       alert(error);
     }
@@ -142,8 +149,8 @@ const RegistryFromMail = () => {
 
         <div>
           <button type="submit"
-          disabled={errors.username ||
-            errors.cellnumber ||
+          disabled={errors.username &&
+            errors.cellnumber &&
             errors.address}
           >Guardar</button>
         </div>

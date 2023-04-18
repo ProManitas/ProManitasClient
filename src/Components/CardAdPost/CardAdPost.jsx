@@ -8,9 +8,14 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import Swal from "sweetalert2";
+
+
 
 export default function CardAdPost({ name, services, image, serviceID, id }) {
+
   let cardService = "";
+
   if (!serviceID) {
     cardService = services.length >= 6 ? services[5].name : "";
   } else {
@@ -19,6 +24,7 @@ export default function CardAdPost({ name, services, image, serviceID, id }) {
   }
 
   const { isAuthenticated } = useAuth0();
+
 
   return (
     <Grid item xs={12} sm={6} md={4}>
@@ -40,7 +46,12 @@ export default function CardAdPost({ name, services, image, serviceID, id }) {
       ) : (
         <div
           onClick={() =>
-            alert("Debes iniciar sesión o registrarte para poder continuar")
+            Swal.fire({
+              icon: "warning",
+              title: "¡Error de autenticación!",
+              html: "Debes iniciar sesión o <a href='/registryForm'>registrarte</a> para continuar",
+              confirmButtonColor: "#bc2525",
+            })
           }
         >
           <Card sx={{ padding: 0 }}>

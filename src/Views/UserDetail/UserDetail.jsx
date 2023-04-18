@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom";
 import { getUserId, updateUser } from "../../Redux/Actions/userAction";
 import style from "./UserDetail.module.css";
 import validations from "../Login/validations";
+import Swal from "sweetalert2";
+
+
 
 const UserDetail = () => {
   const dispatch = useDispatch();
@@ -24,8 +27,6 @@ const UserDetail = () => {
     address: "",
   });
 
-  
-
   const [isDisabled, setIsDisabled] = useState(true);
 
   const [editableField, setEditableField] = useState({
@@ -39,14 +40,14 @@ const UserDetail = () => {
   const isLoading = useSelector((state) => state.user.isLoading);
 
   const handleInputChange = (event) => {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value,
-    })
     setErrors(validations({
       ...form,
       [event.target.name]: event.target.value
     }))
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    })
   };
 
   const handleEdit = (field) => {
@@ -58,7 +59,11 @@ const UserDetail = () => {
     event.preventDefault();
     dispatch(updateUser(id, form));
     setIsDisabled(true);
-    alert("Usuario modificado con exito")
+    Swal.fire({
+      icon: "success",
+      html: "Tus datos se han modificado correctamente.",
+      confirmButtonColor: "#bc2525",
+    })
     setTimeout(() => {
       window.location.reload();
     }, 2000);
@@ -105,7 +110,7 @@ const UserDetail = () => {
           onChange={handleInputChange}
           disabled={isDisabled || editableField !== "password"}
           />
-             {errors.password ? <span className={style.error}>{errors.password}</span> : null}
+          {errors.password ? <span className={style.error}>{errors.password}</span> : null}
           <button type="button" onClick={() => handleEdit("password")}>
             Editar
           </button>
@@ -125,6 +130,7 @@ const UserDetail = () => {
             Editar
           </button>
 
+
           <label htmlFor="address">Dirección:</label>
           <input
             type="text"
@@ -132,6 +138,7 @@ const UserDetail = () => {
             value={form.address}
             onChange={handleInputChange}
             disabled={isDisabled || editableField !== "address"}
+            
           />
          {errors.address ? <span className={style.error}>{errors.address}</span> : null}
           <button type="button" onClick={() => handleEdit("address")}>
@@ -139,8 +146,8 @@ const UserDetail = () => {
           </button>
 
           <button type="submit"
-          disabled={errors.password ||
-            errors.cellnumber ||
+          disabled={errors.password &&
+            errors.cellnumber &&
             errors.address}
           >Guardar cambios</button>
         </form>

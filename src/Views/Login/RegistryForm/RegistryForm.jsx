@@ -3,6 +3,7 @@ import axios from "axios";
 import style from "./RegistryForm.module.css";
 import { useNavigate } from "react-router";
 import validations from "../validations";
+import Swal from "sweetalert2";
 
 const RegistryForm = () => {
   const navigate = useNavigate();
@@ -49,8 +50,15 @@ const RegistryForm = () => {
             "Content-Type": "application/json",
           },
         })
-        .then(alert("Usuario creado correctamente, por favor inicia sesión"));
-      navigate("/");
+        .then(Swal.fire({
+          icon: "success",
+          title: "Usuario creado correctamente",
+          html: "Por favor inicia sesión para continuar.",
+          confirmButtonColor: "#bc2525",
+        }));
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
     } catch (error) {
       alert(error);
     }
