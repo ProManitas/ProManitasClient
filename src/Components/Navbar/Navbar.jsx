@@ -11,14 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import {
-  FormControlLabel,
-  FormGroup,
-  Hidden,
-  Link,
-  Switch,
-  useTheme,
-} from "@mui/material";
+import { Hidden, Link, Switch, useTheme } from "@mui/material";
 import icon from "./../../Images/icon.png";
 import { LoginButton } from "../../Views/Login/LoginButton/LoginButton";
 import { LogOutButton } from "../../Views/Login/LogOutButton/LogOutButton";
@@ -66,7 +59,10 @@ export default function NavBar() {
   console.log(theme.palette.primary);
   return (
     <Container maxWidth="xl">
-      <AppBar sx={{ background: theme.palette.primary.main }} position="fixed">
+      <AppBar
+        sx={{ background: theme.palette.primary.main, padding: 0 }}
+        position="fixed"
+      >
         <Toolbar>
           <Hidden mdDown>
             <img
@@ -242,7 +238,7 @@ export default function NavBar() {
           </Box>
         </Toolbar>
       </AppBar>
-      <div style={{ paddingTop: "90px" }}></div>
+      <div style={{ paddingTop: "5em" }}></div>
     </Container>
   );
 }
