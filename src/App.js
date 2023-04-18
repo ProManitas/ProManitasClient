@@ -20,19 +20,50 @@ import About from "./Components/About/About.jsx";
 import UnderConstruction from "./Components/UnderConstruction/UnderConstruction.jsx";
 import CheckoutForm from "./Components/CheckoutForm/CheckoutForm.jsx";
 import RegistryFromMail from "./Views/Login/RegistryForm/RegistryFromMail";
-import ContractsAll from "./Components/ContractForm/ContractsAll.jsx"
-import PaymentHistory from "./Components/paymentHistory/paymentHistory"
+import ContractsAll from "./Components/ContractForm/ContractsAll.jsx";
+import PaymentHistory from "./Components/paymentHistory/paymentHistory";
 import ContractForm from "./Components/ContractForm/ContractForm";
 import ContractPDF from "./Components/ContractForm/ContractPDF";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const { REACT_APP_STRIPE_PUBLIC } = process.env;
-
 const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC);
+
+const themeLight = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#e7eaf6",
+    },
+    secondary: {
+      main: "#113f67",
+    },
+    background: {
+      default: "#a2a8d3",
+    },
+  },
+});
+
+const themeDark = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#121212",
+    },
+    secondary: {
+      main: "#e7eaf6",
+    },
+    background: {
+      default: "#113f67",
+    },
+  },
+});
 
 function App() {
   const location = useLocation();
-
   const { isLoading } = useAuth0();
+  const currentTheme = useSelector((state) => state.theme.themeSelected);
 
   if (isLoading) {
     return (
@@ -92,6 +123,58 @@ function App() {
        
       </Routes>
     </div>
+    <ThemeProvider theme={currentTheme === "light" ? themeLight : themeDark}>
+      <CssBaseline />
+      <div className="App">
+        {location.pathname !== "/" &&
+          location.pathname !== "/login" &&
+          location.pathname !== "/construction" && <Navbar />}
+        <Routes>
+          <Route exact path="/" element={<Landing />} />
+          <Route exact path="/home" element={<Home />} />
+          <Route path="/home/search" element={<SearchResult />} />
+          <Route path="/contract" element={<ContractForm />} />
+          <Route path="/pdf" element={<ContractsAll />} />
+          <Route
+            path="/posteo"
+            element={<AuthenticationGuard component={FormPosteo} />}
+          />
+          <Route
+            path="/detail/:id"
+            element={<AuthenticationGuard component={Detail} />}
+          />
+
+          <Route
+            path="/contract/"
+            element={<AuthenticationGuard component={AgreementArea} />}
+          />
+          <Route path="/registryForm" element={<RegistryForm />} />
+          <Route
+            path="/profile"
+            element={<AuthenticationGuard component={Profile} />}
+          />
+          <Route path="/pdf/:id" element={<ContractsAll />} />
+          <Route path="/phistory" element={<PaymentHistory />} />
+          <Route path="/registryFromMail" element={<RegistryFromMail />} />
+          <Route
+            path="userdetail/:id"
+            element={<AuthenticationGuard component={UserDetail} />}
+          />
+          <Route path="/contact" element={<FooterForm />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/construction" element={<UnderConstruction />} />
+          <Route
+            path="/payment/"
+            element={
+              <Elements stripe={stripePromise}>
+                <CheckoutForm />
+              </Elements>
+            }
+          />
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 }
 
