@@ -74,15 +74,20 @@ function App() {
   }
   return (
     <div className="App">
-      {location.pathname !== "/" &&
-        location.pathname !== "/login" &&
-        location.pathname !== "/construction" && <Navbar />}
+      <ThemeProvider theme={currentTheme === "light" ? themeLight : themeDark}>
+        <CssBaseline />
+        <div className="App">
+          {location.pathname !== "/" &&
+            location.pathname !== "/login" &&
+            location.pathname !== "/construction" && <Navbar />}
+        </div>
+      </ThemeProvider>
       <Routes>
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/home/search" element={<SearchResult />} />
-        <Route path="/contract" element={<ContractForm/>} />
-        <Route path="/currentcontract/:contractId" element ={<ContractPDF/>}/>
+        <Route path="/contract" element={<ContractForm />} />
+        <Route path="/currentcontract/:contractId" element={<ContractPDF />} />
         <Route
           path="/posteo"
           element={<AuthenticationGuard component={FormPosteo} />}
@@ -91,7 +96,7 @@ function App() {
           path="/detail/:id"
           element={<AuthenticationGuard component={Detail} />}
         />
-        
+
         <Route
           path="/contract/"
           element={<AuthenticationGuard component={AgreementArea} />}
@@ -102,7 +107,7 @@ function App() {
           element={<AuthenticationGuard component={Profile} />}
         />
         <Route path="/pdf/:id" element={<ContractsAll />} />
-       <Route path="/phistory" element={<PaymentHistory />} /> 
+        <Route path="/phistory" element={<PaymentHistory />} />
         <Route path="/registryFromMail" element={<RegistryFromMail />} />
         <Route
           path="userdetail/:id"
@@ -113,68 +118,15 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/construction" element={<UnderConstruction />} />
         <Route
-          path="/payment/"
+          path="/payment/:contractId"
           element={
             <Elements stripe={stripePromise}>
               <CheckoutForm />
             </Elements>
           }
         />
-       
       </Routes>
     </div>
-    <ThemeProvider theme={currentTheme === "light" ? themeLight : themeDark}>
-      <CssBaseline />
-      <div className="App">
-        {location.pathname !== "/" &&
-          location.pathname !== "/login" &&
-          location.pathname !== "/construction" && <Navbar />}
-        <Routes>
-          <Route exact path="/" element={<Landing />} />
-          <Route exact path="/home" element={<Home />} />
-          <Route path="/home/search" element={<SearchResult />} />
-          <Route path="/contract" element={<ContractForm />} />
-          <Route path="/pdf" element={<ContractsAll />} />
-          <Route
-            path="/posteo"
-            element={<AuthenticationGuard component={FormPosteo} />}
-          />
-          <Route
-            path="/detail/:id"
-            element={<AuthenticationGuard component={Detail} />}
-          />
-
-          <Route
-            path="/contract/"
-            element={<AuthenticationGuard component={AgreementArea} />}
-          />
-          <Route path="/registryForm" element={<RegistryForm />} />
-          <Route
-            path="/profile"
-            element={<AuthenticationGuard component={Profile} />}
-          />
-          <Route path="/pdf/:id" element={<ContractsAll />} />
-          <Route path="/phistory" element={<PaymentHistory />} />
-          <Route path="/registryFromMail" element={<RegistryFromMail />} />
-          <Route
-            path="userdetail/:id"
-            element={<AuthenticationGuard component={UserDetail} />}
-          />
-          <Route path="/contact" element={<FooterForm />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/construction" element={<UnderConstruction />} />
-          <Route
-            path="/payment/"
-            element={
-              <Elements stripe={stripePromise}>
-                <CheckoutForm />
-              </Elements>
-            }
-          />
-        </Routes>
-      </div>
-    </ThemeProvider>
   );
 }
 
