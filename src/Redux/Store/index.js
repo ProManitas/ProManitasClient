@@ -11,7 +11,7 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  whitelist: ['profile'] // What we want to persist
+  whitelist: ['profile', 'theme'] // What we want to persist
 }
 
 const persistedReducer = persistReducer(persistConfig, reducer)
