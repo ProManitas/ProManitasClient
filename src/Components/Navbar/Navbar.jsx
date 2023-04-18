@@ -17,7 +17,7 @@ import { LoginButton } from "../../Views/Login/LoginButton/LoginButton";
 import { LogOutButton } from "../../Views/Login/LogOutButton/LogOutButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { selectMode } from "../../Redux/Actions/themeActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const pages = [
   { message: "Notificaciones", route: "/construction" },
@@ -34,6 +34,7 @@ export default function NavBar() {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const dispatch = useDispatch();
   const theme = useTheme();
+  const themeSelected = useSelector((state) => state.theme.themeSelected);
 
   const { isAuthenticated } = useAuth0();
 
@@ -56,7 +57,6 @@ export default function NavBar() {
     dispatch(selectMode());
   };
 
-  console.log(theme.palette.primary);
   return (
     <Container maxWidth="xl">
       <AppBar
@@ -195,7 +195,11 @@ export default function NavBar() {
             </Box>
           )}
 
-          <Switch onClick={switchThemeHandler} color="secondary" />
+          <Switch
+            onClick={switchThemeHandler}
+            checked={themeSelected === "dark" ? true : false}
+            color="secondary"
+          />
           <Typography marginRight={"2%"}>Modo Oscuro</Typography>
 
           <Box sx={{ flexGrow: 0 }}>
