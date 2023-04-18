@@ -3,16 +3,18 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import { AppBar } from "@mui/material";
+import { AppBar, useTheme } from "@mui/material";
 
 const Footer = () => {
+  const theme = useTheme();
+
   return (
     <Container>
       <div style={{ paddingTop: "50px" }}></div>
       <AppBar
         position="fixed"
-        color="primary"
         sx={{
+          background: theme.palette.primary.main,
           width: "100%",
           marginTop: "auto",
           top: "auto",
