@@ -1,14 +1,13 @@
-import React, {useState} from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import {Formik, Field} from "formik";
 import "./FooterForm.css";
-
-
+import Swal from "sweetalert2";
 
 
 
 const FooterForm =()=>{
-    const[formularioEnviado,cambiarFormularioEnviado]= useState(false);
+    
     const navigate = useNavigate();
 
     
@@ -18,7 +17,7 @@ const FooterForm =()=>{
       // Redirigir al usuario a la ruta "home"
       setTimeout(() => {
         navigate("/construction");
-      }, 2000);
+      }, 3000);
     }
    
 return(
@@ -51,8 +50,12 @@ return(
     }}
     onSubmit={(value, {resetForm})=>{
     resetForm();
-    cambiarFormularioEnviado(true);
-    setTimeout(()=>cambiarFormularioEnviado(false),2000);
+      Swal.fire({
+        icon: "success",
+        title: "¡Mensaje enviado!",
+        html: "Tu mensaje se ha enviado correctamente, pronto estaremos en contacto.",
+        confirmButtonColor: "#bc2525",
+      })
     handleRegister(value)
     }}>
         {({values, errors,touched, handleSubmit, handleChange, handleBlur})=>(
@@ -78,7 +81,7 @@ return(
                 </div>
                 
                 <button className="button" type="submit">Enviar</button>
-                {formularioEnviado && <p className="exito">Mensaje enviado con exito!</p>}
+                
                  
             </form>
         )}

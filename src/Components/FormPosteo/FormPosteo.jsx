@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getAllUsers } from "../../Redux/Actions/userAction";
+import Swal from "sweetalert2";
 
 const letrasRegExp = /[a-zA-Z ]/
 
@@ -68,8 +69,12 @@ const FormPosteo = () => {
               .then((response) => (response.data))
               .catch((error) =>(error));
             resetForm();
+            Swal.fire({
+              icon: "success",
+              html: "Tu aviso se ha publicado correctamente",
+              confirmButtonColor: "#bc2525",
+            })
             setTimeout(() => {
-              alert("Aviso publicado correctamente")
               navigate("/home");
             }, 2000);
           } catch (error) {
