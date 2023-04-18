@@ -43,4 +43,3 @@ const ContractPDF = (props) => {
 };
 
 export default ContractPDF;
-

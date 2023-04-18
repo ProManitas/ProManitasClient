@@ -23,6 +23,7 @@ import RegistryFromMail from "./Views/Login/RegistryForm/RegistryFromMail";
 import ContractsAll from "./Components/ContractForm/ContractsAll.jsx"
 import PaymentHistory from "./Components/paymentHistory/paymentHistory"
 import ContractForm from "./Components/ContractForm/ContractForm";
+import ContractPDF from "./Components/ContractForm/ContractPDF";
 
 const { REACT_APP_STRIPE_PUBLIC } = process.env;
 
@@ -50,7 +51,7 @@ function App() {
         <Route exact path="/home" element={<Home />} />
         <Route path="/home/search" element={<SearchResult />} />
         <Route path="/contract" element={<ContractForm/>} />
-        <Route path="/pdf" element={<ContractsAll/>}/>
+        <Route path="/currentcontract/:contractId" element ={<ContractPDF/>}/>
         <Route
           path="/posteo"
           element={<AuthenticationGuard component={FormPosteo} />}

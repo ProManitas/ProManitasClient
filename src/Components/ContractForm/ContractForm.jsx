@@ -5,6 +5,7 @@ import { TextField, Button, Checkbox, Grid, FormControlLabel } from '@mui/materi
 import { useNavigate } from 'react-router-dom';
 import {useAuth0} from "@auth0/auth0-react"
 import { getAllUsers } from '../../Redux/Actions/userAction';
+import { getContractById } from '../../Redux/Actions/contractAction';
 
 const ContractForm = () => {
   const{user}= useAuth0();
@@ -17,13 +18,15 @@ const ContractForm = () => {
     detail: "",
     description: "",
     payment: "",
+    contractId:""
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllUsers())
+    dispatch(getContractById())
   }, [dispatch]);
 
   const handleChange = (event) => {
@@ -46,11 +49,11 @@ const ContractForm = () => {
   
   const [, setIsLoading] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     try {
-      dispatch(
+      const result = await dispatch(
         sendContract(
           contractData.payment,
           filteredUser[0].username,
@@ -58,8 +61,9 @@ const ContractForm = () => {
           user.email
         )
       );
-
-      navigate(`/pdf/${filteredUser[0].id}`);
+      const { contractId } = result;
+      setContractData({ ...contractData, contractId });
+      navigate(`/payment/${contractId}`);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -69,6 +73,7 @@ const ContractForm = () => {
   
 
   return (
+    
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -149,7 +154,7 @@ const ContractForm = () => {
         </Grid>
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary">
-            Revisar Contrato
+            Realizar Pago
           </Button>
         </Grid>
         <Grid item xs={12}>
