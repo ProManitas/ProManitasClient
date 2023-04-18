@@ -5,19 +5,21 @@ import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Grid, Paper } from "@mui/material";
+import { useParams } from "react-router-dom";
 
 
 
 const CheckoutForm = () => {
+  const { contractId } = useParams()
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
-  const [contractId, setContractId] = useState("");
+  const [ setContractId] = useState("");
   const [paymentError, setPaymentError] = useState(null);
-  const [price, setPrice] = useState(0);
+  const [payment, setPrice] = useState(0);
   const [paymentSuccess, setPaymentSuccess] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
-
+  
   useEffect(() => {
    
     const fetchUsername = async () => {
@@ -60,7 +62,7 @@ const CheckoutForm = () => {
     try {
       const response = await axios.post("https://promanitasapi.onrender.com/api/v1/payment/", {
         id: id,
-        amount: price,
+        amount: payment,
         description: "Pago por servicio de profesional",
         username: username,
         contractId: contractId, 
@@ -68,7 +70,7 @@ const CheckoutForm = () => {
       setPaymentSuccess(await response.data.message);
       setPaymentError(null);
       setTimeout(() => {
-        alert("Contrato creado correctamente")
+        alert("Pago Realizado Exitosamente")
       }, 2000);
     } catch (error) {
       setPaymentSuccess(null);
@@ -88,7 +90,7 @@ const CheckoutForm = () => {
               <TextField label="Nombre de usuario" value={username} disabled required fullWidth /> {/* Mostrar el nombre de usuario del usuario logueado */}
             </Grid>
             <Grid item xs={12}>
-              <TextField label="Id de Contrato" value={contractId} onChange={(event) => setContractId(event.target.value)} required fullWidth /> {/* Campo para ingresar el Id del contrato */}
+            <TextField label="Id de Contrato" defaultValue={contractId} onChange={(event) => setContractId(event.target.value)} required fullWidth />
             </Grid>
             
             <Grid item xs={12}>
@@ -113,7 +115,7 @@ const CheckoutForm = () => {
             <TextField
               label="Precio de Anticipo de Contrato"
               type="number"
-              value={price}
+              value={payment}
               onChange={(event) => setPrice(event.target.value)}
               fullWidth
             />
