@@ -9,16 +9,12 @@ import {
   MenuItem,
   Select,
   TextField,
-  ThemeProvider,
   Toolbar,
   useTheme,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  cleanSearch,
-  getServices,
-} from "../../Redux/Actions/searchAction";
+import { cleanSearch, getServices } from "../../Redux/Actions/searchAction";
 
 export default function SearchBarFilter({ preinputSearch, preCatSelected }) {
   const theme = useTheme();
@@ -27,8 +23,6 @@ export default function SearchBarFilter({ preinputSearch, preCatSelected }) {
   const [input, setInput] = useState("");
   const [service, setService] = useState("");
   useEffect(() => {
-    // console.log("Input anterior", !!preinputSearch);
-    // console.log("selected anterior", !!preCatSelected);
     if (!preinputSearch && !preCatSelected) {
       navigate(`/home`);
     }
@@ -73,101 +67,99 @@ export default function SearchBarFilter({ preinputSearch, preCatSelected }) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container
-        sx={{
-          marginTop: "1%",
-          background: theme.palette.primary.main,
-          paddingBottom: "1.5%",
-          paddingTop: "1.5%",
-          borderRadius: "5px",
-        }}
-      >
-        <Toolbar>
-          <Grid container alignItems={"center"} spacing={2}>
-            <FormControl>
-              <Grid item>
-                <TextField
-                  variant="outlined"
-                  label="Buscar"
-                  sx={{
-                    alignItems: "center",
-                    "& .MuiInputLabel-shrink": {
-                      color: "darkgray !important",
+    <Container
+      sx={{
+        marginTop: "1%",
+        background: theme.palette.primary.main,
+        paddingBottom: "1.5%",
+        paddingTop: "3%",
+        borderRadius: "5px",
+      }}
+    >
+      <Toolbar>
+        <Grid container alignItems={"center"} spacing={2}>
+          <FormControl>
+            <Grid item>
+              <TextField
+                variant="outlined"
+                label="Buscar"
+                sx={{
+                  alignItems: "center",
+                  "& .MuiInputLabel-shrink": {
+                    color: "darkgray !important",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: "darkgray",
                     },
-                    "& .MuiOutlinedInput-root": {
-                      "&.Mui-focused fieldset": {
-                        borderColor: "darkgray",
-                      },
-                      height: "40px",
-                      "& fieldset": {
-                        height: "60px",
-                      },
+                    height: "40px",
+                    "& fieldset": {
+                      height: "60px",
                     },
-                  }}
-                  inputProps={{
-                    style: { paddingTop: "29px" },
-                  }}
-                  onChange={changeHandler}
-                  value={input}
-                />
-                <IconButton onClick={searchHandler} size="large">
-                  <Search />
-                </IconButton>
-              </Grid>
-            </FormControl>
-            <FormControl>
-              <Grid
-                item
-                sx={{ height: "40px", display: "flex", alignItems: "center" }}
+                  },
+                }}
+                inputProps={{
+                  style: { paddingTop: "29px" },
+                }}
+                onChange={changeHandler}
+                value={input}
+              />
+              <IconButton onClick={searchHandler} size="large">
+                <Search />
+              </IconButton>
+            </Grid>
+          </FormControl>
+          <FormControl>
+            <Grid
+              item
+              sx={{ height: "40px", display: "flex", alignItems: "center" }}
+            >
+              <InputLabel
+                sx={{
+                  "&.Mui-focused": {
+                    color: "darkgray",
+                  },
+                  "& .MuiOutlinedLabel-root": {
+                    "&.Mui-focused fieldset": {
+                      borderColor: "darkgray",
+                    },
+                  },
+                }}
               >
-                <InputLabel
-                  sx={{
-                    "&.Mui-focused": {
-                      color: "darkgray",
+                Rubro
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                variant="filled"
+                value={service}
+                onChange={changeSelect}
+                sx={{
+                  width: "8em",
+                  height: "55px",
+                  marginTop: "10%",
+                  paddingBottom: "15px",
+                  "& .MuiSelect-root": {
+                    "& .MuiInputBase-root": {
+                      alignItems: "center",
                     },
-                    "& .MuiOutlinedLabel-root": {
-                      "&.Mui-focused fieldset": {
-                        borderColor: "darkgray",
-                      },
-                    },
-                  }}
-                >
-                  Rubro
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  variant="filled"
-                  value={service}
-                  onChange={changeSelect}
-                  sx={{
-                    width: "8em",
-                    height: "55px",
-                    marginTop: "10%",
-                    paddingBottom: "15px",
-                    "& .MuiSelect-root": {
-                      "& .MuiInputBase-root": {
-                        alignItems: "center",
-                      },
-                    },
-                  }}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
+                  },
+                }}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {services?.map((service, index) => (
+                  <MenuItem key={index} value={service.id}>
+                    {service.name}
                   </MenuItem>
-                  {services?.map((service, index) => (
-                    <MenuItem key={index} value={service.id}>
-                      {service.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Grid>
-            </FormControl>
-          </Grid>
-        </Toolbar>
-      </Container>
-    </ThemeProvider>
+                ))}
+              </Select>
+            </Grid>
+          </FormControl>
+        </Grid>
+      </Toolbar>
+    </Container>
   );
 }
 

@@ -11,11 +11,20 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Hidden, Link } from "@mui/material";
+import {
+  FormControlLabel,
+  FormGroup,
+  Hidden,
+  Link,
+  Switch,
+  useTheme,
+} from "@mui/material";
 import icon from "./../../Images/icon.png";
 import { LoginButton } from "../../Views/Login/LoginButton/LoginButton";
 import { LogOutButton } from "../../Views/Login/LogOutButton/LogOutButton";
 import { useAuth0 } from "@auth0/auth0-react";
+import { selectMode } from "../../Redux/Actions/themeActions";
+import { useDispatch } from "react-redux";
 
 const pages = [
   { message: "Notificaciones", route: "/construction" },
@@ -30,6 +39,8 @@ const settings = [
 export default function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const dispatch = useDispatch();
+  const theme = useTheme();
 
   const { isAuthenticated } = useAuth0();
 
@@ -47,15 +58,21 @@ export default function NavBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const switchThemeHandler = () => {
+    dispatch(selectMode());
+  };
+
+  console.log(theme.palette.primary);
   return (
     <Container maxWidth="xl">
-      <AppBar position="fixed">
+      <AppBar sx={{ background: theme.palette.primary.main }} position="fixed">
         <Toolbar>
           <Hidden mdDown>
             <img
               src={icon}
               alt="logo"
-              style={{ height: "60px", marginRight: "10px", margin:"1.5%" }}
+              style={{ height: "60px", marginRight: "10px", margin: "1.5%" }}
             />
           </Hidden>
           <Typography
@@ -133,7 +150,7 @@ export default function NavBar() {
             <img
               src={icon}
               alt="logo"
-              style={{ height: "60px", marginRight: "10px", margin:"1.5%"  }}
+              style={{ height: "60px", marginRight: "10px", margin: "1.5%" }}
             />
           </Hidden>
           <Typography
@@ -181,6 +198,10 @@ export default function NavBar() {
               </Link>
             </Box>
           )}
+
+          <Switch onClick={switchThemeHandler} color="secondary" />
+          <Typography marginRight={"2%"}>Modo Oscuro</Typography>
+
           <Box sx={{ flexGrow: 0 }}>
             {isAuthenticated && (
               <Tooltip title="Open settings">
@@ -189,7 +210,6 @@ export default function NavBar() {
                 </IconButton>
               </Tooltip>
             )}
-
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
