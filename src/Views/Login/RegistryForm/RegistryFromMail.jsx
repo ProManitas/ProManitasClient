@@ -5,6 +5,13 @@ import axios from "axios";
 import style from "./RegistryForm.module.css";
 import validations from "../validations";
 import Swal from "sweetalert2";
+import { Image } from "cloudinary-react";
+
+const {
+  REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+  REACT_APP_CLOUDINARY_URL,
+  REACT_APP_CLOUDINARY_NAME,
+} = process.env;
 
 const RegistryFromMail = () => {
   const { user } = useAuth0();
@@ -26,6 +33,8 @@ const RegistryFromMail = () => {
     cellnumber: "",
     address: "",
   });
+
+  const [image, setImage] = useState(null);
 
   //bring info from auth0
   useEffect(() => {
@@ -53,12 +62,31 @@ const RegistryFromMail = () => {
     );
   };
 
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", REACT_APP_CLOUDINARY_UPLOAD_PRESET);
+    try {
+      const res = await axios.post(REACT_APP_CLOUDINARY_URL, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const imageUrl = res.data.secure_url;
+      setImage(imageUrl);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   //add data to DB
   const handlerSubmit = (e) => {
     e.preventDefault();
+    const formDataWithImage = { ...form, image };
     try {
       axios
-        .post("https://promanitasapi.onrender.com/api/v1/users", form, {
+        .post("https://promanitasapi.onrender.com/api/v1/users", formDataWithImage, {
           Headers: {
             "Content-Type": "application/json",
           },
@@ -86,7 +114,18 @@ const RegistryFromMail = () => {
     <div className={style.container}>
       <form onSubmit={(e) => handlerSubmit(e)} className={style.form}>
         <div>
-          <img src={user.picture} alt={user.name} />
+        {image && (
+            <Image cloudName={REACT_APP_CLOUDINARY_NAME} publicId={image} />
+          )}
+
+          <label htmlFor="image">Imagen</label>
+
+          <input
+            type="file"
+            name="image"
+            onChange={handleImageUpload}
+          />
+
         </div>
 
         <div>
