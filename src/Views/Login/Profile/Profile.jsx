@@ -20,6 +20,7 @@ const Profile = () => {
     ? users.filter((elem) => elem.email === user.email)
     : [];
 
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -94,7 +95,7 @@ const Profile = () => {
                 }}
                 color="secondary"
               >
-                Modificar o eliminar usuario
+                Modificar usuario
               </Button>
             ) : (
               <Button

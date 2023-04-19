@@ -32,15 +32,6 @@ const UserDetail = () => {
     address: "",
   });
 
-  const [isDisabled, setIsDisabled] = useState(true);
-
-  const [editableField, setEditableField] = useState({
-    image: false,
-    password: false,
-    cellnumber: false,
-    address: false,
-  });
-
   const [image, setImage] = useState("");
   const [uploadedImage, setUploadedImage] = useState("");
 
@@ -79,11 +70,6 @@ const UserDetail = () => {
     }
   };
 
-  const handleEdit = (field) => {
-    setEditableField(field);
-    setIsDisabled(false);
-  };
-
   const handleSave = (event, id, form, detail, dispatch, setIsDisabled) => {
     event.preventDefault();
     const updatedForm = { ...form };
@@ -91,7 +77,6 @@ const UserDetail = () => {
       updatedForm.image = uploadedImage;
     }
     dispatch(updateUser(id, updatedForm));
-    setIsDisabled(true);
     Swal.fire({
       icon: "success",
       html: "Tus datos se han modificado correctamente.",
@@ -101,6 +86,15 @@ const UserDetail = () => {
       window.location.reload();
     }, 2000);
   };
+
+  const handleDelete = () => {
+    Swal.fire({
+      icon: "question",
+      title:"¿Deseas eliminar tu cuenta?",
+      html: "Para ello por favor contacta a los administradores desde nuestro <a href='/contact'>formulario de contacto</a> y con mucho gusto te ayudarán en lo que necesites.",
+      confirmButtonColor: "#bc2525",
+    })
+  }
 
   useEffect(() => {
     dispatch(getUserId(id));
@@ -123,9 +117,7 @@ const UserDetail = () => {
         <div>Loading...</div>
       ) : (
         <form
-          onSubmit={(event) =>
-            handleSave(event, id, form, detail, dispatch, setIsDisabled)
-          }
+          onSubmit={(event) => handleSave(event, id, form, detail, dispatch)}
           className={style.form}
         >
           <h2>
@@ -150,12 +142,7 @@ const UserDetail = () => {
             name="image"
             accept="image/*"
             onChange={(event) => handleImageUpload(event, setImage)}
-            disabled={isDisabled || editableField !== "image"}
           />
-
-          <button type="button" onClick={() => handleEdit("image")}>
-            Editar
-          </button>
 
           {detail.password ? (
             <div>
@@ -165,14 +152,10 @@ const UserDetail = () => {
                 name="password"
                 value={form.password}
                 onChange={handleInputChange}
-                disabled={isDisabled || editableField !== "password"}
               />
               {errors.password ? (
                 <span className={style.error}>{errors.password}</span>
               ) : null}
-              <button type="button" onClick={() => handleEdit("password")}>
-                Editar
-              </button>
             </div>
           ) : null}
 
@@ -182,14 +165,10 @@ const UserDetail = () => {
             name="cellnumber"
             value={form.cellnumber}
             onChange={handleInputChange}
-            disabled={isDisabled || editableField !== "cellnumber"}
           />
           {errors.cellnumber ? (
             <span className={style.error}>{errors.cellnumber}</span>
           ) : null}
-          <button type="button" onClick={() => handleEdit("cellnumber")}>
-            Editar
-          </button>
 
           <label htmlFor="address">Dirección:</label>
           <input
@@ -197,14 +176,10 @@ const UserDetail = () => {
             name="address"
             value={form.address}
             onChange={handleInputChange}
-            disabled={isDisabled || editableField !== "address"}
           />
           {errors.address ? (
             <span className={style.error}>{errors.address}</span>
           ) : null}
-          <button type="button" onClick={() => handleEdit("address")}>
-            Editar
-          </button>
 
           <button
             type="submit"
@@ -214,6 +189,12 @@ const UserDetail = () => {
           </button>
         </form>
       )}
+
+      <div>
+        <button onClick={handleDelete} className={style.deleteButton}>
+          Eliminar usuario
+        </button>
+      </div>
     </div>
   );
 };

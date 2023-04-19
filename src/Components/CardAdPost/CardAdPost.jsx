@@ -48,8 +48,7 @@ export default function CardAdPost({ name, services, image, serviceID, id }) {
           onClick={() =>
             Swal.fire({
               icon: "warning",
-              title: "¡Error de autenticación!",
-              html: "Debes iniciar sesión o <a href='/registryForm'>registrarte</a> para continuar",
+              html: "Por favor inicia sesión o <a href='/registryForm'>registrate</a> para continuar",
               confirmButtonColor: "#bc2525",
             })
           }
