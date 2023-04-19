@@ -9,25 +9,23 @@ import Swal from "sweetalert2";
 const RegistryFromMail = () => {
   const { user } = useAuth0();
   const navigate = useNavigate();
-  
-  
+
   const [form, setForm] = useState({
     username: "",
     firstname: "",
     lastname: "",
     email: "",
-    password:"",
+    password: "",
     cellnumber: "",
     address: "",
-    image: ""
+    image: "",
   });
 
   const [errors, setErrors] = useState({
     username: "",
     cellnumber: "",
-    address: ""
-  })
-
+    address: "",
+  });
 
   //bring info from auth0
   useEffect(() => {
@@ -46,11 +44,13 @@ const RegistryFromMail = () => {
     setForm({
       ...form,
       [event.target.name]: event.target.value,
-    })
-    setErrors(validations({
-      ...form,
-      [event.target.name]: event.target.value,
-    }))
+    });
+    setErrors(
+      validations({
+        ...form,
+        [event.target.name]: event.target.value,
+      })
+    );
   };
 
   //add data to DB
@@ -63,14 +63,16 @@ const RegistryFromMail = () => {
             "Content-Type": "application/json",
           },
         })
-        .then(Swal.fire({
-          icon: "success",
-          html: "Tus datos se han completado correctamente.",
-          confirmButtonColor: "#bc2525",
-        }));
-        setTimeout(() => {
-          navigate("/profile");
-        }, 3000);
+        .then(
+          Swal.fire({
+            icon: "success",
+            html: "Tus datos se han completado correctamente.",
+            confirmButtonColor: "#bc2525",
+          })
+        );
+      setTimeout(() => {
+        navigate("/profile");
+      }, 3000);
     } catch (error) {
       alert(error);
     }
@@ -82,11 +84,9 @@ const RegistryFromMail = () => {
 
   return (
     <div className={style.container}>
-
       <form onSubmit={(e) => handlerSubmit(e)} className={style.form}>
-
         <div>
-            <img src={user.picture} alt={user.name}/>
+          <img src={user.picture} alt={user.name} />
         </div>
 
         <div>
@@ -97,7 +97,9 @@ const RegistryFromMail = () => {
             value={form.username}
             onChange={changeHandler}
           />
-          {errors.username ? <span className={style.error}>{errors.username}</span> : null}
+          {errors.username ? (
+            <span className={style.error}>{errors.username}</span>
+          ) : null}
         </div>
 
         <div>
@@ -132,7 +134,9 @@ const RegistryFromMail = () => {
             value={form.cellnumber}
             onChange={changeHandler}
           />
-           {errors.cellnumber ? <span className={style.error}>{errors.cellnumber}</span> : null}
+          {errors.cellnumber ? (
+            <span className={style.error}>{errors.cellnumber}</span>
+          ) : null}
         </div>
 
         <div>
@@ -143,16 +147,18 @@ const RegistryFromMail = () => {
             value={form.address}
             onChange={changeHandler}
           />
-          {errors.address ? <span className={style.error}>{errors.address}</span> : null}
+          {errors.address ? (
+            <span className={style.error}>{errors.address}</span>
+          ) : null}
         </div>
 
-
         <div>
-          <button type="submit"
-          disabled={errors.username &&
-            errors.cellnumber &&
-            errors.address}
-          >Guardar</button>
+          <button
+            type="submit"
+            disabled={errors.username && errors.cellnumber && errors.address}
+          >
+            Guardar
+          </button>
         </div>
       </form>
     </div>
