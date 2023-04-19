@@ -5,7 +5,6 @@ import { TextField, Button, Checkbox, Grid, FormControlLabel } from '@mui/materi
 import { useNavigate } from 'react-router-dom';
 import {useAuth0} from "@auth0/auth0-react"
 import { getAllUsers } from '../../Redux/Actions/userAction';
-import { getContractById } from '../../Redux/Actions/contractAction';
 
 const ContractForm = () => {
   const{user}= useAuth0();
@@ -13,29 +12,30 @@ const ContractForm = () => {
   "**Con la creación de este contrato, usted acepta y se compromete a cumplir con nuestros términos y condiciones donde se describen las obligaciones y responsabilidades tanto del usuario como de nuestra empresa. ";
 
   const [contractData, setContractData] = useState({
-    name: "",
+    
     dateJob: "",
     detail: "",
     description: "",
-    payment: "",
-    contractId:""
+    payment: 0,
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    dispatch(getAllUsers())
-    dispatch(getContractById())
+    dispatch(getAllUsers());
   }, [dispatch]);
 
   const handleChange = (event) => {
   const { name, value, checked } = event.target;
-
-  if (name === "payment" && isNaN(parseFloat(value))) {
-    return;
+  let fieldValue = event.target.type === "checkbox" ? checked : value;
+  console.log("prob",fieldValue)
+  if (name === "payment") {
+    let numericValue = parseFloat(value);
+    console.log("probando",numericValue)
+    fieldValue = isNaN(numericValue) ? null : numericValue;
   }
-  const fieldValue = event.target.type === "checkbox" ? checked : value;
+
 
     setContractData({
       ...contractData,
@@ -49,11 +49,11 @@ const ContractForm = () => {
   
   const [, setIsLoading] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
     try {
-      const result = await dispatch(
+      dispatch(
         sendContract(
           contractData.payment,
           filteredUser[0].username,
@@ -61,9 +61,8 @@ const ContractForm = () => {
           user.email
         )
       );
-      const { contractId } = result;
-      setContractData({ ...contractData, contractId });
-      navigate(`/payment/${contractId}`);
+
+      navigate(`/pdf/${filteredUser[0].id}`);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -73,7 +72,6 @@ const ContractForm = () => {
   
 
   return (
-    
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -127,18 +125,6 @@ const ContractForm = () => {
             fullWidth
           />
         </Grid>
-
-        <Grid item xs={12}>
-          <TextField
-            label="Fecha acordada para realizar el trabajo"
-            type="date"
-            name="DateJob"
-            value={contractData.DateJob}
-            onChange={handleChange}
-            required
-            fullWidth
-          />
-        </Grid>
         <Grid item xs={12}>
         <FormControlLabel
         control={
@@ -154,7 +140,7 @@ const ContractForm = () => {
         </Grid>
         <Grid item xs={12}>
           <Button type="submit" variant="contained" color="primary">
-            Realizar Pago
+            Revisar Contrato
           </Button>
         </Grid>
         <Grid item xs={12}>
@@ -177,3 +163,4 @@ const ContractForm = () => {
 };
 
 export default ContractForm;
+//

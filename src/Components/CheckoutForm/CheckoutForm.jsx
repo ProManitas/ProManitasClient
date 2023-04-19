@@ -1,40 +1,61 @@
 import React, { useState, useEffect } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react"; 
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Grid, Paper } from "@mui/material";
-import { useParams } from "react-router-dom";
-
-
+import { getAllContracts } from "../../Redux/Actions/contractAction"
+import { getAllUsers } from "../../Redux/Actions/userAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const CheckoutForm = () => {
-  const { contractId } = useParams()
   const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [ setContractId] = useState("");
+  const [username, ] = useState("");
+  const [contractId, setContractId] = useState("");
   const [paymentError, setPaymentError] = useState(null);
-  const [payment, setPrice] = useState(0);
+  const [payment, setPayment] = useState(0);
   const [paymentSuccess, setPaymentSuccess] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
-  
-  useEffect(() => {
+
+  // useEffect(() => {
    
-    const fetchUsername = async () => {
-      try {
-        const response = await axios.get("https://promanitasapi.onrender.com/api/v1/user/username"); // Reemplaza esta URL por la ruta correcta para obtener el nombre de usuario del back-end
-        setUsername(response.data.username);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUsername();
-  }, []);
+  //   const fetchUsername = async () => {
+  //     try {
+  //       const response = await axios.get("https://promanitasapi.onrender.com/api/v1/user/username"); // Reemplaza esta URL por la ruta correcta para obtener el nombre de usuario del back-end
+  //       setUsername(response.data.username);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchUsername();
+  // }, []);
 
+const {user} = useAuth0()
+const dispatch = useDispatch()
 
-  const handleSubmit = async (event) => {
+useEffect(()=>{
+  dispatch(getAllContracts())
+  dispatch(getAllUsers());
+}, [dispatch])
+
+const allContracts = useSelector((state) => state.contracts.contracts);
+const usersDb = useSelector((state) => state.user.allUsers);
+
+//FILTRO EL USUARIO QUE COINCIDA CON EL MAIL QUE ESTA EN SESION
+const filteredUser = usersDb.filter((elem) => elem.email === user.email);
+console.log(filteredUser)
+
+//COMPARO EL USUARIO CON EL USERID DEL CONTRATO PARA OBTENER LA INFO DE ESE CONTRATO
+const filterInfo = allContracts.filter(inf => inf.UserId === filteredUser[0].id)
+console.log(filterInfo)
+
+const lastContractId = filterInfo.length > 0 ? filterInfo[filterInfo.length - 1].id : null;
+const lastContractPayment = lastContractId ? filterInfo.find(inf => inf.id === lastContractId).payment : null;  
+ 
+const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -58,11 +79,13 @@ const CheckoutForm = () => {
     }
 
     const { id } = paymentMethod;
+   
 
+    
     try {
       const response = await axios.post("https://promanitasapi.onrender.com/api/v1/payment/", {
         id: id,
-        amount: payment,
+        amount: lastContractPayment,
         description: "Pago por servicio de profesional",
         username: username,
         contractId: contractId, 
@@ -70,14 +93,15 @@ const CheckoutForm = () => {
       setPaymentSuccess(await response.data.message);
       setPaymentError(null);
       setTimeout(() => {
-        alert("Pago Realizado Exitosamente")
+        alert("El Pago se realizó con éxito")
+        window.location.replace("/home");
       }, 2000);
     } catch (error) {
       setPaymentSuccess(null);
       setPaymentError(await error.response.data.error);
     }
   };
-
+console.log("prob3",payment);
   return (
     <Container maxWidth="sm">
       <form onSubmit={(event) => handleSubmit(event)}>
@@ -86,12 +110,32 @@ const CheckoutForm = () => {
             <Grid item xs={12}>
               <TextField label="Nombre del titular de la tarjeta" value={name} onChange={(event) => setName(event.target.value)} required fullWidth />
             </Grid>
+            {filteredUser[0] && filteredUser[0].email ? (
+          <div>
             <Grid item xs={12}>
-              <TextField label="Nombre de usuario" value={username} disabled required fullWidth /> {/* Mostrar el nombre de usuario del usuario logueado */}
+              <TextField
+                label="Nombre de Usuario"
+                name="username"
+                defaultValue={filteredUser[0].username} // Mostrar el nombre de usuario en el campo de texto
+                readOnly
+                required
+                fullWidth
+                multiline
+                rows={4}
+              />
             </Grid>
+          </div>
+        ) : null}
             <Grid item xs={12}>
-            <TextField label="Id de Contrato" defaultValue={contractId} onChange={(event) => setContractId(event.target.value)} required fullWidth />
-            </Grid>
+  <TextField
+    label="Id de Contrato"
+    defaultValue={lastContractId} // Establecer el valor por defecto como lastContractId
+    onChange={(event) => setContractId(event.target.value)}
+    required
+    fullWidth
+  />
+</Grid>
+
             
             <Grid item xs={12}>
               <TextField label="" type="month" required fullWidth />
@@ -104,20 +148,12 @@ const CheckoutForm = () => {
 
           <Grid item xs={12}>
             <TextField
-              label=""
-              type="month"
-              required
-              fullWidth
-            />
-          </Grid>
-          
-          <Grid item xs={12}>
-            <TextField
-              label="Precio de Anticipo de Contrato"
+              label={lastContractPayment}
               type="number"
-              value={payment}
-              onChange={(event) => setPrice(event.target.value)}
+              defaultValue={lastContractPayment}
+              onChange={(event) => setPayment(event.target.value)}
               fullWidth
+              readOnly
             />
           </Grid>
           <Grid item xs={12}>
@@ -153,3 +189,4 @@ const CheckoutForm = () => {
 };
 
 export default CheckoutForm;
+//

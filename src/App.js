@@ -23,7 +23,7 @@ import RegistryFromMail from "./Views/Login/RegistryForm/RegistryFromMail";
 import ContractsAll from "./Components/ContractForm/ContractsAll.jsx";
 import PaymentHistory from "./Components/paymentHistory/paymentHistory";
 import ContractForm from "./Components/ContractForm/ContractForm";
-import ContractPDF from "./Components/ContractForm/ContractPDF";
+//import ContractPDF from "./Components/ContractForm/ContractPDF";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 
@@ -81,15 +81,13 @@ function App() {
             location.pathname !== "/login" &&
             location.pathname !== "/construction" && <Navbar />}
         </div>
+       
         <Routes>
           <Route exact path="/" element={<Landing />} />
           <Route exact path="/home" element={<Home />} />
           <Route path="/home/search" element={<SearchResult />} />
           <Route path="/contract" element={<ContractForm />} />
-          <Route
-            path="/currentcontract/:contractId"
-            element={<ContractPDF />}
-          />
+          <Route path="/pdf" element={<ContractsAll />} />
           <Route
             path="/posteo"
             element={<AuthenticationGuard component={FormPosteo} />}
@@ -120,7 +118,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/construction" element={<UnderConstruction />} />
           <Route
-            path="/payment/:contractId"
+             path="/payment/:id"
             element={
               <Elements stripe={stripePromise}>
                 <CheckoutForm />
@@ -128,7 +126,7 @@ function App() {
             }
           />
         </Routes>
-      </ThemeProvider>
+        </ThemeProvider>
     </div>
   );
 }

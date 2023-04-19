@@ -16,7 +16,7 @@ const dispatch = useDispatch()
 useEffect(()=>{
 dispatch(getAllContracts())
 dispatch(getAllUsers());
-console.log('entre al useEffect')
+
 }, [dispatch])
 
   // ME TRAIGO EL ESTADO DE USER Y CONTRACTS
@@ -31,26 +31,28 @@ console.log(filteredUser)
 const filterInfo = allContracts.filter(inf => inf.UserId === filteredUser[0].id)
 console.log(filterInfo)
 
+
 const textDescription =
 "**Con la creación de este contrato, usted acepta y se compromete a cumplir con nuestros términos y condiciones donde se describen las obligaciones y responsabilidades tanto del usuario como de nuestra empresa. ";
 
+const lastContractId = filterInfo.length > 0 ? filterInfo[filterInfo.length - 1].id : null;
 
-    return (
-    <div>{
-        filterInfo?.map(inf => (
+return (
+    <div>
+        {filterInfo?.map(inf => (
             <ContractPDF 
-            contractId = {inf.id}
-            username = {filteredUser[0].username}
-            description = {textDescription}
-            detail = {inf.detail}
-            payment = {inf.payment}
+                contractId = {inf.id}
+                username = {filteredUser[0].username}
+                description = {textDescription}
+                detail = {inf.detail}
+                payment = {inf.payment}
             />
-        ))
-        }
-        <Link to= "/contract"><button>Back</button></Link>
-        
+        ))}
+        {/* REDIRIGIR AL PAGO CON EL ID DEL ÚLTIMO CONTRATO GENERADO */}
+        {lastContractId && <Link to={`/payment/${lastContractId}`}><button>Pago</button></Link>}
     </div>
-        );
+);
 }
 
 export default ContractsAll;
+//

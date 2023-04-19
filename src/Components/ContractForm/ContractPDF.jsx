@@ -1,40 +1,40 @@
-//import React, { useEffect } from "react";
-import { PDFViewer, Document, Page, View, Text } from "@react-pdf/renderer";
-//import { useDispatch,useSelector } from "react-redux";
-
+import React from "react";
+import { PDFViewer, Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
 
 const ContractPDF = (props) => {
+  const { contractId, username, detail, payment, textDescription } = props;
 
-  const { contractId, username, detail, payment, textDescription} = props
-  // if (!isAuthenticated) {
-  //   return <div>No estás autorizado para acceder a esta página. Si estás intentando ver tu contrato, ¡no olvides iniciar sesión!</div>;
-  // }
-
-  // const authenticatedUsername = user?.sub; 
-
-  // const isAuthorized = () => {
-  //   const contractUsername = contractData.username; 
-
-  //   if (authenticatedUsername === contractUsername) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
-
-  // if (!isAuthorized()) {
-  //   return <div>Si estás intentando ver tu contrato, ¡no olvides iniciar sesión!</div>;
-  // }
+  // Estilos personalizados
+  const styles = StyleSheet.create({
+    page: {
+      fontFamily: "Helvetica",
+      padding: 20,
+    },
+    section: {
+      marginBottom: 10,
+    },
+    title: {
+      fontSize: 16,
+      fontWeight: "bold",
+    },
+    subtitle: {
+      fontSize: 14,
+    },
+    text: {
+      fontSize: 12,
+    },
+  });
 
   return (
     <PDFViewer width="100%" height="800px">
       <Document>
-        <Page size="A4">
-          <View>
-           <Text>Contrato ID: {contractId}</Text>
-           <Text>Usuario: {username}</Text> 
-          <Text>Descripción: {textDescription}</Text>
-           <Text>Detalle: {detail}</Text>
-           <Text>Payment: {payment}</Text>
+        <Page size="A4" style={styles.page}>
+          <View style={styles.section}>
+            <Text style={styles.title}>Contrato ID: {contractId}</Text>
+            <Text style={styles.subtitle}>Usuario: {username}</Text>
+            <Text style={styles.text}>Descripción: {textDescription}</Text>
+            <Text style={styles.text}>Detalle: {detail}</Text>
+            <Text style={styles.text}>Payment: {payment}</Text>
           </View>
         </Page>
       </Document>

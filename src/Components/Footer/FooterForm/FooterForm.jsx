@@ -16,7 +16,7 @@ const FooterForm =()=>{
       
       // Redirigir al usuario a la ruta "home"
       setTimeout(() => {
-        navigate("/construction");
+        navigate("/home");
       }, 3000);
     }
    
@@ -92,3 +92,4 @@ return(
 export default FooterForm;
 
 
+//
