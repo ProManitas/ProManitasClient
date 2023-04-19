@@ -4,7 +4,11 @@ const emailRegExp = /^([0-9a-zA-Z]+([_.-]?[0-9a-zA-Z]+)*@[0-9a-zA-Z]+[0-9,a-z,A-
 const passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){1,20}$/
 const nameRegExp = /^[a-zA-Z ]*$/
 const cellnumberRegExp = /^[0-9]*$/
-const imageRegExp = /^.*\.(jpg|png|jpeg)$/
+const imageRegExp = /^.+\.(png|jpe?g|gif)$/i
+
+
+
+
 const espaciosRegExp = /^\s/
 
 
