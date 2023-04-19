@@ -40,12 +40,3 @@ export const setContractId = (id) => {
     
     }
   }
-
-  export const getContractById = (id) => async (dispatch) => {
-    try {
-      const response = await axios.get(`https://promanitasapi.onrender.com/api/v1/contract/${id}`);
-      dispatch({ type: "SET_CONTRACT_ID", payload: response.data.data });
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
