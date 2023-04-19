@@ -4,7 +4,6 @@ import {GET_ALL_CONTRACTS} from "../Actions/contractAction"
 const initialState = {
   contracts: [],
   contractId: null,
-  currentContract: null
 };
 
 
@@ -13,8 +12,7 @@ const contractReducer = (state = initialState, action) => {
     case 'SET_CONTRACT_ID':
       return {
         ...state,
-        contractId: action.payload,
-        currentContract: action.payload
+        contractId: action.payload
       };
     
     case GET_ALL_CONTRACTS:
@@ -31,4 +29,3 @@ const contractReducer = (state = initialState, action) => {
 
 
 export default contractReducer;
-  
