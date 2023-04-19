@@ -45,7 +45,7 @@ export default function NavBar() {
   const users = useSelector((state) => state.user.allUsers);
 
   const filteredUser = Array.isArray(users)
-    ? users.filter((elem) => elem.email === user.email)
+    ? users.filter((elem) => elem.email === user?.email)
     : [];
 
   const initialdb = filteredUser[0]?.firstname?.slice(0, 1).toUpperCase();

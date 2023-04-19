@@ -26,12 +26,10 @@ export default function Landing() {
   }, [dispatch]);
   const services = useSelector((state) => state.search.services);
 
-  console.log(services);
-
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth={false} disableGutters>
-        <AppBar>
+        <AppBar sx={{ background: theme.palette.primary.main }}>
           <Toolbar>
             <Grid justifyContent="center" alignItems="center" container>
               <Grid>
