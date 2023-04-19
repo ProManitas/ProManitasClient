@@ -18,6 +18,8 @@ import { LogOutButton } from "../../Views/Login/LogOutButton/LogOutButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { selectMode } from "../../Redux/Actions/themeActions";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAllUsers } from "../../Redux/Actions/userAction";
 
 const pages = [
   { message: "Notificaciones", route: "/construction" },
@@ -30,13 +32,23 @@ const settings = [
 ];
 
 export default function NavBar() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+  const { user } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const dispatch = useDispatch();
   const theme = useTheme();
   const themeSelected = useSelector((state) => state.theme.themeSelected);
+  const users = useSelector((state) => state.user.allUsers);
 
-  const { isAuthenticated } = useAuth0();
+  const filteredUser = Array.isArray(users)
+    ? users.filter((elem) => elem.email === user.email)
+    : [];
+
+  const initialdb = filteredUser[0]?.firstname?.slice(0, 1).toUpperCase();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -204,9 +216,48 @@ export default function NavBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             {isAuthenticated && (
-              <Tooltip title="Open settings">
+              <Tooltip title={filteredUser[0]?.firstname || user.name}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  {filteredUser[0] && filteredUser[0].image ? (
+                    filteredUser[0] &&
+                    filteredUser[0].image && (
+                      <Avatar
+                        sx={{ width: 40, height: 40, position: "relative" }}
+                      >
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            backgroundImage: `url(${filteredUser[0].image})`,
+                            backgroundSize: "cover",
+                          }}
+                        />
+                        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                          {initialdb}
+                        </Typography>
+                      </Avatar>
+                    )
+                  ) : (
+                    <Avatar
+                      sx={{ width: 40, height: 40, position: "relative" }}
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: "100%",
+                          height: "100%",
+                          backgroundImage: `url(${user.picture})`,
+                          backgroundSize: "cover",
+                        }}
+                      />
+                      {user.name.slice(0, 1)}
+                    </Avatar>
+                  )}
                 </IconButton>
               </Tooltip>
             )}
