@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Coments from "../../Components/ComentsDetail/ComentsDetail";
 import { useEffect } from "react";
@@ -21,11 +21,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { getAllUsers } from "../../Redux/Actions/userAction";
 import Alert from "@mui/material/Alert";
 import Footer from "../../Components/Footer/Footer";
+import Rating from "@mui/material/Rating";
+import PanToolIcon from "@mui/icons-material/PanTool";
 
 const Detail = () => {
   const { id } = useParams();
   const { user } = useAuth0();
   const dispatch = useDispatch();
+  const [ratingResult, setRatingResult] = useState(0);
   const theme = useTheme();
 
   console.log("user Auth", user);
@@ -132,7 +135,16 @@ const Detail = () => {
       >
         <Maps address={selectDetailData.userCoordinates} />
         <Box>
-          <Typography variant="h5">Calificacion:</Typography>
+          <div>
+          <Rating
+          name="calificacion"
+          value={ratingResult}
+          precision={0.5}
+          emptyIcon={<PanToolIcon sx={{ fontSize: 60, color: "#9e9e9e" }} />}
+          icon={<PanToolIcon sx={{ fontSize: 60, color: "#1976d2" }} />}
+          readOnly
+        />
+          </div>
           <br />
         </Box>
       </Container>
