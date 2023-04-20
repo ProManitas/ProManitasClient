@@ -90,11 +90,11 @@ const UserDetail = () => {
   const handleDelete = () => {
     Swal.fire({
       icon: "question",
-      title:"¿Deseas eliminar tu cuenta?",
+      title: "¿Deseas eliminar tu cuenta?",
       html: "Para ello por favor contacta a los administradores desde nuestro <a href='/contact'>formulario de contacto</a> y con mucho gusto te ayudarán en lo que necesites.",
       confirmButtonColor: "#bc2525",
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     dispatch(getUserId(id));
@@ -141,7 +141,16 @@ const UserDetail = () => {
             type="file"
             name="image"
             accept="image/*"
-            onChange={(event) => handleImageUpload(event, setImage)}
+            onChange={(event) =>
+              handleImageUpload(
+                event,
+                setImage,
+                Swal.fire({
+                  text: "Por favor espera unos segundos mientras se carga la imagen",
+                  confirmButtonColor: "#bc2525",
+                })
+              )
+            }
           />
 
           {detail.password ? (

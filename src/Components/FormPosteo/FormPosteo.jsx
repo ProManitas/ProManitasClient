@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-//import validations from "../validations";
+import validations from "./validations";
 import Swal from "sweetalert2";
 import { Image } from "cloudinary-react";
 import { getName } from "../../Redux/Actions/newPostActions";
-//import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { getAllUsers } from "../../Redux/Actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import "./FormPosteoStyle.css";
@@ -17,7 +17,7 @@ const {
 } = process.env;
 
 const FormPosteo = () => {
-  // const { user } = useAuth0();
+  const { user } = useAuth0();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,16 +28,12 @@ const FormPosteo = () => {
     image: "",
   });
 
-  // const [errors, setErrors] = useState({
-  //   username: "",
-  //   firstname: "",
-  //   lastname: "",
-  //   email: "",
-  //   password: "",
-  //   cellnumber: "",
-  //   address: "",
-  //   image: "",
-  // });
+  const [errors, setErrors] = useState({
+    service: [],
+    description: "",
+    name: "",
+    image: "",
+  });
 
   const [image, setImage] = useState(null);
   useEffect(() => {
@@ -47,14 +43,14 @@ const FormPosteo = () => {
 
   const posts = useSelector((state) => state.service.names);
 
-  // const usersDb = useSelector((state) => state.user.allUsers);
-  // const filteredUser = usersDb.filter((elem) => elem.email === user.email);
+  const usersDb = useSelector((state) => state.user.allUsers);
+  const filteredUser = usersDb.filter((elem) => elem.email === user.email);
 
   //add data to inputs
   const changeHandler = (event) => {
-    // setErrors(
-    //   validations({ ...form, [event.target.name]: event.target.value })
-    // );
+    setErrors(
+      validations({ ...form, [event.target.name]: event.target.value })
+    );
     setForm({
       ...form,
       [event.target.name]: event.target.value,
@@ -117,43 +113,41 @@ const FormPosteo = () => {
     <div className="container">
       <form onSubmit={handlerSubmit} className="form">
         <div>
-          <select name="service" onChange={(event) => handlerSelect(event)}>
-            <option value="select">Seleccione un rubro</option>
-            {posts?.map((service) => (
-              <option key={service} value={service}>
-                {service}
-              </option>
-            ))}
-          </select>
-          {/* {touched.service && errors.service && (
-                 <div className="error">{errors.service}</div>
-               )} */}
-          <label htmlFor="name">Titulo</label>
-          <input
-            className="input"
-            name="name"
-            placeholder="Texto"
-            onChange={changeHandler}
-            required
-          />
-          {/* {touched.name && errors.name && (
-                 <div className="error">{errors.name}</div>
-               )} */}
-
-          {/* {filteredUser[0] && filteredUser[0].email ? (
-            
-          ) : null} */}
+          <div>
+            <select name="service" onChange={(event) => handlerSelect(event)}>
+              <option value="select">Seleccione un rubro</option>
+              {posts?.map((service) => (
+                <option key={service} value={service}>
+                  {service}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div>
-            <label htmlFor="username">Nombre de usuario:</label>
+            <label htmlFor="name">Título</label>
             <input
-              type="text"
-              id="username"
-              name="username"
+              className="input"
+              name="name"
+              placeholder="Texto"
               onChange={changeHandler}
-              required
             />
+            {errors.name ? <span className="error">{errors.name}</span> : null}
           </div>
+
+          {filteredUser[0] && filteredUser[0].email ? (
+            <div>
+              <label htmlFor="username">Nombre de usuario:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={filteredUser[0] && filteredUser[0].username}
+                onChange={changeHandler}
+                readOnly
+              />
+            </div>
+          ) : null}
 
           <div>
             {image && (
@@ -167,29 +161,27 @@ const FormPosteo = () => {
               onChange={handleImageUpload}
               className="input"
               accept="image/*"
-              required
             />
-            {/* {touched.image && errors.image && (
-                 <div className="error">{errors.image}</div>
-                 )} */}
+            {/* {errors.image ? (
+              <span className="error">{errors.image}</span>
+            ) : null} */}
           </div>
 
-          <label htmlFor="title">Descripción</label>
+          <label htmlFor="description">Descripción</label>
           <input
             className="input"
             name="description"
             as="textarea"
             placeholder="Description"
             onChange={changeHandler}
-            required
           />
-          {/* {touched.description && errors.description && (
-                 <div className="error">{errors.description}</div>
-               )} */}
+          {errors.description ? (
+            <span className="error">{errors.description}</span>
+          ) : null}
         </div>
 
         <div>
-          <button className="button" type="submit">
+          <button type="submit" disabled={errors.name && errors.description}>
             Publicar
           </button>
         </div>
@@ -199,4 +191,3 @@ const FormPosteo = () => {
 };
 
 export default FormPosteo;
-
