@@ -21,15 +21,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllUsers } from "../../Redux/Actions/userAction";
 
-const pages = [
-  { message: "Notificaciones", route: "/construction" },
-  { message: "Publicar aviso", route: "/posteo" },
-];
+const pages = [{ message: "Publicar aviso", route: "/posteo" }];
 const settings = [
   { message: "Ver Perfil", route: "/profile/" },
   { message: "Mis avisos", route: "/construction" },
-  { message: "Configuracion de cuenta", route: "/construction" },
-  {message: "Mis contratos", route: "/prueba"}
+  { message: "Mis contratos", route: "/prueba" },
 ];
 
 export default function NavBar() {
