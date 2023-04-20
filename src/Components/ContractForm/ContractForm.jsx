@@ -132,6 +132,7 @@ const ContractForm = () => {
             control={
               <Checkbox
                 name="rating_commitment"
+                color="secondary"
                 checked={contractData.rating_commitment}
                 onChange={handleChange}
                 required
@@ -141,7 +142,7 @@ const ContractForm = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary">
+          <Button type="submit" variant="contained" color="secondary">
             Revisar Contrato
           </Button>
         </Grid>

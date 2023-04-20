@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
-import { Button, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import ContractForm from "../ContractForm/ContractForm";
 import { useNavigate } from "react-router";
 
@@ -9,6 +15,7 @@ const socket = io("http://localhost:3000");
 function Chat() {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const theme = useTheme();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,10 +35,10 @@ function Chat() {
   }
 
   return (
-    <div style={{ margin: "20px" }}>
-      <div
-        style={{
-          backgroundColor: "#f0f0f0",
+    <Container>
+      <Container
+        sx={{
+          background: theme.palette.primary.main,
           borderRadius: "10px",
           padding: "20px",
           marginBottom: "20px",
@@ -42,7 +49,9 @@ function Chat() {
           contratación.
         </Typography>
 
-        <ul style={{ listStyleType: "none", padding: "0", marginBottom: "20px" }}>
+        <ul
+          style={{ listStyleType: "none", padding: "0", marginBottom: "20px" }}
+        >
           {messages.map((message, index) => (
             <li
               key={index}
@@ -60,7 +69,11 @@ function Chat() {
 
         <form
           onSubmit={handleSubmit}
-          style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "20px",
+          }}
         >
           <TextField
             label="Mensaje"
@@ -70,36 +83,45 @@ function Chat() {
             style={{ marginRight: "10px", flex: "1" }}
           />
 
-          <Button type="submit" variant="contained" color="secondary" style={{ marginLeft: "10px" }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            style={{ marginLeft: "10px" }}
+          >
             Enviar
           </Button>
         </form>
 
         <Typography variant="h6" style={{ marginBottom: "20px" }}>
-          Si ya han acordado fecha, precio y modalidad de trabajo. Completen el siguiente Formulario que luego recibirán por
-          mail
+          Si ya han acordado fecha, precio y modalidad de trabajo. Completen el
+          siguiente Formulario que luego recibirán por mail
         </Typography>
 
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           onClick={handleGoBack}
           style={{ marginTop: "20px" }}
         >
           Volver
         </Button>
-      </div>
+      </Container>
 
-      <div
+      <Container
         style={{
-          backgroundColor: "#e0e0e0",
+          borderRadius: "10px",
+          padding: "20px",
+        }}
+        sx={{
+          background: theme.palette.primary.main,
           borderRadius: "10px",
           padding: "20px",
         }}
       >
         <ContractForm />
-      </div>
-    </div>
+      </Container>
+    </Container>
   );
 }
 
