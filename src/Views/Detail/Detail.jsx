@@ -4,20 +4,32 @@ import Coments from "../../Components/ComentsDetail/ComentsDetail";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { Container, Typography, Divider, Grid, Box } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Divider,
+  Grid,
+  Box,
+  useTheme,
+  Avatar,
+} from "@mui/material";
 import Maps from "../../Components/MapsComponent/Maps";
-import { getDetail } from "../../Redux/Actions/detailAction";
+import { getDetail, getPostDetail } from "../../Redux/Actions/detailAction";
 //import RatingForm from "../../Components/FormCalification/FormCalification"
-import { Image} from "cloudinary-react";
+import { Image } from "cloudinary-react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getAllUsers } from "../../Redux/Actions/userAction";
 import Alert from "@mui/material/Alert";
-
+import Footer from "../../Components/Footer/Footer";
 
 const Detail = () => {
   const { id } = useParams();
   const { user } = useAuth0();
   const dispatch = useDispatch();
+  const theme = useTheme();
+
+  console.log("user Auth", user);
+
   // const [ratingResult, setRatingResult] = useState(0);
 
   // const handleRatingResult = (result) => {
@@ -25,7 +37,8 @@ const Detail = () => {
   // };
 
   useEffect(() => {
-    dispatch(getDetail(id));
+    dispatch(getPostDetail(id));
+    // dispatch(getDetail(id));
     dispatch(getAllUsers());
   }, [dispatch, id]);
 
@@ -38,119 +51,130 @@ const Detail = () => {
     serviceName: state.detail.adpost?.service?.name,
     userCoordinates: state.detail.adpost?.user?.coordinates,
   }));
-
+  const data = useSelector((state) => state.detail.detailPost);
   const users = useSelector((state) => state.user.allUsers);
+
+  const userPost = data.dataUser;
+  const adPost = data.dataPost;
+
+  console.log("Post", adPost);
+  console.log("User", userPost);
 
   const filteredUser = users.filter((elem) => elem.email === user.email);
 
-  
-    return (
-      <div>
-      <Container>
-      <Typography variant="h1" textAlign="center">
-      {selectDetailData.adpostName}
-      </Typography>
-      <Typography variant="h6" textAlign="center">
-        {selectDetailData.adpostDescription}
-      </Typography>
-      <div style={{ display: "flex" }}>
-        <Image
-          cloudName="dhlvgmhea"
-          publicId={
-            selectDetailData.userId === user.sub 
-              ? selectDetailData.adpostImage 
-              : "" }
-          alt={selectDetailData.adpostName}
-          width="400"
-          height="400"
-          crop="fill"
-        />
-        <Container
-          sx={{
-            padding: "2rem",
-            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Maps address={selectDetailData.userCoordinates} />
-          <Typography variant="h5" textAlign="center">
-            {selectDetailData.serviceName}
-          </Typography>
-          <Image
-            cloudName="dhlvgmhea"
-            publicId={selectDetailData.userImage}
-            alt="User"
-            width="100"
-            height="100"
-            crop="fill"
+  return (
+    <Container
+      sx={{
+        background: theme.palette.primary.main,
+        borderRadius: "10px",
+        marginBottom: "60px",
+      }}
+    >
+      <Box display={"flex"} alignItems={"center"}>
+        <Avatar sx={{ width: 80, height: 80, marginTop: "5px" }}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundImage: `url(${userPost?.image})`,
+              backgroundSize: "cover",
+            }}
           />
-        </Container>
-      </div>
-      <div style={{ textAlign: "center" }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
-        ></Box>
-      </div>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            {userPost?.firstname.slice(0, 1).toUpperCase()}
+          </Typography>
+        </Avatar>
+        <Typography variant="h4">
+          {userPost?.firstname + " " + userPost?.lastname}
+        </Typography>
+      </Box>
+      <Box>
+        <Grid container>
+          <Grid item md={6}>
+            <img
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                minHeight: 200,
+                minWidth: 200,
+                maxWidth: "100%",
+                borderRadius: "10px",
+              }}
+              src={adPost?.image}
+              alt={userPost?.service}
+            />
+          </Grid>
+          <Grid item md={6}>
+            <Typography variant="h4" textAlign="initial">
+              {adPost?.service}
+            </Typography>
+            <Typography variant="h6" textAlign="center">
+              {adPost?.description}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Box>
+      <Container
+        sx={{
+          padding: "2rem",
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: "30px",
+        }}
+      >
+        <Maps address={selectDetailData.userCoordinates} />
+        <Box>
+          <Typography variant="h5">Calificacion:</Typography>
+          <br />
+        </Box>
+      </Container>
       <Coments />
-
-        
       {filteredUser[0] && filteredUser[0].email ? (
-        <div>
-          <Grid container justifyContent="center">
-            <a href={"/contract/"}>
-              <Button variant="contained" sx={{ width: "100px", mr: "10px" }}>
+        <Box>
+          <Grid
+            container
+            spacing={2}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Grid item>
+              <Button href="/contract/" variant="contained">
                 Contratar
               </Button>
-            </a>
-
-            <a href={`/calification/${id}`}>
+            </Grid>
+            <Grid item>
               <Button
+                color="secondary"
+                href={`/calification/${id}`}
                 variant="contained"
-                sx={{
-                  padding: "5px 10px",
-                  backgroundColor: "#007bff",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                  "&:hover": { backgroundColor: "#0062cc" },
-                }}
-                >
+              >
                 Calificar
               </Button>
-            </a>
-            <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-            >
-              <a href="/home">
-                <Button variant="contained">Volver</Button>
-              </a>
-            </div>
+            </Grid>
+            <Grid item>
+              <Button href="/home" variant="contained">
+                Volver
+              </Button>
+            </Grid>
           </Grid>
           <Divider />
-          </div>
-          ) : (
-            <Alert severity="warning">
+        </Box>
+      ) : (
+        <Alert severity="warning">
           Por favor completa tus datos desde tu perfil para continuar.
         </Alert>
       )}
-      
-      </Container> 
-    </div>
-    );
-  };
+      <Footer />
+    </Container>
+  );
+};
 
-
-  export default Detail;
+export default Detail;
