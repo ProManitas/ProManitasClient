@@ -3,6 +3,8 @@ import { useNavigate } from "react-router";
 import {Formik, Field} from "formik";
 import "./FooterForm.css";
 import Swal from "sweetalert2";
+import Footer from "../Footer";
+import { Container } from "@mui/material";
 
 
 
@@ -21,7 +23,7 @@ const FooterForm =()=>{
     }
    
 return(
-    <div className="container" >
+    <Container className="container" >
     <Formik 
     initialValues={{
         nombre:"",
@@ -86,7 +88,9 @@ return(
             </form>
         )}
     </Formik>
-    </div>
+    <Footer/>
+    </Container>
+    
 )
 }
 export default FooterForm;
