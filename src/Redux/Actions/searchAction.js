@@ -45,9 +45,6 @@ export function filterPosts(pointer) {
 // }
 
 export function searchAction(name, pointer) {
-  console.log("Hay nombre?", !!name);
-  console.log("Hay categoria?", !!pointer);
-
   return async function (dispatch) {
     try {
       const json = await getPro();
@@ -67,7 +64,6 @@ export function searchAction(name, pointer) {
             payload: data,
           });
         case !!name:
-          console.log("Tengo nombre");
           dataSearch = await axios(`/adposts?name=${name}`);
           data = dataSearch.data.data;
           return dispatch({
@@ -75,15 +71,14 @@ export function searchAction(name, pointer) {
             payload: data,
           });
         case !!pointer:
-          console.log("Tengo para el filter");
           dataFilter = json.filter((element) => element.ServiceId === pointer);
           data = dataFilter;
           return dispatch({
             type: "SEARCH",
             payload: data,
           });
-          default:
-            return "No paso nada"
+        default:
+          return "No paso nada";
       }
     } catch (error) {
       console.error("Error in search", error);
