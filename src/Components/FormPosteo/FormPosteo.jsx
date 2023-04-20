@@ -9,6 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { getAllUsers } from "../../Redux/Actions/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import "./FormPosteoStyle.css";
+import { Link } from "react-router-dom";
 
 const {
   REACT_APP_CLOUDINARY_UPLOAD_PRESET,
@@ -64,6 +65,7 @@ const FormPosteo = () => {
     });
   };
 
+  
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
@@ -135,19 +137,18 @@ const FormPosteo = () => {
             {errors.name ? <span className="error">{errors.name}</span> : null}
           </div>
 
-          {filteredUser[0] && filteredUser[0].email ? (
+          
             <div>
               <label htmlFor="username">Nombre de usuario:</label>
               <input
                 type="text"
                 id="username"
                 name="username"
-                value={filteredUser[0] && filteredUser[0].username}
                 onChange={changeHandler}
-                readOnly
+                
               />
             </div>
-          ) : null}
+          
 
           <div>
             {image && (
@@ -180,11 +181,20 @@ const FormPosteo = () => {
           ) : null}
         </div>
 
-        <div>
-          <button type="submit" disabled={errors.name && errors.description}>
-            Publicar
-          </button>
-        </div>
+        {filteredUser[0] && filteredUser[0].email ? (
+          <div>
+            <button type="submit" disabled={errors.name && errors.description}>
+              Publicar
+            </button>
+          </div>
+        ) : (
+          <div>
+            <p>
+              ¡Por favor completa tus datos desde <Link to="/profile">tu perfil de usuario</Link> para poder publicar
+              avisos!
+            </p>
+          </div>
+        )}
       </form>
     </div>
   );
