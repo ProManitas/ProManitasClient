@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { sendRatingSuccess, ratingReducer } from "../../Redux/Reducer/ratingReducer";
+import { sendRatingSuccess} from "../../Redux/Reducer/ratingReducer";
 import { useDispatch } from "react-redux";
 import { Box, Button, TextField } from "@mui/material";
 import { useLocation } from "react-router";
@@ -12,7 +12,7 @@ function RatingForm() {
   const location = useLocation();
   const dispatch = useDispatch();
   const [ratingValue, setRatingValue] = useState(0);
-  const [contractId, setContractId] = useState(""); // Agrega el estado para el número de contrato
+  const [contractId, setContractId] = useState(""); 
   const { user } = useAuth0();
   const username = user ? user.username : "";
   const navigate = useNavigate();

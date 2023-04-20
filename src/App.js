@@ -24,6 +24,7 @@ import ContractsAll from "./Components/ContractForm/ContractsAll.jsx";
 import PaymentHistory from "./Components/paymentHistory/paymentHistory";
 import ContractForm from "./Components/ContractForm/ContractForm";
 import MyContrat from "./Components/MyContrat/MyContrat";
+import MyNotices from "./Components/MyNotices/MyNotices";
 import RatingForm from "./Components/FormCalification/FormCalification";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -84,8 +85,8 @@ function App() {
         </div>
        
         <Routes>
-          <Route path ="/prueba" element = {<MyContrat/>} />
-          
+          <Route path ="/contracts" element = {<MyContrat/>} />
+          <Route path="/notices" element ={<MyNotices/>} />
           <Route exact path="/" element={<Landing />} />
           <Route exact path="/home" element={<Home />} />
           <Route path="/home/search" element={<SearchResult />} />
@@ -101,7 +102,6 @@ function App() {
             path="/detail/:id"
             element={<AuthenticationGuard component={Detail} />}
           />
-
           <Route
             path="/contract/"
             element={<AuthenticationGuard component={AgreementArea} />}

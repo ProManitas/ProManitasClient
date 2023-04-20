@@ -14,9 +14,7 @@ import {
   Avatar,
 } from "@mui/material";
 import Maps from "../../Components/MapsComponent/Maps";
-import { getDetail, getPostDetail } from "../../Redux/Actions/detailAction";
-//import RatingForm from "../../Components/FormCalification/FormCalification"
-import { Image } from "cloudinary-react";
+import {  getPostDetail } from "../../Redux/Actions/detailAction";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getAllUsers } from "../../Redux/Actions/userAction";
 import Alert from "@mui/material/Alert";
@@ -28,17 +26,12 @@ const Detail = () => {
   const { id } = useParams();
   const { user } = useAuth0();
   const dispatch = useDispatch();
-  const [ratingResult, setRatingResult] = useState(0);
+  const [ratingResult, ] = useState(0);
   const theme = useTheme();
 
-  console.log("user Auth", user);
 
-  // const [ratingResult, setRatingResult] = useState(0);
 
-  // const handleRatingResult = (result) => {
-  //   setRatingResult(result); // Actualiza el estado con el resultado de la calificación
-  // };
-
+ 
   useEffect(() => {
     dispatch(getPostDetail(id));
     // dispatch(getDetail(id));

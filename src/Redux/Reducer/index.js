@@ -9,6 +9,7 @@ import comentsReducer from "./comentsReducer";
 import contractReducer from "./contractReducer";
 import themeReducer from "./themeReducer";
 import ratingReducer from "./ratingReducer";
+import avisos from "./noticesReducer"
 
 const reducer = combineReducers({
   paginated: paginatedReducer,
@@ -20,7 +21,8 @@ const reducer = combineReducers({
   coments: comentsReducer,
   contracts: contractReducer,
   theme: themeReducer,
-  rating: ratingReducer
+  rating: ratingReducer,
+  notices:avisos
 });
 //aca  traemos dentro de comnineReducer todos los reducers, ejemplo:
 // user:userReducers
