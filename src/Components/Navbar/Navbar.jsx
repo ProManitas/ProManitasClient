@@ -24,8 +24,8 @@ import { getAllUsers } from "../../Redux/Actions/userAction";
 const pages = [{ message: "Publicar aviso", route: "/posteo" }];
 const settings = [
   { message: "Ver Perfil", route: "/profile/" },
-  { message: "Mis avisos", route: "/construction" },
-  { message: "Mis contratos", route: "/prueba" },
+  { message: "Mis avisos", route: "/notices" },
+  { message: "Mis contratos", route: "/contracts" },
 ];
 
 export default function NavBar() {

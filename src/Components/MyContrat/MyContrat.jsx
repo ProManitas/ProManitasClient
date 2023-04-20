@@ -4,7 +4,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllContracts } from "../../Redux/Actions/contractAction"
 import { getAllUsers } from "../../Redux/Actions/userAction";
-import {Link} from "react-router-dom"
 
 
 const MyContrat = () => {
@@ -26,9 +25,6 @@ const filteredUser = usersDb.filter((elem) => elem.email === user.email);
 const filterInfo = allContracts.filter(inf => inf.UserId === filteredUser[0].id)
 
 
-
-const lastContractId = filterInfo.length > 0 ? filterInfo[filterInfo.length - 1].id : null;
-
 return (
     <div>
         {filterInfo?.map(inf => (
@@ -39,11 +35,12 @@ return (
                 payment = {inf.payment}
             />
         ))}
-        {/* REDIRIGIR AL PAGO CON EL ID DEL ÚLTIMO CONTRATO GENERADO */}
+        
 
     </div>
 );
 }
 
 export default MyContrat;
+
 //
