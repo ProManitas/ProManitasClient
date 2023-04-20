@@ -23,6 +23,7 @@ import RegistryFromMail from "./Views/Login/RegistryForm/RegistryFromMail";
 import ContractsAll from "./Components/ContractForm/ContractsAll.jsx";
 import PaymentHistory from "./Components/paymentHistory/paymentHistory";
 import ContractForm from "./Components/ContractForm/ContractForm";
+import MyContrat from "./Components/MyContrat/MyContrat";
 //import ContractPDF from "./Components/ContractForm/ContractPDF";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -83,9 +84,12 @@ function App() {
         </div>
        
         <Routes>
+          <Route path ="/prueba" element = {<MyContrat/>} />
+          
           <Route exact path="/" element={<Landing />} />
           <Route exact path="/home" element={<Home />} />
           <Route path="/home/search" element={<SearchResult />} />
+          
           <Route path="/contract" element={<ContractForm />} />
           <Route path="/pdf" element={<ContractsAll />} />
           <Route

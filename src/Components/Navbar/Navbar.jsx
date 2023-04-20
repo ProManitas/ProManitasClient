@@ -29,6 +29,7 @@ const settings = [
   { message: "Ver Perfil", route: "/profile/" },
   { message: "Mis avisos", route: "/construction" },
   { message: "Configuracion de cuenta", route: "/construction" },
+  {message: "Mis contratos", route: "/prueba"}
 ];
 
 export default function NavBar() {
