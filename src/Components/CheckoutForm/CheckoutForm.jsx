@@ -29,10 +29,10 @@ const CheckoutForm = () => {
   const allContracts = useSelector((state) => state.contracts.contracts);
   const usersDb = useSelector((state) => state.user.allUsers);
 
-  //FILTRO EL USUARIO QUE COINCIDA CON EL MAIL QUE ESTA EN SESION
+ 
   const filteredUser = usersDb.filter((elem) => elem.email === user.email);
 
-  //COMPARO EL USUARIO CON EL USERID DEL CONTRATO PARA OBTENER LA INFO DE ESE CONTRATO
+
   const filterInfo = allContracts.filter(
     (inf) => inf.UserId === filteredUser[0].id
   );

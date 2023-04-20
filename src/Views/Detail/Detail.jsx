@@ -8,16 +8,17 @@ import { Container, Typography, Divider, Grid, Box } from "@mui/material";
 import Maps from "../../Components/MapsComponent/Maps";
 import { getDetail } from "../../Redux/Actions/detailAction";
 //import RatingForm from "../../Components/FormCalification/FormCalification"
-import { Image } from "cloudinary-react";
+import { Image} from "cloudinary-react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getAllUsers } from "../../Redux/Actions/userAction";
 import Alert from "@mui/material/Alert";
+
 
 const Detail = () => {
   const { id } = useParams();
   const { user } = useAuth0();
   const dispatch = useDispatch();
-  //const [ratingResult, setRatingResult] = useState(0);
+  // const [ratingResult, setRatingResult] = useState(0);
 
   // const handleRatingResult = (result) => {
   //   setRatingResult(result); // Actualiza el estado con el resultado de la calificación
@@ -32,6 +33,7 @@ const Detail = () => {
     adpostName: state.detail.adpost?.name,
     adpostDescription: state.detail.adpost?.description,
     adpostImage: state.detail.adpost?.image,
+    userId: state.detail.adpost?.user?.id,
     userImage: state.detail.adpost?.user?.image,
     serviceName: state.detail.adpost?.service?.name,
     userCoordinates: state.detail.adpost?.user?.coordinates,
@@ -42,8 +44,6 @@ const Detail = () => {
   const filteredUser = users.filter((elem) => elem.email === user.email);
 
   
-
-    
     return (
       <div>
       <Container>
@@ -56,7 +56,10 @@ const Detail = () => {
       <div style={{ display: "flex" }}>
         <Image
           cloudName="dhlvgmhea"
-          publicId={selectDetailData.adpostImage}
+          publicId={
+            selectDetailData.userId === user.sub 
+              ? selectDetailData.adpostImage 
+              : "" }
           alt={selectDetailData.adpostName}
           width="400"
           height="400"
