@@ -27,9 +27,9 @@ const pages = [
 ];
 const settings = [
   { message: "Ver Perfil", route: "/profile/" },
-  { message: "Mis avisos", route: "/construction" },
+  { message: "Mis avisos", route: "/notices" },
   { message: "Configuracion de cuenta", route: "/construction" },
-  {message: "Mis contratos", route: "/prueba"}
+  {message: "Mis contratos", route: "/contracts"}
 ];
 
 export default function NavBar() {
