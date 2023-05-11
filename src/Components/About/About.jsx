@@ -20,93 +20,136 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const grupoPromanitas = [
   {
-    image: "https://avatars.githubusercontent.com/u/105263588?v=4 ",
     name: "Julian",
+    image: "https://avatars.githubusercontent.com/u/105263588?v=4 ",
+    
     description: "Desarrolador FullStack",
     linkedin: "",
     github: "https://github.com/Srezequielr",
   },
+ 
   {
-    image: "https://avatars.githubusercontent.com/u/101506122?v=4",
-    name: "Manuel",
-    description: "Desarrolador FullStack",
-    linkedin: "",
-    github: "https://github.com/Zetta94",
-  },
-  {
-    image:
-      "https://media.licdn.com/dms/image/D4D03AQE_V2R6C2wnmg/profile-displayphoto-shrink_800_800/0/1667335985931?e=2147483647&v=beta&t=hJg61A-PUX_Qun4bybEG1UOwuDgvl2xnEplCrCJAJGU ",
-    name:"Mariana",
-    description: "Desarrolador FullStack",
-    linkedin: "https://www.linkedin.com/in/marigaby-flores-0a2540255",
-    github: "https://github.com/Marigabyfc",
-  },
-  {
-    image: "https://avatars.githubusercontent.com/u/98289398?v=4 ",
-    name: "Lucio",
-    description: "Desarrolador FullStack",
-    linkedin: "",
-    github: "https://github.com/lucioSantia",
-  },
-  {
-    image: "https://avatars.githubusercontent.com/u/104286335?v=4 ",
-    name: "Kevin",
-    description: "Desarrolador FullStack",
-    linkedin: "",
-    github: "https://github.com/RaiderAlf",
-  },
-  {
-    image: " https://avatars.githubusercontent.com/u/111536207?v=4",
-    name: "Maria",
-    description: "Desarrolador FullStack",
-    linkedin: "",
-    github: "https://github.com/Mlobeto/",
-  },
-  {
+    name: "Gabriela",
     image:
       "https://avatars.githubusercontent.com/u/46719844?v=4 ",
-    name: "Gabriela",
+    
     description: "Desarrolador FullStack",
     linkedin:
       "https://www.linkedin.com/in/gabriela-acevedo-512414a9/?locale=en_US",
     github: "https://github.com/gabydesi",
   },
   {
+    name: "Yanina ",
     image:
       "https://avatars.githubusercontent.com/u/105172384?s=400&u=b7485ebd3331e4bd9894315b41ddd316b0b2713f&v=4 ",
-    name: "Yanina ",
+    
     description: "Desarrolador FullStack",
     linkedin: "https://www.linkedin.com/in/yanina-zurcher-1945b6254",
     github: "https://github.com/yanirc1981",
   },
+   {
+    name: "Maria",
+    image: " https://avatars.githubusercontent.com/u/111536207?v=4",
+    
+    description: "Desarrolador FullStack",
+    linkedin: "",
+    github: "https://github.com/Mlobeto/",
+  },
+  {
+    name: "Manuel",
+    image: "https://avatars.githubusercontent.com/u/101506122?v=4",
+    
+    description: "Desarrolador FullStack",
+    linkedin: "",
+    github: "https://github.com/Zetta94",
+  },
+ 
+  {
+    name: "Lucio",
+    image: "https://avatars.githubusercontent.com/u/98289398?v=4 ",
+    
+    description: "Desarrolador FullStack",
+    linkedin: "",
+    github: "https://github.com/lucioSantia",
+  },
+  {
+    name: "Kevin",
+    image: "https://avatars.githubusercontent.com/u/104286335?v=4 ",
+    
+    description: "Desarrolador FullStack",
+    linkedin: "",
+    github: "https://github.com/RaiderAlf",
+  },
+  {
+    name:"Mariana",
+    image:
+      "https://avatars.githubusercontent.com/u/116116275?v=4",
+    
+    description: "Desarrolador FullStack",
+    linkedin: "https://www.linkedin.com/in/marigaby-flores-0a2540255",
+    github: "https://github.com/Marigabyfc",
+  },
+ 
 ];
 
 const theme = createTheme();
 export default function About() {
   return (
     <ThemeProvider theme={theme}>
+       <Typography
+            variant="h1"
+            noWrap
+            component="a"
+            backgroundColor="#eef0ce"
+            
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+              font: "inherit",
+              fontSize: "2rem", 
+              paddingBottom: "1.5rem",
+              paddingLeft:"5rem",
+              paddingRight:"5rem",
+               paddingTop: "1.5rem",
+               textAlign: "center", 
+            }}
+          >
+          Equipo de Desarrollo
+          </Typography>
+      
       <CssBaseline />
 
-      <Container sx={{ py: 8 }} maxWidth="md">
+      <Container sx={{ py: 15 }} maxWidth="xl">
         {/* End hero unit */}
-        <Grid container spacing={16}>
+        <Grid container spacing={4}>
+          
           {grupoPromanitas.map((grupoPromanitas) => (
-            <Grid item key={grupoPromanitas} xs={12} sm={6} md={4}>
-              <Card style={{ backgroundColor: "#f2f2f2" }}>
-                <CardMedia
-                  component="img"
-                  sx={{
-                    // 16:9
-                    pt: "56.25%",
-                  }}
-                  image={grupoPromanitas.image}
-                  
-                />
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography gutterBottom variant="h5" component="h2">
+            <Grid item key={grupoPromanitas} xs={12} sm={4} md={3}>
+              <Card style={{ backgroundColor: "#eef0ce", width:"350px", margin:"30px 30px 0 0"}}>
+              
+                <CardContent sx={{ flexGrow: 1, paddingBottom: 0, paddingTop: 2 }}>
+                <div style={{ textAlign: 'center' }}>
+                  <Typography gutterBottom variant="h4" component="h2" align="center" fontFamily={"serif"}>
                     {grupoPromanitas.name}
                   </Typography>
-                  <Typography>{grupoPromanitas.description}</Typography>
+                  </div>
+                  <CardMedia style={{paddingTop:4, paddingBottom:4,transition: 200,
+                    boxShadow: "0px 0px 5px 5px" , color:"white"}}
+                
+                component="img"
+                sx={{
+                  // 4:3
+                  pt: "75%",
+                }}
+                image={grupoPromanitas.image}
+                
+              />
+                  <Typography style={{ paddingTop:20,}} gutterBottom variant="h5" component="h1">{grupoPromanitas.description}</Typography>
                 </CardContent>
                 <CardActions style={{ paddingTop: 5 }} disableSpacing>
                   <IconButton
@@ -114,15 +157,18 @@ export default function About() {
                     aria-label="github"
                     href={grupoPromanitas.github}
                     target="_blank"
+                   
                   >
-                    <GitHubIcon color="black"  /> {/*secondary */}
+                    <GitHubIcon color="black" sx={{ fontSize: 50 }} /> {/*secondary */}
                   </IconButton>
                   <IconButton
+                  
                     aria-label="linkedin"
                     href={grupoPromanitas.linkedin}
                     target="_blank"
+                    
                   >
-                    <LinkedInIcon color="black" />
+                    <LinkedInIcon color="black" sx={{ fontSize: 50 }} />
                   </IconButton>
                   
                 </CardActions>
@@ -133,8 +179,8 @@ export default function About() {
           ))}
        
         </Grid>
-        <Toolbar>    
-          <Button href="/home" color="inherit">
+        <Toolbar >    
+          <Button href="/home"   style={{ fontSize: '20px', backgroundColor: '#eef0ce', color: 'black',  }}>
             VOLVER
           </Button>
           </Toolbar>
@@ -142,3 +188,4 @@ export default function About() {
     </ThemeProvider>
   );
 }
+//
