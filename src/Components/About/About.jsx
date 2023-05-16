@@ -23,7 +23,7 @@ const grupoPromanitas = [
     name: "Julian",
     image: "https://avatars.githubusercontent.com/u/105263588?v=4 ",
     
-    description: "Desarrolador FullStack",
+    description: "Desarrollador FullStack",
     linkedin: "",
     github: "https://github.com/Srezequielr",
   },
@@ -33,17 +33,17 @@ const grupoPromanitas = [
     image:
       "https://avatars.githubusercontent.com/u/46719844?v=4 ",
     
-    description: "Desarrolador FullStack",
+    description: "Desarrollador FullStack",
     linkedin:
       "https://www.linkedin.com/in/gabriela-acevedo-512414a9/?locale=en_US",
     github: "https://github.com/gabydesi",
   },
   {
-    name: "Yanina ",
+    name: "Yanina",
     image:
       "https://avatars.githubusercontent.com/u/105172384?s=400&u=b7485ebd3331e4bd9894315b41ddd316b0b2713f&v=4 ",
     
-    description: "Desarrolador FullStack",
+    description: "Desarrollador FullStack",
     linkedin: "https://www.linkedin.com/in/yanina-zurcher-1945b6254",
     github: "https://github.com/yanirc1981",
   },
@@ -51,7 +51,7 @@ const grupoPromanitas = [
     name: "Maria",
     image: " https://avatars.githubusercontent.com/u/111536207?v=4",
     
-    description: "Desarrolador FullStack",
+    description: "Desarrollador FullStack",
     linkedin: "",
     github: "https://github.com/Mlobeto/",
   },
@@ -59,7 +59,7 @@ const grupoPromanitas = [
     name: "Manuel",
     image: "https://avatars.githubusercontent.com/u/101506122?v=4",
     
-    description: "Desarrolador FullStack",
+    description: "Desarrollador FullStack",
     linkedin: "",
     github: "https://github.com/Zetta94",
   },
@@ -68,7 +68,7 @@ const grupoPromanitas = [
     name: "Lucio",
     image: "https://avatars.githubusercontent.com/u/98289398?v=4 ",
     
-    description: "Desarrolador FullStack",
+    description: "Desarrollador FullStack",
     linkedin: "",
     github: "https://github.com/lucioSantia",
   },
@@ -76,7 +76,7 @@ const grupoPromanitas = [
     name: "Kevin",
     image: "https://avatars.githubusercontent.com/u/104286335?v=4 ",
     
-    description: "Desarrolador FullStack",
+    description: "Desarrollador FullStack",
     linkedin: "",
     github: "https://github.com/RaiderAlf",
   },
@@ -85,7 +85,7 @@ const grupoPromanitas = [
     image:
       "https://avatars.githubusercontent.com/u/116116275?v=4",
     
-    description: "Desarrolador FullStack",
+    description: "Desarrollador FullStack",
     linkedin: "https://www.linkedin.com/in/marigaby-flores-0a2540255",
     github: "https://github.com/Marigabyfc",
   },
