@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { getServices, getPosts } from "../../Redux/Actions/noticesAction";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { getAllUsers } from "../../Redux/Actions/userAction";
 import CardAdPost from "../CardAdPost/CardAdPost";
 import SkeletonCard from "../SkeletonCard/SkeletonCard";
@@ -13,7 +13,6 @@ const MyNoticesUser = () => {
   const userA0 = user;
   const dispatch = useDispatch();
   let myUserID = [];
-  console.log(user);
 
   useEffect(() => {
     dispatch(getServices());
@@ -34,9 +33,19 @@ const MyNoticesUser = () => {
 
   const myPosts = allPosts.filter((post) => post.UserId === myUserID);
 
+  console.log("mis posteos", myPosts, "/n todos los servicios", allServices);
+
+  if (myPosts.length === 0 && allServices.length > 0) {
+    return (
+      <Container>
+        <Typography align="center" variant="h2">No tienes posteos publicados</Typography>
+      </Container>
+    );
+  }
+
   return (
     <Container>
-      {myPosts.length === 0 && allServices === 0 ? (
+      {myPosts.length === 0 && allServices.length === 0 ? (
         <SkeletonCard />
       ) : (
         <Grid container spacing={2} justifyContent={"center"}>
