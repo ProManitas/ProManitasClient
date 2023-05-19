@@ -2,13 +2,13 @@ import React from "react";
 import { PDFViewer, Document, Page, View, Text } from "@react-pdf/renderer";
 
 const ContractPDF = (props) => {
-  const { contractId, username, detail, payment, textDescription } = props;
+  const { contractId, username, detail, payment } = props;
 
 
   const currentDate = new Date().toLocaleDateString();
 
   return (
-    <PDFViewer width="100%" height="800px">
+    <PDFViewer width="40%" height="450px">
       <Document>
         <Page size="A7" style={styles.page} wrap>
         <View style={styles.section}> 
@@ -18,8 +18,6 @@ const ContractPDF = (props) => {
             <Text style={styles.label}>Usuario:</Text>
             <View style={styles.line} />
             <Text style={styles.value}>{username}</Text>
-            <Text style={styles.label}>Descripción:</Text>
-            <Text style={styles.value}>{textDescription}</Text>
             <Text style={styles.label}>Detalle:</Text>
             <Text style={styles.value}>{detail}</Text>
             <Text style={styles.label}>Payment:</Text>
